@@ -1,186 +1,214 @@
-<!doctype html>
-<html lang="de">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ctxzero — Junior Penetration Tester</title>
 
-<!-- Particles.js (CDN) -->
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=JetBrains+Mono&display=swap" rel="stylesheet">
+
+<!-- Particles.js -->
 <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
 
 <style>
-  /* --- base / fonts --- */
-  :root{
+  /* ----------------- Base ----------------- */
+  :root {
     --fg: #dff7ff;
-    --muted: #a9d8ff;
+    --accent1: #9be7ff;
+    --accent2: #b084ff;
+    --accent3: #ff7a9a;
     --card-bg: rgba(10,12,18,0.56);
     --glass-border: rgba(255,255,255,0.04);
-    --accent-1: #9be7ff;
-    --accent-2: #b084ff;
-    --accent-3: #ff7a9a;
-  }
-  html,body{height:100%;margin:0;font-family:Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;}
-  body{
-    color:var(--fg);
-    -webkit-font-smoothing:antialiased;
-    -moz-osx-font-smoothing:grayscale;
-    overflow-x:hidden;
-    background: #06070a;
   }
 
-  /* animated gradient background (darker) */
+  html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: 'Inter', sans-serif;
+    scroll-behavior: smooth;
+    background: #06070a;
+    color: var(--fg);
+  }
+
+  /* ----------------- Background ----------------- */
   .bg {
-    position:fixed; inset:0; z-index:-3;
+    position: fixed;
+    inset:0;
+    z-index:-3;
     background: linear-gradient(115deg, #071028 0%, #0e1630 35%, #2b0f2f 70%, #301016 100%);
     background-size: 400% 400%;
-    animation: bgAnim 18s ease infinite;
-    filter: saturate(1.02) contrast(1.02);
+    animation: bgAnim 20s ease infinite;
   }
-  @keyframes bgAnim{
-    0%{background-position:0% 50%;}
-    50%{background-position:100% 50%;}
-    100%{background-position:0% 50%;}
+  @keyframes bgAnim {
+    0% {background-position:0% 50%;}
+    50% {background-position:100% 50%;}
+    100% {background-position:0% 50%;}
   }
 
-  /* particles layer */
-  #particles-js { position: fixed; inset:0; z-index:-2; }
+  #particles-js {
+    position: fixed;
+    inset:0;
+    z-index:-2;
+  }
 
-  /* layout */
-  .wrap { max-width:980px; margin: 48px auto; padding: 24px; box-sizing:border-box; }
-  header { text-align:center; margin-bottom:18px; }
-  header h1 { margin:0;font-size:2rem; color:var(--accent-1); letter-spacing:0.6px; }
-  header p { margin:6px 0 0;color:var(--muted); font-size:1rem; }
+  /* ----------------- Layout ----------------- */
+  .wrap {
+    max-width: 980px;
+    margin: 48px auto;
+    padding: 24px;
+    box-sizing: border-box;
+  }
 
-  /* card look for sections */
-  .card {
+  header {
+    text-align: center;
+    margin-bottom: 48px;
+  }
+
+  header h1 {
+    font-size: 2.2rem;
+    margin: 0;
+    color: var(--accent1);
+    letter-spacing: 0.6px;
+  }
+
+  header p {
+    margin: 6px 0 0;
+    color: #c5f5e2;
+    font-size: 1.1rem;
+  }
+
+  .terminal {
+    margin-top: 12px;
+    font-family: 'JetBrains Mono', monospace;
+    background: rgba(0,0,0,0.18);
+    padding: 10px 14px;
+    border-radius: 8px;
+    display: inline-block;
+    color: #dff7e3;
+    font-size: 0.95rem;
+  }
+
+  /* ----------------- Cards ----------------- */
+  section.card {
     background: var(--card-bg);
     border: 1px solid var(--glass-border);
-    border-radius:12px;
-    padding:20px;
-    margin-bottom:18px;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 24px;
     box-shadow: 0 10px 30px rgba(3,6,14,0.6);
     backdrop-filter: blur(6px) saturate(1.05);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
   }
-  h2.section-title { margin:0 0 8px; color:var(--accent-2); font-size:1.1rem; }
-  p, li { color:var(--fg); font-size:0.95rem; line-height:1.45; margin:0 0 8px; }
-  ul { padding-left:1.1rem; margin:0 0 8px; }
 
-  .meta-row { display:flex; gap:10px; flex-wrap:wrap; margin-top:10px; }
+  section.card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 16px 40px rgba(3,6,14,0.7);
+  }
+
+  h2.section-title {
+    margin: 0 0 8px;
+    color: var(--accent2);
+    font-size: 1.1rem;
+  }
+
+  ul { padding-left: 1.2rem; margin: 0 0 8px; }
+  li { margin-bottom: 6px; }
+
   .pill {
-    padding:8px 12px; border-radius:999px; font-size:0.85rem;
-    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-    border:1px solid rgba(255,255,255,0.03);
-    color:var(--fg);
+    display:inline-block;
+    margin: 0.2rem 0.4rem;
+    padding:0.3rem 0.7rem;
+    border-radius:999px;
+    background: rgba(155,231,255,0.1);
+    border: 1px solid rgba(155,231,255,0.2);
+    font-size:0.85rem;
   }
 
-  /* terminal small line */
-  .terminal {
-    margin-top:12px;
-    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", monospace;
-    background: rgba(0,0,0,0.18);
-    padding:10px 12px; border-radius:8px; display:inline-block; color:#dff7e3; font-size:0.95rem;
+  .footer {
+    text-align:center;
+    color: rgba(200,230,255,0.6);
+    margin-top: 12px;
+    font-size:0.85rem;
   }
 
-  /* footer note */
-  .footer { text-align:center; color:rgba(200,230,255,0.6); margin-top:10px; font-size:0.85rem; }
-
-  /* responsive */
-  @media (max-width:720px){
-    .wrap { padding:14px; }
-    header h1 { font-size:1.6rem; }
+  @media(max-width:720px) {
+    header h1 { font-size: 1.8rem; }
+    .wrap { padding: 16px; }
   }
 </style>
 </head>
 <body>
-  <div class="bg"></div>
-  <div id="particles-js"></div>
 
-  <div class="wrap">
-    <header>
-      <h1>ctxzero</h1>
-      <p>Junior Penetration Tester — focused on Offensive Security</p>
+<div class="bg"></div>
+<div id="particles-js"></div>
 
-      <!-- terminal typing effect -->
-      <div class="terminal" id="typing">ctxzero@portfolio:~$ <span id="typeOut"></span><span id="cursor">▮</span></div>
-    </header>
+<div class="wrap">
+  <header>
+    <h1>ctxzero</h1>
+    <p>Junior Penetration Tester — Focused on Offensive Security</p>
+    <div class="terminal" id="typing">
+      ctxzero@portfolio:~$ <span id="typeOut"></span><span id="cursor">▮</span>
+    </div>
+  </header>
 
-    <!-- ABOUT -->
-    <section class="card" id="about">
-      <h2 class="section-title">About</h2>
-      <p>Ich bin <strong>ctxzero</strong>. Als Junior Penetration Tester konzentriere ich mich auf Offensive Security — ich untersuche Webanwendungen, Netzwerke und Active Directory Umgebungen, finde Schwachstellen und dokumentiere reproduzierbare Exploits und Remediations.</p>
-      <div class="meta-row">
-        <div class="pill">Focused on Offensive Security</div>
-        <div class="pill">CTF & Recon Enthusiast</div>
-      </div>
-    </section>
+  <!-- About -->
+  <section class="card" id="about">
+    <h2 class="section-title">About</h2>
+    <p>I am <strong>ctxzero</strong>, a Junior Penetration Tester focused on Offensive Security. I specialize in Web Application Pentesting, Network Pentesting, and Active Directory Pentesting. I enjoy analyzing systems, finding vulnerabilities, and documenting reproducible exploits.</p>
+    <div class="pill">Offensive Security</div>
+    <div class="pill">CTF & Recon Enthusiast</div>
+  </section>
 
-    <!-- SKILLS -->
-    <section class="card" id="skills">
-      <h2 class="section-title">Skills</h2>
-      <ul>
-        <li><strong>Web Application Pentesting</strong> — OWASP Top10, XSS, SQLi, CSRF, file upload, auth bypass</li>
-        <li><strong>Network Pentesting</strong> — nmap, enumeration, service exploitation, pivoting</li>
-        <li><strong>Active Directory Pentesting</strong> — LDAP/AD enumeration, Kerberos, Lateral Movement</li>
-        <li><strong>Scripting & Tools</strong> — Python, Bash, Burp Suite, Metasploit, sqlmap</li>
-      </ul>
-    </section>
+  <!-- Skills -->
+  <section class="card" id="skills">
+    <h2 class="section-title">Skills</h2>
+    <ul>
+      <li><strong>Web Application Pentesting</strong> — OWASP Top10, XSS, SQLi, CSRF, file upload, auth bypass</li>
+      <li><strong>Network Pentesting</strong> — nmap, enumeration, service exploitation, pivoting</li>
+      <li><strong>Active Directory Pentesting</strong> — LDAP/AD enumeration, Kerberos, Lateral Movement</li>
+      <li><strong>Scripting & Tools</strong> — Python, Bash, Burp Suite, Metasploit, sqlmap</li>
+    </ul>
+  </section>
 
-    <!-- CERTIFICATIONS -->
-    <section class="card" id="certs">
-      <h2 class="section-title">Certifications</h2>
-      <p><strong>eJPT</strong> — soon</p>
-      <p>Weitere Trainings & Badges aus TryHackMe / CTFs.</p>
-    </section>
+  <!-- Certifications -->
+  <section class="card" id="certs">
+    <h2 class="section-title">Certifications</h2>
+    <p><strong>eJPT</strong> — coming soon</p>
+  </section>
 
-    <!-- LINKS -->
-    <section class="card" id="links">
-      <h2 class="section-title">Profiles & Projects</h2>
-      <p>
-        TryHackMe: <a href="https://tryhackme.com/p/ctxzero" target="_blank" rel="noopener">https://tryhackme.com/p/ctxzero</a><br>
-        GitHub: <a href="https://github.com/ctxzero" target="_blank" rel="noopener">https://github.com/ctxzero</a>
-      </p>
-    </section>
+  <!-- Projects -->
+  <section class="card" id="projects">
+    <h2 class="section-title">Projects</h2>
+    <ul>
+      <li>TryHackMe CTF challenges — various writeups and badges</li>
+      <li>HackTheBox Labs — Windows & Linux machines</li>
+    </ul>
+  </section>
 
-    <!-- CONTACT -->
-    <section class="card" id="contact">
-      <h2 class="section-title">Contact</h2>
-      <p>Discord: <strong>ctxzero</strong></p>
-      <p>Email: <a href="mailto:ZeroExploit.business@proton.me">ZeroExploit.business@proton.me</a></p>
-      <div class="meta-row" style="margin-top:8px;">
-        <div class="pill">Open to junior roles / internships</div>
-      </div>
-    </section>
+  <!-- Contact -->
+  <section class="card" id="contact">
+    <h2 class="section-title">Contact</h2>
+    <p>Discord: <strong>ctxzero</strong></p>
+    <p>Email: <a href="mailto:ZeroExploit.business@proton.me">ZeroExploit.business@proton.me</a></p>
+    <div class="pill">Open for junior roles / internships</div>
+  </section>
 
-    <div class="footer">Designed for hiring managers — concise, professional, and focused on technical skills.</div>
-  </div>
+  <div class="footer">Designed for hiring managers — concise, professional, technical focus</div>
+</div>
 
 <script>
-/* ---------------------------
-   Particles config (visible but subtle)
-   --------------------------- */
+/* ------------------ Particles ------------------ */
 particlesJS('particles-js',{
   "particles": {
     "number": { "value": 60, "density": { "enable": true, "value_area": 900 } },
-    "color": { "value": ["#9be7ff","#b084ff","#ff9aa2","#60ffd9"] },
+    "color": { "value": ["#9be7ff","#b084ff","#ff7a9a","#60ffd9"] },
     "shape": { "type": "circle" },
-    "opacity": { "value": 0.78, "random": true, "anim": { "enable": false } },
-    "size": { "value": 3.2, "random": true, "anim": { "enable": false } },
-    "line_linked": {
-      "enable": true,
-      "distance": 140,
-      "color": "#9be7ff",
-      "opacity": 0.08,
-      "width": 1
-    },
-    "move": {
-      "enable": true,
-      "speed": 0.9,
-      "direction": "none",
-      "random": true,
-      "straight": false,
-      "out_mode": "out",
-      "bounce": false
-    }
+    "opacity": { "value": 0.78, "random": true },
+    "size": { "value": 3.2, "random": true },
+    "line_linked": { "enable": true, "distance": 140, "color": "#9be7ff", "opacity": 0.08, "width": 1 },
+    "move": { "enable": true, "speed": 0.9, "direction": "none", "random": true, "straight": false, "out_mode": "out" }
   },
   "interactivity": {
     "detect_on": "canvas",
@@ -190,19 +218,14 @@ particlesJS('particles-js',{
       "resize": true
     },
     "modes": {
-      "grab": { "distance": 400, "line_linked": { "opacity": 0.2 } },
-      "bubble": { "distance": 250, "size": 0, "duration": 2, "opacity": 0 },
       "repulse": { "distance": 120, "duration": 0.4 },
-      "push": { "particles_nb": 3 },
-      "remove": { "particles_nb": 2 }
+      "push": { "particles_nb": 3 }
     }
   },
   "retina_detect": true
 });
 
-/* ---------------------------
-   Tiny typing effect for header
-   --------------------------- */
+/* ------------------ Terminal Typing Effect ------------------ */
 const lines = [
   'whoami → ctxzero',
   'role → Junior Penetration Tester',
@@ -213,14 +236,14 @@ const out = document.getElementById('typeOut');
 const cursor = document.getElementById('cursor');
 function type(){
   const cur = lines[l];
-  out.textContent = cur.slice(0, c++);
+  out.textContent = cur.slice(0,c++);
   if(c > cur.length){
-    setTimeout(()=>{ c=0; l = (l+1)%lines.length; out.textContent=''; setTimeout(type, 600); }, 1500);
-  } else setTimeout(type, 36);
+    setTimeout(()=>{c=0; l=(l+1)%lines.length; out.textContent=''; setTimeout(type,600)}, 1500);
+  } else setTimeout(type,36);
 }
-setTimeout(type, 500);
-/* cursor blink */
-setInterval(()=> cursor.style.opacity = cursor.style.opacity === '0' ? '1' : '0', 600);
+setTimeout(type,500);
+setInterval(()=>cursor.style.opacity = cursor.style.opacity==='0'?'1':'0',600);
 </script>
+
 </body>
 </html>
