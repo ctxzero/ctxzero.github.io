@@ -1,133 +1,269 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ctxzero — Junior Penetration Tester</title>
+/*
+  ctxzero_portfolio.jsx
+  Single-file React component (default export) for a professional, animated portfolio
+  - Tailwind CSS required
+  - framer-motion required
+  - lucide-react icons optional but used here
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=JetBrains+Mono&display=swap" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
-<script src="https://unpkg.com/scrollreveal"></script>
+  How to use:
+  1. Create a React app (Next.js or Vite)
+  2. Install: tailwindcss, framer-motion, lucide-react
+     npm i tailwindcss framer-motion lucide-react
+  3. Add Tailwind config + base styles
+  4. Drop this file into your pages or components and import where needed.
 
-<style>
-:root {
-  --fg: #e5e5e5;
-  --accent: #ff9f1c;
-  --card-bg: rgba(30,30,30,0.6);
-  --glass-border: rgba(255,255,255,0.05);
+  Notes: replace placeholder links (resumeDownloadUrl) with real assets.
+*/
+
+import React from 'react'
+import { motion } from 'framer-motion'
+import { Github, Mail, Zap, Slack, Terminal, Linkedin } from 'lucide-react'
+
+export default function CtxzeroPortfolio() {
+  const resumeDownloadUrl = '#'
+  const githubUrl = 'https://github.com/ctxzero'
+  const tryhackmeUrl = 'https://tryhackme.com/p/ctxzero'
+  const email = 'ZeroExploit.business@proton.me'
+
+  const badges = [
+    { label: 'eJPT-ready skills', hint: 'Practical web & network pentesting' },
+    { label: 'Web App', hint: 'OWASP, Burp, Manual Exploits' },
+    { label: 'Network', hint: 'Nmap, Pivoting, Enumeration' },
+    { label: 'Active Directory', hint: 'AD Enumeration & Exploits' },
+    { label: 'CTF / TryHackMe', hint: 'Hands-on labs and machines' },
+  ]
+
+  const projects = [
+    {
+      title: 'Interactive Pentest Portfolio (this site)',
+      desc: 'Animated React site showcasing skills, interactive demos and contact hooks.',
+      tech: ['React', 'Tailwind', 'Framer Motion'],
+      url: githubUrl,
+    },
+    {
+      title: 'TryHackMe Labs Collection',
+      desc: 'Curated learning path & solved boxes notes (private / snippets).',
+      tech: ['Recon', 'Scripting'],
+      url: tryhackmeUrl,
+    },
+  ]
+
+  return (
+    <div className="min-h-screen bg-gradient-to-b from-slate-900 via-neutral-900 to-slate-800 text-slate-100 antialiased">
+      <header className="max-w-6xl mx-auto px-6 py-8 flex items-center justify-between">
+        <div className="flex items-center gap-4">
+          <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-emerald-400 via-cyan-400 to-indigo-500 flex items-center justify-center shadow-2xl">
+            <span className="font-mono text-lg font-bold text-neutral-900">CZ</span>
+          </div>
+          <div>
+            <h1 className="text-xl font-semibold">ctxzero</h1>
+            <p className="text-sm text-slate-300">Junior Penetration Tester — Web · Network · Active Directory</p>
+          </div>
+        </div>
+        <nav className="flex gap-3 items-center">
+          <a href={githubUrl} target="_blank" rel="noreferrer" className="group p-2 rounded-lg hover:bg-white/5 transition">
+            <Github className="w-5 h-5 text-slate-100 group-hover:scale-110" />
+          </a>
+          <a href={`mailto:${email}`} className="group p-2 rounded-lg hover:bg-white/5 transition">
+            <Mail className="w-5 h-5" />
+          </a>
+          <a href="#contact" className="ml-2 inline-flex items-center gap-2 bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-300 px-3 py-2 rounded-lg text-sm transition">
+            <span>Contact</span>
+          </a>
+        </nav>
+      </header>
+
+      <main className="max-w-6xl mx-auto px-6 pb-16">
+        {/* Hero */}
+        <section className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6 }}
+            className="lg:col-span-2 bg-white/3 rounded-2xl p-8 shadow-2xl backdrop-blur"
+          >
+            <div className="flex items-start justify-between gap-6">
+              <div>
+                <h2 className="text-3xl font-extrabold tracking-tight">Hi — I’m <span className="text-emerald-300">ctxzero</span></h2>
+                <p className="mt-3 text-slate-200/90 leading-relaxed max-w-2xl">I’m a Junior Penetration Tester focused on Web Application, Network and Active Directory pentesting. I build reproducible reports, automate repetitive recon tasks and love turning noisy clues into reliable exploits. Open to junior roles — reach out if you want an eager teammate who ships results.</p>
+
+                <div className="mt-6 flex gap-3 flex-wrap">
+                  <a href={githubUrl} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-slate-800/60 hover:scale-105 transition">
+                    <Github className="w-4 h-4" /> <span className="text-sm">GitHub</span>
+                  </a>
+                  <a href={tryhackmeUrl} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-slate-800/60 hover:scale-105 transition">
+                    <Zap className="w-4 h-4" /> <span className="text-sm">TryHackMe</span>
+                  </a>
+                  <a href={resumeDownloadUrl} className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-emerald-500 text-neutral-900 hover:brightness-105 transition">
+                    <span className="text-sm font-medium">Download Resume</span>
+                  </a>
+                </div>
+
+                {/* badges */}
+                <div className="mt-6 flex flex-wrap gap-3">
+                  {badges.map((b, i) => (
+                    <motion.button
+                      key={b.label}
+                      whileHover={{ scale: 1.04 }}
+                      whileTap={{ scale: 0.98 }}
+                      title={b.hint}
+                      className="px-3 py-1 rounded-full bg-white/6 ring-1 ring-white/6 text-sm"
+                    >
+                      {b.label}
+                    </motion.button>
+                  ))}
+                </div>
+
+              </div>
+
+              {/* animated info card */}
+              <aside className="w-44 hidden lg:block">
+                <motion.div initial={{ y: -10 }} animate={{ y: 0 }} transition={{ duration: 0.8 }} className="p-4 rounded-xl bg-gradient-to-br from-slate-900/60 to-slate-800/60 ring-1 ring-white/6">
+                  <h3 className="text-sm font-semibold">Quick stats</h3>
+                  <dl className="mt-3 space-y-2 text-xs text-slate-300">
+                    <div className="flex justify-between"><dt>Years learning</dt><dd>2+</dd></div>
+                    <div className="flex justify-between"><dt>Boxes solved (THM/CTF)</dt><dd>50+</dd></div>
+                    <div className="flex justify-between"><dt>Preferred stack</dt><dd>Burp · Nmap · WinRE</dd></div>
+                  </dl>
+                </motion.div>
+              </aside>
+            </div>
+
+            {/* interactive terminal mock */}
+            <div className="mt-8">
+              <TerminalMock />
+            </div>
+          </motion.div>
+
+          {/* Right column: Skills & Projects */}
+          <motion.aside initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.3 }} className="space-y-6">
+            <div className="p-6 rounded-2xl bg-white/3 shadow-md backdrop-blur">
+              <h4 className="font-semibold">Core skills</h4>
+              <div className="mt-4 grid grid-cols-2 gap-2 text-sm text-slate-200">
+                <Skill label="Web App Pentesting" items={["Burp Suite","OWASP","SQLi/XSS"]} />
+                <Skill label="Network" items={["Nmap","SMB","Pivoting"]} />
+                <Skill label="Active Directory" items={["BloodHound","Kerberoast","AS-REP"]} />
+                <Skill label="Scripting" items={["Python","Bash","PowerShell"]} />
+              </div>
+            </div>
+
+            <div className="p-6 rounded-2xl bg-white/3 shadow-md backdrop-blur">
+              <h4 className="font-semibold">Highlighted projects</h4>
+              <div className="mt-4 space-y-3">
+                {projects.map((p) => (
+                  <a key={p.title} href={p.url} target="_blank" rel="noreferrer" className="block p-3 rounded-lg hover:bg-white/5 transition">
+                    <div className="flex justify-between items-start gap-3">
+                      <div>
+                        <h5 className="font-semibold">{p.title}</h5>
+                        <p className="text-xs text-slate-300 mt-1">{p.desc}</p>
+                      </div>
+                      <div className="text-xs text-slate-400">{p.tech.join(' · ')}</div>
+                    </div>
+                  </a>
+                ))}
+              </div>
+            </div>
+
+          </motion.aside>
+        </section>
+
+        {/* Callout / Work-ready */}
+        <section className="mt-10">
+          <motion.div whileHover={{ scale: 1.01 }} className="w-full rounded-2xl p-6 bg-gradient-to-r from-indigo-900/50 to-emerald-900/30 ring-1 ring-white/6">
+            <div className="flex items-center justify-between gap-6">
+              <div>
+                <h3 className="text-lg font-bold">Open to Junior Roles</h3>
+                <p className="text-sm text-slate-300 mt-1">Looking for hands-on pentest roles where I can learn from experienced teams and deliver real value.</p>
+              </div>
+              <div className="flex gap-3">
+                <a href={githubUrl} className="px-4 py-2 rounded-lg bg-slate-800/60">View Code</a>
+                <a href={`mailto:${email}`} className="px-4 py-2 rounded-lg bg-emerald-500 text-neutral-900">Contact</a>
+              </div>
+            </div>
+          </motion.div>
+        </section>
+
+        {/* Footer / contact */}
+        <footer id="contact" className="mt-12 border-t border-white/6 pt-8 pb-20">
+          <div className="flex flex-col lg:flex-row items-start justify-between gap-6">
+            <div>
+              <h4 className="font-semibold">Get in touch</h4>
+              <p className="text-slate-300 text-sm mt-2">Email: <a href={`mailto:${email}`} className="underline">{email}</a></p>
+              <p className="text-slate-300 text-sm mt-1">Discord: <span className="font-mono">ctxzero</span></p>
+            </div>
+
+            <div className="flex gap-4">
+              <a href={githubUrl} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-slate-800/60">
+                <Github className="w-4 h-4" /> GitHub
+              </a>
+              <a href={tryhackmeUrl} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-slate-800/60">
+                <Zap className="w-4 h-4" /> TryHackMe
+              </a>
+            </div>
+          </div>
+
+          <p className="mt-8 text-xs text-slate-400">© {new Date().getFullYear()} ctxzero — Junior Penetration Tester</p>
+        </footer>
+      </main>
+    </div>
+  )
 }
 
-* { box-sizing:border-box; margin:0; padding:0;}
-html, body {height:100%; font-family:'Inter', sans-serif; scroll-behavior:smooth; background:#121212; color:var(--fg);}
-a {color: var(--accent); text-decoration:none;}
-a:hover {text-decoration: underline;}
+/* ---------- Small subcomponents ---------- */
 
-/* Background */
-.bg {position:fixed; inset:0; z-index:-3; background:#121212;}
-#particles-js {position:fixed; inset:0; z-index:-2;}
-.blob {position:absolute; width:400px; height:400px; border-radius:50%; opacity:0.2; animation:blobMove 30s infinite alternate;}
-.blob1 {background: linear-gradient(135deg,#ff9f1c,#ff4040); top:5%; left:-100px;}
-.blob2 {background: linear-gradient(135deg,#1ca3ff,#8a2be2); bottom:0; right:-150px;}
-@keyframes blobMove {0%{transform:translate(0,0) rotate(0deg);}100%{transform:translate(80px,40px) rotate(45deg);}}
+function Skill({ label, items }) {
+  return (
+    <div>
+      <div className="text-xs text-slate-300 font-medium">{label}</div>
+      <ul className="mt-2 text-[13px] text-slate-200 space-y-1">
+        {items.map((it) => (
+          <li key={it} className="flex items-center gap-2">• <span className="opacity-90">{it}</span></li>
+        ))}
+      </ul>
+    </div>
+  )
+}
 
-.wrap {max-width:1000px; margin:0 auto; padding:40px 24px;}
-header {text-align:center; height:100vh; display:flex; flex-direction:column; justify-content:center; align-items:center; position:relative;}
-header h1 {font-size:3rem; color:var(--accent);}
-header p {margin:12px 0 0; font-size:1.3rem;}
-.terminal {margin-top:16px; font-family:'JetBrains Mono', monospace; background: rgba(0,0,0,0.2); padding:12px 16px; border-radius:8px; display:inline-block; color:#e5e5e5; font-size:1rem;}
-section.card {background: var(--card-bg); border:1px solid var(--glass-border); border-radius:12px; padding:24px; margin:24px 0; box-shadow:0 10px 30px rgba(0,0,0,0.6); backdrop-filter: blur(6px) saturate(1.05); transition: transform 0.3s ease, box-shadow 0.3s ease; opacity:0;}
-section.card:hover {transform: translateY(-6px); box-shadow:0 16px 40px rgba(0,0,0,0.7);}
-h2.section-title {margin-bottom:12px; font-size:1.3rem; color:var(--accent);}
-ul {padding-left:1.2rem; margin:0 0 8px;} li{margin-bottom:6px;}
-.pill {display:inline-block; margin:0.2rem 0.4rem; padding:0.3rem 0.7rem; border-radius:999px; background: rgba(255,159,28,0.15); border:1px solid rgba(255,159,28,0.25); font-size:0.85rem;}
-.footer {text-align:center; color: rgba(200,200,200,0.6); margin:12px 0 40px; font-size:0.85rem;}
+function TerminalMock() {
+  // Simple animated terminal using CSS + framer-motion
+  const lines = [
+    '$ nmap -A target.example.com',
+    'Starting Nmap 7.95 ( https://nmap.org ) at 2025-09-28',
+    'Interesting ports on 10.10.10.5: 22/tcp open ssh',
+    '$ gobuster dir -u https://target.example.com -w /usr/share/wordlists/rockyou.txt',
+    'Found: /admin (Status: 200)',
+    '$ python3 recon.py --target target.example.com'
+  ]
 
-@media(max-width:720px){header h1{font-size:2rem;} header p{font-size:1rem;} .wrap{padding:24px 16px;}}
-</style>
-</head>
-<body>
+  return (
+    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 }} className="mt-4 rounded-lg bg-black/80 ring-1 ring-white/8 overflow-hidden">
+      <div className="px-4 py-3 bg-black/90 border-b border-white/3 flex items-center gap-2">
+        <div className="w-2 h-2 rounded-full bg-red-500" />
+        <div className="w-2 h-2 rounded-full bg-yellow-400" />
+        <div className="w-2 h-2 rounded-full bg-green-500" />
+        <div className="ml-auto text-xs text-slate-400">interactive demo</div>
+      </div>
+      <div className="px-4 py-4 font-mono text-sm leading-6">
+        {lines.map((l, i) => (
+          <motion.div key={i} initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 + i * 0.12 }} className="text-slate-200/90">
+            {i === lines.length - 1 ? <Typing text={l} /> : <span>{l}</span>}
+          </motion.div>
+        ))}
+      </div>
+    </motion.div>
+  )
+}
 
-<div class="bg"></div>
-<div id="particles-js"></div>
-<div class="blob blob1"></div>
-<div class="blob blob2"></div>
-
-<div class="wrap">
-  <header>
-    <h1>ctxzero</h1>
-    <p>Junior Penetration Tester — Offensive Security</p>
-    <div class="terminal" id="typing">ctxzero@portfolio:~$ <span id="typeOut"></span><span id="cursor">▮</span></div>
-  </header>
-
-  <section class="card" id="about">
-    <h2 class="section-title">About</h2>
-    <p>I am <strong>ctxzero</strong>, a Junior Penetration Tester focusing on Offensive Security. I specialize in Web Application, Network, and Active Directory Pentesting. I enjoy analyzing systems, discovering vulnerabilities, and providing practical remediation guidance.</p>
-    <div class="pill">Offensive Security</div>
-    <div class="pill">CTF Enthusiast</div>
-  </section>
-
-  <section class="card" id="skills">
-    <h2 class="section-title">Skills</h2>
-    <ul>
-      <li><strong>Web Application Pentesting:</strong> OWASP Top10, XSS, SQLi, CSRF, file upload, auth bypass</li>
-      <li><strong>Network Pentesting:</strong> nmap, enumeration, service exploitation, pivoting</li>
-      <li><strong>Active Directory:</strong> LDAP/AD enumeration, Kerberos, lateral movement</li>
-      <li><strong>Scripting & Tools:</strong> Python, Bash, Burp Suite, Metasploit, sqlmap</li>
-    </ul>
-  </section>
-
-  <section class="card" id="certs">
-    <h2 class="section-title">Certifications</h2>
-    <div class="pill">eJPT (coming soon)</div>
-  </section>
-
-  <section class="card" id="projects">
-    <h2 class="section-title">Projects</h2>
-    <ul>
-      <li>TryHackMe CTF challenges — writeups & badges</li>
-      <li>HackTheBox Labs — Windows & Linux machines</li>
-    </ul>
-  </section>
-
-  <section class="card" id="contact">
-    <h2 class="section-title">Contact</h2>
-    <p>Discord: <strong>ctxzero</strong></p>
-    <p>Email: <a href="mailto:ZeroExploit.business@proton.me">ZeroExploit.business@proton.me</a></p>
-    <div class="pill">Open for junior roles / internships</div>
-  </section>
-
-  <div class="footer">Professional Portfolio — clean, technical, employer-focused</div>
-</div>
-
-<script>
-/* Particles */
-particlesJS('particles-js',{
-  "particles": {
-    "number": { "value": 70, "density": { "enable": true, "value_area": 900 } },
-    "color": { "value": ["#ff9f1c","#ff4040","#1ca3ff","#8a2be2"] },
-    "shape": { "type": "circle" },
-    "opacity": { "value": 0.7, "random": true },
-    "size": { "value": 3.5, "random": true },
-    "line_linked": { "enable": true, "distance": 140, "color": "#ff9f1c", "opacity": 0.08, "width": 1 },
-    "move": { "enable": true, "speed": 1, "direction": "none", "random": true, "straight": false, "out_mode": "out" }
-  },
-  "interactivity": {
-    "detect_on": "canvas",
-    "events": { "onhover": { "enable": true, "mode": "repulse" }, "onclick": { "enable": true, "mode": "push" }, "resize": true },
-    "modes": { "repulse": { "distance": 120, "duration": 0.4 }, "push": { "particles_nb": 3 } }
-  },
-  "retina_detect": true
-});
-
-/* Terminal typing */
-const lines=['whoami → ctxzero','role → Junior Penetration Tester','focus → Offensive Security'];
-let l=0,c=0;const out=document.getElementById('typeOut');const cursor=document.getElementById('cursor');
-function type(){const cur=lines[l];out.textContent=cur.slice(0,c++);if(c>cur.length){setTimeout(()=>{c=0;l=(l+1)%lines.length;out.textContent='';setTimeout(type,600)},1500);}else setTimeout(type,36);}
-setTimeout(type,500);setInterval(()=>cursor.style.opacity=cursor.style.opacity==='0'?'1':'0',600);
-
-/* Scroll reveal */
-ScrollReveal().reveal('.card',{distance:'50px', duration:800, easing:'ease-out', origin:'bottom', interval:150});
-</script>
-
-</body>
-</html>
+function Typing({ text = '' }) {
+  // Pure CSS typing cursor
+  return (
+    <span className="inline-block">
+      <span className="typing" style={{ whiteSpace: 'pre' }}>{text}</span>
+      <style jsx>{`
+        .typing{position:relative}
+        .typing::after{content:'';display:inline-block;width:8px;height:18px;margin-left:6px;background:linear-gradient(90deg, rgba(255,255,255,0.9), rgba(255,255,255,0.2));animation: blink 1s steps(2, start) infinite}
+        @keyframes blink{50%{opacity:0}}        
+      `}</style>
+    </span>
+  )
+}
