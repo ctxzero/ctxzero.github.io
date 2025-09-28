@@ -1,25 +1,27 @@
-<canvas id="matrix"></canvas>
+<div id="particles-js"></div>
+<script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
 <script>
-const canvas = document.getElementById('matrix');
-const ctx = canvas.getContext('2d');
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
-const letters = '01';
-const fontSize = 14;
-const columns = canvas.width / fontSize;
-const drops = Array(Math.floor(columns)).fill(1);
-function draw() {
-  ctx.fillStyle = 'rgba(0,0,0,0.05)';
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
-  ctx.fillStyle = '#0f0';
-  ctx.font = fontSize + "px monospace";
-  drops.forEach((y,i)=>{
-    const text = letters.charAt(Math.floor(Math.random()*letters.length));
-    ctx.fillText(text,i*fontSize,y*fontSize);
-    drops[i] = (y*fontSize>canvas.height && Math.random()>0.975)?0:y+1;
-  });
-}
-setInterval(draw,33);
-window.addEventListener('resize',()=>{canvas.width=window.innerWidth; canvas.height=window.innerHeight;});
+particlesJS('particles-js', {
+  particles: {
+    number: { value: 50 },
+    color: { value: "#0f0" },
+    shape: { type: "circle" },
+    opacity: { value: 0.5 },
+    size: { value: 2 },
+    move: { enable: true, speed: 1 }
+  },
+  interactivity: {
+    events: { onhover: { enable: true, mode: "repulse" } }
+  }
+});
 </script>
-<style>body{margin:0;}canvas{display:block;position:fixed;top:0;left:0;z-index:-1;}</style>
+<style>
+#particles-js {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  z-index: -1;
+}
+body { margin:0; font-family: monospace; color: #0f0; }
+</style>
