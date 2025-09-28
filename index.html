@@ -5,340 +5,432 @@
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>ctxzero — Junior Penetration Tester</title>
 
+<!-- Tailwind for fast styling -->
 <script src="https://cdn.tailwindcss.com"></script>
 
 <style>
-:root{
-  --accent: #12b981;
-}
-html,body { height:100%; margin:0; }
-body{
-  font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-  -webkit-font-smoothing:antialiased;
-  -moz-osx-font-smoothing:grayscale;
-  background: #05060a;
-  color: #e6eef3;
-}
-
-#bg-canvas{ position: fixed; inset:0; z-index:0; }
-#app{ position: relative; z-index:10; min-height:100vh; }
-
-.glass{
-  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-  border: 1px solid rgba(255,255,255,0.04);
-  backdrop-filter: blur(6px) saturate(120%);
-}
-.profile-img { width:48px; height:48px; border-radius:12px; object-fit:cover; border:1px solid rgba(255,255,255,0.06); }
-
-#terminal {
-  background: rgba(2,6,12,0.92);
-  border-radius: 12px;
-  padding: 12px;
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", monospace;
-  font-size: 13px;
-  color: #d6f8e6;
-  max-height: 420px;
-  overflow:auto;
-  border: 1px solid rgba(255,255,255,0.04);
-}
-.term-line { white-space: pre-wrap; margin: 2px 0; }
-.term-input {
-  display:flex;
-  gap:8px;
-  align-items:center;
-  margin-top:10px;
-  padding:10px;
-  border-radius:8px;
-  background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005));
-  border: 1px solid rgba(255,255,255,0.02);
-}
-.term-input input {
-  background: transparent;
-  border: none;
-  outline: none;
-  color: #d6f8e6;
-  font-family: inherit;
-  font-size: 13px;
-  width: 100%;
-}
-
-.badge { display:inline-flex; gap:8px; align-items:center; padding:8px 10px; border-radius:999px; background:rgba(255,255,255,0.02); font-size:13px; border:1px solid rgba(255,255,255,0.03); color: #dfffe8; transition: transform .18s ease, background .18s ease; text-decoration:none; }
-.badge:hover { transform: translateY(-4px); background: rgba(255,255,255,0.035); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-.badge svg { width:18px; height:18px; flex-shrink:0; opacity:0.95; }
-.badges-wrap { display:flex; flex-wrap:wrap; gap:8px; margin-top:8px; }
-.card { transition: transform .28s ease, box-shadow .28s ease; }
-.card:hover { transform: translateY(-8px); box-shadow: 0 30px 60px rgba(2,6,23,0.6); }
-.btn-ghost:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(0,0,0,0.4); }
-.typing-cursor::after{
-  content:'';
-  display:inline-block;
-  width:8px;
-  height:18px;
-  margin-left:8px;
-  background:linear-gradient(90deg, rgba(255,255,255,0.95), rgba(255,255,255,0.15));
-  animation: blink 1s steps(2,start) infinite;
-  vertical-align:middle;
-}
-@keyframes blink{50%{opacity:0}}
-@media (max-width: 900px){
-  .hero-grid { grid-template-columns: 1fr; gap:1rem; }
-  #terminal { max-height: 300px; }
-}
-main { padding-top: 6px; padding-bottom: 80px; }
+  :root{
+    --accent: #12b981;
+    --glass-1: rgba(255,255,255,0.02);
+    --glass-2: rgba(255,255,255,0.01);
+    --muted: #9fb8a8;
+  }
+  html,body{height:100%;margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; background:#05060a; color:#e6eef3; scroll-behavior: smooth;}
+  #bg-canvas{position:fixed;inset:0;z-index:0;display:block}
+  #app{position:relative;z-index:10;min-height:100vh}
+  .glass{
+    background: linear-gradient(180deg, var(--glass-1), var(--glass-2));
+    border: 1px solid rgba(255,255,255,0.04);
+    backdrop-filter: blur(6px) saturate(120%);
+  }
+  .profile-img{width:48px;height:48px;border-radius:12px;object-fit:cover;border:1px solid rgba(255,255,255,0.06)}
+  /* terminal */
+  #terminal{
+    background: linear-gradient(180deg, rgba(2,6,12,0.06), rgba(2,6,12,0.03)); /* subtle glass */
+    border-radius:12px;
+    padding:12px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", monospace;
+    font-size:13px;
+    color: #d6f8e6;
+    max-height:420px;
+    overflow:auto;
+    border: 1px solid rgba(255,255,255,0.04);
+  }
+  .term-line{white-space:pre-wrap;margin:2px 0;opacity:0; transform: translateY(6px); transition: all .28s ease;}
+  .term-line.visible{opacity:1; transform: translateY(0);}
+  .term-input{
+    display:flex; gap:8px; align-items:center; margin-top:10px; padding:10px; border-radius:8px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005));
+    border: 1px solid rgba(255,255,255,0.02);
+  }
+  .term-input input{ background:transparent; border: none; outline: none; color:#d6f8e6; font-family:inherit; font-size:13px; width:100%}
+  .term-prompt{color:var(--accent); font-family:ui-monospace,monospace; font-size:13px; width:18px}
+  /* badges */
+  .badge{display:inline-flex; gap:8px; align-items:center; padding:8px 10px; border-radius:999px; background:rgba(255,255,255,0.02); font-size:13px; border:1px solid rgba(255,255,255,0.03); color:#dfffe8; text-decoration:none; transition: all .28s ease;}
+  .badge:hover{ transform: translateY(-6px) scale(1.04); box-shadow: 0 18px 50px rgba(18,255,140,0.09); color: #baffd3; }
+  .badges-wrap{display:flex; flex-wrap:wrap; gap:8px; margin-top:8px}
+  /* animated glow on title */
+  .glow-title{display:inline-block; position:relative}
+  .glow-title::after{content:''; position:absolute; inset:0; box-shadow: 0 6px 30px rgba(18,255,140,0.06); border-radius:6px; opacity:0; transition: opacity .45s ease;}
+  .glow-title.glow::after{ opacity:1 }
+  /* cards - fade in */
+  .card{opacity:0; transform: translateY(18px); transition: all .6s cubic-bezier(.2,.9,.2,1);}
+  .card.visible{opacity:1; transform: translateY(0);}
+  /* hover subtle */
+  .card:hover{ transform: translateY(-8px) scale(1.01); box-shadow: 0 30px 60px rgba(2,6,23,0.6);}
+  /* responsive tweaks */
+  @media (max-width:900px){ .hero-grid{grid-template-columns:1fr; gap:1rem} #terminal{max-height:320px} }
 </style>
 </head>
 <body>
 <canvas id="bg-canvas" aria-hidden="true"></canvas>
+
 <div id="app" class="min-h-screen flex flex-col">
-<header class="max-w-7xl mx-auto w-full px-6 py-6 flex items-center justify-between">
-  <div class="flex items-center gap-4">
-    <img class="profile-img" src="https://i.pinimg.com/originals/5f/f7/67/5ff767305fd93b8ea48632b217b53827.jpg" alt="ctxzero profile" />
-    <div>
-      <div class="text-lg font-semibold">ctxzero</div>
-      <div class="text-xs text-slate-400">Junior Penetration Tester — 19, Germany</div>
-    </div>
-  </div>
-  <nav class="flex items-center gap-3">
-    <a class="text-sm text-slate-300 hover:text-white" href="https://github.com/ctxzero" target="_blank">GitHub</a>
-    <a class="text-sm text-slate-300 hover:text-white" href="https://tryhackme.com/p/ctxzero" target="_blank">TryHackMe</a>
-    <a class="text-sm px-3 py-2 rounded-lg glass btn-ghost" href="mailto:ZeroExploit.business@proton.me">Contact</a>
-  </nav>
-</header>
-
-<main class="max-w-7xl mx-auto px-6 w-full">
-<section class="grid hero-grid lg:grid-cols-2 gap-8 items-start">
-<div class="space-y-6">
-  <div class="p-6 rounded-2xl glass">
-    <h1 class="text-4xl lg:text-5xl font-extrabold tracking-tight">
-      Hi — I’m <span style="color:var(--accent)">ctxzero</span>
-    </h1>
-    <p class="mt-3 text-slate-300 max-w-xl leading-relaxed">
-      Junior Penetration Tester focused on <strong>Web Application</strong>, <strong>Network</strong> and <strong>Active Directory</strong> pentesting.<br>
-      I deliver deep penetration testing with clear, reproducible reports and automated reconnaissance. <strong>Remote only.</strong>
-    </p>
-    <div class="mt-5 flex flex-wrap gap-3">
-      <a href="https://github.com/ctxzero" target="_blank" class="px-4 py-2 rounded-lg text-sm glass">View code</a>
-      <a href="https://tryhackme.com/p/ctxzero" target="_blank" class="px-4 py-2 rounded-lg text-sm glass">TryHackMe</a>
-      <a href="mailto:ZeroExploit.business@proton.me" class="px-4 py-2 rounded-lg text-sm" style="background:var(--accent); color:#021013">Contact me</a>
-    </div>
-    <div class="mt-6 flex flex-wrap gap-2">
-      <span class="badge">Web App Pentesting</span>
-      <span class="badge">Network</span>
-      <span class="badge">Active Directory</span>
-      <span class="badge">CTF / TryHackMe</span>
-    </div>
-  </div>
-
-  <div class="p-1 rounded-2xl">
-    <div id="terminal" aria-live="polite" role="status" class="rounded-lg"></div>
-    <div class="term-input mt-3" aria-hidden="false">
-      <div style="color:var(--accent); font-family:ui-monospace,monospace; font-size:13px;">$</div>
-      <input id="term-input" placeholder="type `help` — commands: help, whoami, skills, tools, certifications, achievements, contact, clear" autocomplete="off" />
-    </div>
-  </div>
-</div>
-
-<aside class="space-y-6">
-<div class="p-6 rounded-2xl glass card">
-  <h4 class="font-semibold">About</h4>
-  <div class="mt-3 text-sm text-slate-300">
-    <p><strong>Age:</strong> 19</p>
-    <p><strong>Location:</strong> Germany (Remote only)</p>
-    <p class="mt-2">I focus on hands-on pentesting, building clear PoCs and automating recon. I enjoy CTFs and continuous learning through TryHackMe labs.</p>
-  </div>
-</div>
-
-<div class="p-6 rounded-2xl glass card">
-  <h4 class="font-semibold">Tools & Workflow</h4>
-  <div class="badges-wrap mt-3">
-    <!-- example: Metasploit badge -->
-    <a class="badge" href="https://www.metasploit.com/" target="_blank">Metasploit</a>
-    <a class="badge" href="https://portswigger.net/burp" target="_blank">Burp Suite</a>
-    <a class="badge" href="https://nmap.org/" target="_blank">Nmap</a>
-    <a class="badge" href="https://www.wireshark.org/" target="_blank">Wireshark</a>
-    <a class="badge" href="https://github.com/BloodHoundAD/BloodHound" target="_blank">BloodHound</a>
-    <a class="badge" href="https://github.com/SecureAuthCorp/impacket" target="_blank">Impacket</a>
-    <a class="badge" href="https://github.com/sqlmapproject/sqlmap" target="_blank">sqlmap</a>
-    <a class="badge" href="https://github.com/OJ/gobuster" target="_blank">gobuster</a>
-    <a class="badge" href="https://github.com/ffuf/ffuf" target="_blank">ffuf</a>
-    <a class="badge" href="https://tryhackme.com/" target="_blank">TryHackMe</a>
-  </div>
-  <ul class="mt-4 text-sm text-slate-300 space-y-2">
-    <li><strong>Recon:</strong> Nmap, Gobuster, ffuf, Amass</li>
-    <li><strong>Web:</strong> Burp Suite, OWASP ZAP, sqlmap</li>
-    <li><strong>AD:</strong> BloodHound, Impacket, Rubeus</li>
-    <li><strong>Scripting:</strong> Python, Bash, PowerShell</li>
-    <li><strong>Reporting:</strong> Markdown/PDF, structured PoC</li>
-  </ul>
-</div>
-
-<div class="p-6 rounded-2xl glass card">
-  <h4 class="font-semibold">Achievements</h4>
-  <div class="mt-3 text-sm text-slate-300 space-y-2">
-    <p>Boxes solved (TryHackMe / CTF): <strong>100+</strong></p>
-    <p>Active learner — regular TryHackMe paths and hands-on labs. Switching to HTB Academy soon</p>
-  </div>
-</div>
-</aside>
-</section>
-
-<section class="mt-10 max-w-4xl mx-auto">
-  <div class="p-6 rounded-2xl glass">
-    <h3 class="text-xl font-semibold">Certifications & Learning Paths</h3>
-    <div class="mt-4 grid md:grid-cols-2 gap-4">
+  <!-- Header -->
+  <header class="max-w-7xl mx-auto w-full px-6 py-6 flex items-center justify-between">
+    <div class="flex items-center gap-4">
+      <img class="profile-img" src="https://i.pinimg.com/originals/5f/f7/67/5ff767305fd93b8ea48632b217b53827.jpg" alt="ctxzero profile" />
       <div>
-        <h4 class="font-medium">TryHackMe Paths & Certificates</h4>
-        <ul class="mt-2 text-sm text-slate-300 space-y-2">
-          <li>• Cyber Security 101</li>
-          <li>• Web Fundamentals</li>
-          <li>• Jr Penetration Tester</li>
-          <li>• Offensive Penetration Testing</li>
-        </ul>
-      </div>
-      <div>
-        <h4 class="font-medium">Professional Certifications</h4>
-        <ul class="mt-2 text-sm text-slate-300 space-y-2">
-          <li>• eJPT — <em>soon</em></li>
-        </ul>
+        <div class="text-lg font-semibold">ctxzero</div>
+        <div class="text-xs text-slate-400">Junior Penetration Tester — 19, Germany</div>
       </div>
     </div>
-  </div>
-</section>
 
-<section class="mt-10 max-w-5xl mx-auto">
-  <div class="p-6 rounded-2xl glass card">
-    <h3 class="text-lg font-semibold">More details</h3>
-    <div class="mt-3 text-sm text-slate-300 space-y-3">
-      <p><strong>Working style:</strong> I prioritize clear documentation and reproducible PoCs. I automate repeatable reconnaissance to reduce time-to-exploit and produce consistent reports.</p>
-      <p><strong>What I'm looking for:</strong> Junior / entry pentest roles where I can learn from senior testers, contribute to real engagements and grow in offensive security.</p>
-      <p><strong>Contact:</strong> Email — <a class="underline" href="mailto:ZeroExploit.business@proton.me">ZeroExploit.business@proton.me</a></p>
-    </div>
-  </div>
-</section>
+    <nav class="flex items-center gap-3">
+      <a class="text-sm text-slate-300 hover:text-white" href="https://github.com/ctxzero" target="_blank">GitHub</a>
+      <a class="text-sm text-slate-300 hover:text-white" href="https://tryhackme.com/p/ctxzero" target="_blank">TryHackMe</a>
+      <a class="text-sm px-3 py-2 rounded-lg glass" href="mailto:ZeroExploit.business@proton.me">Contact</a>
+    </nav>
+  </header>
 
-<section class="mt-10 max-w-5xl mx-auto">
-  <div class="p-6 rounded-2xl glass card">
-    <h3 class="text-lg font-semibold">Motivation & Continuous Learning</h3>
-    <div class="mt-3 text-sm text-slate-300 space-y-3">
-      <p>I am constantly motivated to improve my skills and deepen my penetration testing knowledge. I embrace hands-on challenges, actively practice on platforms like TryHackMe and soon HTB Academy, and aim to gain real-world experience.</p>
-      <p>Continuous improvement, curiosity, and persistence define my working style. I thrive on learning from every engagement, automating processes efficiently, and delivering actionable insights through structured reports and PoCs.</p>
-      <p>My goal is to evolve as a competent security professional while contributing meaningfully to any team I join.</p>
-    </div>
-  </div>
-</section>
+  <!-- Main -->
+  <main class="max-w-7xl mx-auto px-6 w-full pb-20">
+    <section class="grid hero-grid lg:grid-cols-2 gap-8 items-start">
+      <div class="space-y-6">
+        <div class="p-6 rounded-2xl glass card">
+          <h1 class="text-4xl lg:text-5xl font-extrabold tracking-tight">
+            Hi — I’m <span style="color:var(--accent)">ctxzero</span>
+          </h1>
+          <p class="mt-3 text-slate-300 max-w-xl leading-relaxed">
+            Junior Penetration Tester focused on <strong>Web Application</strong>, <strong>Network</strong> and <strong>Active Directory</strong> pentesting.
+            I deliver deep penetration testing with clear, reproducible reports and automated reconnaissance. <strong>Remote only.</strong>
+          </p>
 
-<footer class="mt-12 mb-12 text-center text-slate-400 text-sm">
-  © <span id="year"></span> ctxzero — Junior Penetration Tester
-</footer>
-</main>
+          <div class="mt-5 flex flex-wrap gap-3">
+            <a href="https://github.com/ctxzero" target="_blank" class="px-4 py-2 rounded-lg text-sm glass">View code</a>
+            <a href="https://tryhackme.com/p/ctxzero" target="_blank" class="px-4 py-2 rounded-lg text-sm glass">TryHackMe</a>
+            <a href="mailto:ZeroExploit.business@proton.me" class="px-4 py-2 rounded-lg text-sm" style="background:var(--accent); color:#021013">Contact me</a>
+          </div>
+
+          <div class="mt-6 flex flex-wrap gap-2">
+            <span class="badge">Web App Pentesting</span>
+            <span class="badge">Network</span>
+            <span class="badge">Active Directory</span>
+            <span class="badge">CTF / TryHackMe</span>
+          </div>
+        </div>
+
+        <!-- Terminal (glass-look) -->
+        <div class="p-1 rounded-2xl card">
+          <div id="terminal" role="status" aria-live="polite"></div>
+
+          <div class="term-input mt-3">
+            <div class="term-prompt">$</div>
+            <input id="term-input" placeholder="type `help` — commands: help, whoami, skills, goals, achievements, contact, clear" autocomplete="off" />
+          </div>
+        </div>
+      </div>
+
+      <!-- Right column: About / Badges / Achievements -->
+      <aside class="space-y-6">
+        <div class="p-6 rounded-2xl glass card">
+          <h4 class="font-semibold">About</h4>
+          <div class="mt-3 text-sm text-slate-300">
+            <p><strong>Age:</strong> 19</p>
+            <p><strong>Location:</strong> Germany (Remote only)</p>
+            <p class="mt-2">I focus on hands-on pentesting, building clear PoCs and automating recon. I enjoy CTFs and continuous learning through TryHackMe labs.</p>
+          </div>
+        </div>
+
+        <div class="p-6 rounded-2xl glass card">
+          <h4 class="font-semibold">Tools & Workflow</h4>
+          <div class="badges-wrap mt-3">
+            <a class="badge" href="https://www.metasploit.com/" target="_blank">Metasploit</a>
+            <a class="badge" href="https://portswigger.net/burp" target="_blank">Burp Suite</a>
+            <a class="badge" href="https://nmap.org/" target="_blank">Nmap</a>
+            <a class="badge" href="https://www.wireshark.org/" target="_blank">Wireshark</a>
+            <a class="badge" href="https://github.com/BloodHoundAD/BloodHound" target="_blank">BloodHound</a>
+            <a class="badge" href="https://github.com/SecureAuthCorp/impacket" target="_blank">Impacket</a>
+            <a class="badge" href="https://github.com/sqlmapproject/sqlmap" target="_blank">sqlmap</a>
+            <a class="badge" href="https://github.com/OJ/gobuster" target="_blank">gobuster</a>
+            <a class="badge" href="https://github.com/ffuf/ffuf" target="_blank">ffuf</a>
+            <a class="badge" href="https://tryhackme.com/" target="_blank">TryHackMe</a>
+          </div>
+
+          <ul class="mt-4 text-sm text-slate-300 space-y-2">
+            <li><strong>Recon:</strong> Nmap, Gobuster, ffuf, Amass</li>
+            <li><strong>Web:</strong> Burp Suite, OWASP ZAP, sqlmap</li>
+            <li><strong>AD:</strong> BloodHound, Impacket, Rubeus</li>
+            <li><strong>Scripting:</strong> Python, Bash, PowerShell</li>
+            <li><strong>Reporting:</strong> Markdown/PDF, structured PoC</li>
+          </ul>
+        </div>
+
+        <div class="p-6 rounded-2xl glass card">
+          <h4 class="font-semibold">Achievements</h4>
+          <div class="mt-3 text-sm text-slate-300 space-y-2">
+            <p>Boxes solved (TryHackMe / CTF): <strong>100+</strong></p>
+            <p>Active learner — regular TryHackMe paths and hands-on labs. Switching to HTB Academy soon</p>
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <!-- Certifications -->
+    <section class="mt-10 max-w-4xl mx-auto card">
+      <div class="p-6 rounded-2xl glass">
+        <h3 class="text-xl font-semibold">Certifications & Learning Paths</h3>
+        <div class="mt-4 grid md:grid-cols-2 gap-4">
+          <div>
+            <h4 class="font-medium">TryHackMe Paths & Certificates</h4>
+            <ul class="mt-2 text-sm text-slate-300 space-y-2">
+              <li>• Cyber Security 101</li>
+              <li>• Web Fundamentals</li>
+              <li>• Jr Penetration Tester</li>
+              <li>• Offensive Penetration Testing</li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="font-medium">Professional Certifications</h4>
+            <ul class="mt-2 text-sm text-slate-300 space-y-2">
+              <li>• eJPT — <em>soon</em></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- More details -->
+    <section class="mt-10 max-w-5xl mx-auto card">
+      <div class="p-6 rounded-2xl glass">
+        <h3 class="text-lg font-semibold">More details</h3>
+        <div class="mt-3 text-sm text-slate-300 space-y-3">
+          <p><strong>Working style:</strong> I prioritize clear documentation and reproducible PoCs. I automate repeatable reconnaissance to reduce time-to-exploit and produce consistent reports.</p>
+          <p><strong>What I'm looking for:</strong> Junior / entry pentest roles where I can learn from senior testers, contribute to real engagements and grow in offensive security.</p>
+          <p><strong>Contact:</strong> Email — <a class="underline" href="mailto:ZeroExploit.business@proton.me">ZeroExploit.business@proton.me</a></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Motivation -->
+    <section class="mt-10 max-w-5xl mx-auto card">
+      <div class="p-6 rounded-2xl glass">
+        <h3 class="text-lg font-semibold">Motivation & Continuous Learning</h3>
+        <div class="mt-3 text-sm text-slate-300 space-y-3">
+          <p>I am constantly motivated to improve my skills and deepen my penetration testing knowledge. I embrace hands-on challenges, actively practice on platforms like TryHackMe and soon HTB Academy, and aim to gain real-world experience.</p>
+          <p>Continuous improvement, curiosity, and persistence define my working style. I thrive on learning from every engagement, automating processes efficiently, and delivering actionable insights through structured reports and PoCs.</p>
+          <p>My goal is to evolve as a competent security professional while contributing meaningfully to any team I join.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Goals -->
+    <section class="mt-10 max-w-5xl mx-auto card">
+      <div class="p-6 rounded-2xl glass">
+        <h3 class="text-lg font-semibold">Goals & Future Steps</h3>
+        <div class="mt-3 text-sm text-slate-300 space-y-3">
+          <p>• Soon switching to HTB to gain more hands-on experience and advanced labs.</p>
+          <p>• Complete CPTS certification to validate penetration testing skills.</p>
+          <p>• Aim for OSCP certification in the near future.</p>
+          <p>• Find a junior pentesting job to gain real-world professional experience.</p>
+          <p>• Continue continuous learning, optimizing personal killchains, and improving efficiency across multiple domains.</p>
+        </div>
+      </div>
+    </section>
+
+    <footer class="mt-12 mb-12 text-center text-slate-400 text-sm card">
+      © <span id="year"></span> ctxzero — Junior Penetration Tester
+    </footer>
+  </main>
 </div>
 
+<!-- SCRIPTS -->
 <script>
-document.getElementById('year').textContent = new Date().getFullYear();
+  // set year
+  document.getElementById('year').textContent = new Date().getFullYear();
 
-// MATRIX HACKER BACKGROUND
-const canvas = document.getElementById('bg-canvas');
-const ctx = canvas.getContext('2d');
-let W,H,cols,size,drops;
-function resizeCanvas(){
-  W = canvas.width = window.innerWidth;
-  H = canvas.height = window.innerHeight;
-  size = Math.max(8,Math.floor(W/160));
-  cols = Math.floor(W/size);
-  drops = Array(cols).fill(0).map(()=>Math.random()*H);
-}
-window.addEventListener('resize',resizeCanvas);
-resizeCanvas();
-const glyphs='0123456789ABCDEF@#$%&*+=<>[]{}()\\/|_^'.split('');
-function draw(){
-  ctx.fillStyle='rgba(0,0,0,0.15)';
-  ctx.fillRect(0,0,W,H);
-  ctx.font=`${Math.floor(size*0.9)}px monospace`;
-  for(let i=0;i<cols;i++){
-    const x=i*size;
-    const y=drops[i]*size;
-    const glyph=glyphs[Math.floor(Math.random()*glyphs.length)];
-    const bright=Math.random()>0.92;
-    ctx.fillStyle=bright?'rgba(0,255,140,0.88)':'rgba(0,255,140,0.18)';
-    ctx.fillText(glyph,x,y);
-    drops[i]=drops[i]+0.04+Math.random()*0.05;
-    if(drops[i]*size>H+20) drops[i]=Math.random()*0.01;
+  /* MATRIX BACKGROUND - vertical stripes with glow */
+  const canvas = document.getElementById('bg-canvas');
+  const ctx = canvas.getContext('2d');
+  let W, H, cols, size, drops, speeds, hueOffsets;
+
+  function resizeCanvas(){
+    W = canvas.width = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+    // smaller size -> more columns (denser)
+    size = Math.max(10, Math.floor(W / 140));
+    cols = Math.floor(W / size);
+    drops = new Array(cols).fill(0).map(() => Math.random() * H);
+    speeds = new Array(cols).fill(0).map(() => 0.01 + Math.random() * 0.03); // very slow
+    hueOffsets = new Array(cols).fill(0).map(()=> Math.random()*40 - 20);
   }
-  for(let s=0;s<2;s++){
-    ctx.fillStyle='rgba(0,255,140,0.01)';
-    ctx.fillRect(Math.random()*W,Math.random()*H,1+Math.random()*2,1+Math.random()*2);
+  window.addEventListener('resize', resizeCanvas);
+  resizeCanvas();
+
+  const glyphs = '01' + '23456789ABCDEF@#$%&*+=<>[]{}()\\/|_^'.split('').join(''); // heavier on binary feel
+  const glyphsArr = glyphs.split('');
+
+  // draw glow gradient helper
+  function glow(x, y, size, alpha){
+    const g = ctx.createRadialGradient(x, y, 0, x, y, size);
+    g.addColorStop(0, `rgba(0,255,140,${alpha})`);
+    g.addColorStop(1, 'rgba(0,255,140,0)');
+    ctx.fillStyle = g;
+    ctx.beginPath();
+    ctx.arc(x, y, size, 0, Math.PI*2);
+    ctx.fill();
+  }
+
+  function draw(){
+    // dark fill with slight opacity to create trails
+    ctx.fillStyle = 'rgba(0,0,0,0.18)';
+    ctx.fillRect(0,0,W,H);
+
+    ctx.font = `${Math.floor(size * 0.95)}px monospace`;
+    ctx.textBaseline = 'top';
+
+    for(let i=0;i<cols;i++){
+      const x = i * size;
+      const y = drops[i] * size;
+      const glyph = glyphsArr[Math.floor(Math.random() * glyphsArr.length)];
+      // head brightness occasionally brighter for glow
+      const head = Math.random() > 0.94;
+      const alpha = head ? (0.8 + Math.random()*0.2) : (0.16 + Math.random()*0.12);
+      ctx.fillStyle = `rgba(0,255,140,${alpha})`;
+      ctx.fillText(glyph, x, y);
+
+      // subtle glow for some glyphs
+      if(head && Math.random() > 0.5){
+        glow(x + size/2, y + size/2, size*1.6, 0.06 + Math.random()*0.04);
+      }
+
+      // advance very slowly (make it more strip-like)
+      drops[i] = drops[i] + speeds[i];
+      if(drops[i] * size > H + 30){
+        drops[i] = - (Math.random() * 3); // restart above for stagger
+      }
+    }
+
+    // faint random sparks
+    if(Math.random() > 0.85){
+      ctx.fillStyle = 'rgba(0,255,140,0.02)';
+      ctx.fillRect(Math.random()*W, Math.random()*H, 1 + Math.random()*3, 1 + Math.random()*3);
+    }
+
+    requestAnimationFrame(draw);
   }
   requestAnimationFrame(draw);
-}
-requestAnimationFrame(draw);
 
-// TERMINAL
-const terminal=document.getElementById('terminal');
-const input=document.getElementById('term-input');
-const intro=[
-  'Welcome to ctxzero — Junior Penetration Tester.',
-  'Hands-on web, network, and AD pentesting. Type `help` to see available commands.'
-];
-function writeLine(text,cls='term-line'){
-  const div=document.createElement('div');
-  div.className=cls;
-  div.textContent=text;
-  terminal.appendChild(div);
-  terminal.scrollTop=terminal.scrollHeight;
-}
-intro.forEach(l=>writeLine(l));
-
-const responses={
-help:[
-  'Commands:',
-  '• whoami        : show identity summary',
-  '• skills        : list core skills',
-  '• tools         : list tools & workflow',
-  '• certifications: show TryHackMe paths & professional certs',
-  '• achievements  : quick stats (CTF/boxes)',
-  '• contact       : contact information',
-  '• clear         : clear terminal'
-],
-whoami:[
-  'ctxzero — Junior Penetration Tester',
-  '19 y/o, Germany (Remote only)',
-  'Focus: Web Application, Network, Active Directory'
-],
-skills:[
-  'Web App: Burp Suite, OWASP testing, Manual SQLi/XSS PoC',
-  'Network: Nmap, SMB, Pivoting, Port/Service enumeration',
-  'AD: BloodHound, Impacket, Rubeus, Domain recon',
-  'Scripting: Python, Bash, PowerShell'
-],
-tools:[
-  'Metasploit, Burp Suite, Nmap, Wireshark, BloodHound, Impacket, sqlmap, gobuster, ffuf, TryHackMe'
-],
-certifications:[
-  'TryHackMe Paths: Cyber Security 101, Web Fundamentals, Jr Penetration Tester, Offensive Penetration Testing',
-  'Professional: eJPT — soon'
-],
-achievements:[
-  'Boxes solved (TryHackMe/CTF): 100+',
-  'Active learner — regular TryHackMe paths and hands-on labs. Switching to HTB Academy soon'
-],
-contact:[
-  'Email: ZeroExploit.business@proton.me',
-  'GitHub: https://github.com/ctxzero',
-  'TryHackMe: https://tryhackme.com/p/ctxzero'
-]
-};
-
-input.addEventListener('keydown',e=>{
-  if(e.key==='Enter'){
-    const cmd=input.value.trim().toLowerCase();
-    if(cmd==='') return;
-    writeLine('$ '+cmd);
-    if(cmd==='clear'){ terminal.innerHTML=''; return; }
-    const resp=responses[cmd]||[`Command not found: ${cmd}`];
-    resp.forEach(r=>writeLine(r));
-    input.value='';
+  // Fade-in cards when in view
+  const cards = document.querySelectorAll('.card');
+  function checkCards(){
+    const trigger = window.innerHeight * 0.88;
+    cards.forEach(c=>{
+      const top = c.getBoundingClientRect().top;
+      if(top < trigger) c.classList.add('visible');
+    });
   }
-});
+  window.addEventListener('scroll', checkCards);
+  window.addEventListener('resize', checkCards);
+  // initial check after small delay to allow layout
+  setTimeout(checkCards, 300);
+
+  /* TERMINAL LOGIC + ANIMATIONS */
+  const terminal = document.getElementById('terminal');
+  const input = document.getElementById('term-input');
+
+  // typed intro lines with delay
+  const intro = [
+    "ctxzero Terminal.",
+    "'help' to see available commands.",
+    "",
+    "I am highly proficient with all standard pentesting tools across multiple domains.",
+    "I maintain a private killchain optimized for consistent and successful engagement results."
+  ];
+
+  function printLine(text, delay=0){
+    return new Promise(resolve=>{
+      setTimeout(()=>{
+        const el = document.createElement('div');
+        el.className = 'term-line';
+        el.textContent = text;
+        terminal.appendChild(el);
+        // force reflow then make visible for transition
+        requestAnimationFrame(()=> el.classList.add('visible'));
+        terminal.scrollTop = terminal.scrollHeight;
+        resolve(el);
+      }, delay);
+    });
+  }
+
+  // print intro with small stagger
+  (async function printIntro(){
+    for(let i=0;i<intro.length;i++){
+      await printLine(intro[i], i*220);
+    }
+  })();
+
+  // terminal responses
+  const responses = {
+    help:[
+      "Commands:",
+      "• whoami        : show identity summary",
+      "• skills        : describe core skills & workflow",
+      "• goals         : see future steps",
+      "• achievements  : quick stats (CTF/boxes)",
+      "• contact       : contact information",
+      "• clear         : clear terminal"
+    ],
+    whoami:[
+      "ctxzero — Junior Penetration Tester",
+      "19 y/o, Germany (Remote only)",
+      "Focus: Web Application, Network, Active Directory"
+    ],
+    skills:[
+      "Highly proficient with standard pentesting tools across multiple domains.",
+      "Maintain a private killchain optimized for engagement success."
+    ],
+    goals:[
+      "• Switching to HTB to gain hands-on experience",
+      "• Complete CPTS certification",
+      "• Aim for OSCP certification",
+      "• Find a junior pentesting job to gain real-world experience",
+      "• Continuous learning and optimization of killchain"
+    ],
+    achievements:[
+      "Boxes solved (TryHackMe / CTF): 100+",
+      "Active learner — regular TryHackMe paths and hands-on labs. Switching to HTB Academy soon"
+    ],
+    contact:[
+      "Email: ZeroExploit.business@proton.me",
+      "GitHub: https://github.com/ctxzero",
+      "TryHackMe: https://tryhackme.com/p/ctxzero"
+    ]
+  };
+
+  // helper to print response with stagger
+  async function printResponse(lines){
+    for(let i=0;i<lines.length;i++){
+      await printLine(lines[i], i*120);
+    }
+  }
+
+  // handle input
+  input.addEventListener('keydown', async (e)=>{
+    if(e.key === 'Enter'){
+      const raw = input.value.trim();
+      if(!raw) return;
+      await printLine('$ ' + raw, 0);
+      input.value = '';
+      const cmd = raw.toLowerCase();
+      if(cmd === 'clear'){
+        terminal.innerHTML = '';
+        return;
+      }
+      if(responses[cmd]){
+        await printResponse(responses[cmd]);
+      } else {
+        await printResponse([`Command not found: ${cmd}`, "Type 'help' to list commands."]);
+      }
+    } else if(e.key === 'c' && (e.ctrlKey || e.metaKey)){
+      await printLine('^C', 0);
+      input.value = '';
+    }
+  });
+
+  // focus input when clicking terminal
+  terminal.addEventListener('click', ()=> input.focus());
+  input.focus();
 </script>
 </body>
 </html>
