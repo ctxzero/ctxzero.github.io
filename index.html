@@ -3,144 +3,125 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>ctxzero — Network Wave</title>
+<title>ctxzero — Scan Grid</title>
 <style>
   html,body{height:100%;margin:0;font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, monospace;}
-  body{background:linear-gradient(180deg,#071029 0%, #071633 100%); color:#cfefff; overflow:hidden;}
-  canvas{position:fixed; inset:0; z-index:-1; display:block;}
-  .content{min-height:100vh; display:flex;align-items:center;justify-content:center;padding:32px; text-align:center;}
-  .box{
-    background: rgba(255,255,255,0.03);
-    border:1px solid rgba(255,255,255,0.04);
-    padding:28px;
-    border-radius:12px;
-    max-width:880px;
-    box-shadow: 0 10px 30px rgba(2,6,20,0.6);
+  :root{ --bg1:#071229; --bg2:#10203a; --accent: #60d3ff; --accent2: #8a6cff; }
+  body{
+    background: linear-gradient(180deg,var(--bg1), var(--bg2) 60%);
+    color:#e6f7ff;
+    display:flex; align-items:center; justify-content:center; padding:28px;
   }
-  h1{font-size:1.5rem;margin:0 0 0.6rem;}
-  p{color:#a9d8ff;margin:0;}
-  .small{margin-top:12px;color:#9fbddf;font-size:0.9rem;}
-  @media (max-width:700px){ .box{padding:18px;} h1{font-size:1.15rem;} }
+
+  .stage{
+    width:min(1100px,95vw);
+    height:min(560px,70vh);
+    position:relative;
+    border-radius:12px;
+    overflow:hidden;
+    box-shadow: 0 12px 40px rgba(5,10,20,0.6);
+    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+    border: 1px solid rgba(255,255,255,0.03);
+  }
+  /* grid tiles */
+  .grid{
+    display:grid;
+    grid-template-columns: repeat(16,1fr);
+    grid-auto-rows: 1fr;
+    gap:6px;
+    padding:18px;
+    height:100%;
+    box-sizing:border-box;
+  }
+  .cell{
+    background: rgba(255,255,255,0.02);
+    border-radius:6px;
+    transition: transform 220ms ease, background 220ms;
+    box-shadow: inset 0 -2px 6px rgba(0,0,0,0.45);
+  }
+  /* animated highlight sequence */
+  .cell:nth-child(4n){ animation: pulse 3.6s linear infinite; animation-delay: calc(var(--i) * -0.08s); }
+  @keyframes pulse{
+    0%{ transform: scale(1); background: rgba(96,211,255,0.03); }
+    50%{ transform: scale(1.02); background: rgba(138,108,255,0.045); }
+    100%{ transform: scale(1); background: rgba(255,255,255,0.02); }
+  }
+
+  /* sweep line */
+  .sweep{
+    position:absolute; top:0; left:-30%;
+    width:45%; height:100%;
+    background: linear-gradient(90deg, rgba(0,0,0,0), rgba(140,80,255,0.08), rgba(96,211,255,0.06), rgba(0,0,0,0));
+    transform: skewX(-14deg);
+    animation: sweep 6.6s linear infinite;
+    pointer-events:none;
+    mix-blend-mode: screen;
+  }
+  @keyframes sweep{
+    0%{ left:-60%; }
+    100%{ left:120%; }
+  }
+
+  /* content overlay */
+  .meta {
+    position:absolute; left:18px; top:18px; z-index:2;
+    background: rgba(3,6,12,0.3); padding:10px 12px; border-radius:8px;
+    border:1px solid rgba(255,255,255,0.03);
+  }
+  .meta h1{ margin:0; font-size:1.05rem; }
+  .meta p{ margin:4px 0 0; color:#bfeaff; font-size:0.88rem; }
+
+  @media (max-width:700px){
+    .grid{ gap:4px; grid-template-columns: repeat(8,1fr); }
+  }
 </style>
 </head>
 <body>
-<canvas id="net"></canvas>
+  <div class="stage">
+    <div class="meta">
+      <h1>ctxzero — Recon Grid</h1>
+      <p>Subtile scan visualization — professional & minimal</p>
+    </div>
 
-<div class="content">
-  <div class="box">
-    <h1>ctxzero — Network Wave</h1>
-    <p>Live-like network visualization • subtle & professional</p>
-    <div class="small">Hover to push nodes away — looks great behind portfolio content.</div>
+    <div class="grid" id="grid"></div>
+    <div class="sweep"></div>
   </div>
-</div>
 
 <script>
-/* Canvas network: moving nodes + connecting lines (professional look) */
-const canvas = document.getElementById('net');
-const ctx = canvas.getContext('2d');
-let W = canvas.width = innerWidth;
-let H = canvas.height = innerHeight;
-
-window.addEventListener('resize', ()=>{ W = canvas.width = innerWidth; H = canvas.height = innerHeight; init(); });
-
-let nodes = [];
-const NODE_COUNT = Math.round((W*H) / 90000) + 18; // scale with size
-
-function rnd(min,max){ return Math.random()*(max-min)+min; }
-
-function init(){
-  nodes = [];
-  for(let i=0;i<NODE_COUNT;i++){
-    nodes.push({
-      x: rnd(0,W),
-      y: rnd(0,H),
-      vx: rnd(-0.3,0.3),
-      vy: rnd(-0.3,0.3),
-      r: rnd(1.2,2.8),
-      hue: rnd(180,210) // teal blue
-    });
-  }
+/* build grid dynamically and stagger animations slightly */
+const grid = document.getElementById('grid');
+const cols = window.innerWidth < 700 ? 8 : 16;
+const rows = Math.ceil((560 - 36) / 28); // approx rows to fill stage
+const total = cols * 10; // keep reasonably sized grid (responsive)
+for(let i=0;i<total;i++){
+  const c = document.createElement('div');
+  c.className = 'cell';
+  c.style.setProperty('--i', i);
+  grid.appendChild(c);
 }
-init();
 
-let mouse = {x:-9999,y:-9999};
-
-canvas.addEventListener('mousemove', (e)=>{ mouse.x = e.clientX; mouse.y = e.clientY; });
-canvas.addEventListener('mouseleave', ()=>{ mouse.x = -9999; mouse.y = -9999; });
-
-function draw(){
-  ctx.clearRect(0,0,W,H);
-
-  // faint vignette / background glow
-  const grad = ctx.createLinearGradient(0,0,W,H);
-  grad.addColorStop(0,'rgba(10,20,35,0.18)');
-  grad.addColorStop(1,'rgba(5,12,25,0.3)');
-  ctx.fillStyle = grad;
-  ctx.fillRect(0,0,W,H);
-
-  // update and draw nodes
-  for(let i=0;i<nodes.length;i++){
-    const a = nodes[i];
-    // simple movement
-    a.x += a.vx;
-    a.y += a.vy;
-
-    // bounce softly off edges
-    if(a.x < 0 || a.x > W) a.vx *= -1;
-    if(a.y < 0 || a.y > H) a.vy *= -1;
-
-    // mouse repulse
-    const dx = a.x - mouse.x, dy = a.y - mouse.y;
-    const dist = Math.sqrt(dx*dx + dy*dy);
-    if(dist < 120){
-      const force = (120 - dist) / 120 * 0.9;
-      a.vx += (dx/dist) * force;
-      a.vy += (dy/dist) * force;
-    }
-
-    // gentle friction
-    a.vx *= 0.995; a.vy *= 0.995;
-
-    // draw node (glow)
-    ctx.beginPath();
-    const glow = ctx.createRadialGradient(a.x,a.y,0,a.x,a.y,12);
-    glow.addColorStop(0, `hsla(${a.hue},80%,65%,0.9)`);
-    glow.addColorStop(0.6, `hsla(${a.hue},60%,55%,0.18)`);
-    glow.addColorStop(1, 'rgba(0,0,0,0)');
-    ctx.fillStyle = glow;
-    ctx.arc(a.x,a.y, a.r+2, 0, Math.PI*2);
-    ctx.fill();
-    // small crisp center
-    ctx.beginPath();
-    ctx.fillStyle = `hsla(${a.hue},80%,85%,0.98)`;
-    ctx.arc(a.x,a.y,a.r,0,Math.PI*2);
-    ctx.fill();
-  }
-
-  // draw close connections (lines) with low opacity
-  for(let i=0;i<nodes.length;i++){
-    for(let j=i+1;j<nodes.length;j++){
-      const n1 = nodes[i], n2 = nodes[j];
-      const dx = n1.x - n2.x, dy = n1.y - n2.y;
-      const d2 = dx*dx + dy*dy;
-      if(d2 < 14000){ // threshold ~ distance^2
-        const d = Math.sqrt(d2);
-        const alpha = 0.12 * (1 - d/120);
-        ctx.beginPath();
-        // color between both node hues
-        const hue = (n1.hue + n2.hue)/2;
-        ctx.strokeStyle = `hsla(${hue},60%,70%,${alpha})`;
-        ctx.lineWidth = 1 * (1 - d/120);
-        ctx.moveTo(n1.x,n1.y);
-        ctx.lineTo(n2.x,n2.y);
-        ctx.stroke();
-      }
-    }
-  }
-
-  requestAnimationFrame(draw);
-}
-requestAnimationFrame(draw);
+/* optional: subtle interactive hover to highlight neighbouring cells */
+grid.addEventListener('mousemove', (e)=>{
+  const rect = grid.getBoundingClientRect();
+  const x = e.clientX - rect.left;
+  const y = e.clientY - rect.top;
+  const children = Array.from(grid.children);
+  children.forEach((ch)=>{
+    const r = ch.getBoundingClientRect();
+    const cx = r.left + r.width/2 - rect.left;
+    const cy = r.top + r.height/2 - rect.top;
+    const d = Math.hypot(cx - x, cy - y);
+    const scale = Math.max(0.92, 1 - d / 800);
+    ch.style.transform = `scale(${scale})`;
+    ch.style.background = `rgba(255,255,255,${0.02 + Math.max(0, 0.02 - d/12000)})`;
+  });
+});
+grid.addEventListener('mouseleave', ()=>{
+  Array.from(grid.children).forEach(ch=>{
+    ch.style.transform = '';
+    ch.style.background = '';
+  });
+});
 </script>
 </body>
 </html>
