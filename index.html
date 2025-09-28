@@ -3,160 +3,144 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>ctxzero — Portfolio</title>
-
-<!-- Particles.js CDN -->
-<script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
-
+<title>ctxzero — Network Wave</title>
 <style>
-  :root{
-    --fg: #e6f7ff;
-    --muted: #bcd8ff;
-  }
-  html,body{height:100%;margin:0;font-family:Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;}
-  /* animated gradient background */
-  .bg {
-    position:fixed; inset:0; z-index:-2;
-    background: linear-gradient(120deg,#0f4bff 0%, #8a2be2 50%, #ff416c 100%);
-    background-size: 400% 400%;
-    animation: bgAnim 12s ease infinite;
-    filter: saturate(1.05) contrast(1.02);
-  }
-  @keyframes bgAnim{
-    0%{background-position:0% 50%;}
-    50%{background-position:100% 50%;}
-    100%{background-position:0% 50%;}
-  }
-
-  /* particles container (canvas from particles.js) */
-  #particles-js{ position:fixed; inset:0; z-index:-1; width:100%; height:100%; }
-
-  /* layout */
-  .wrap{
-    min-height:100vh;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    padding:3rem;
-    box-sizing:border-box;
-    color:var(--fg);
-    text-align:center;
-  }
-
-  .card{
-    max-width:920px;
-    width:100%;
-    background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
-    border: 1px solid rgba(255,255,255,0.06);
-    padding:2.2rem;
+  html,body{height:100%;margin:0;font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, monospace;}
+  body{background:linear-gradient(180deg,#071029 0%, #071633 100%); color:#cfefff; overflow:hidden;}
+  canvas{position:fixed; inset:0; z-index:-1; display:block;}
+  .content{min-height:100vh; display:flex;align-items:center;justify-content:center;padding:32px; text-align:center;}
+  .box{
+    background: rgba(255,255,255,0.03);
+    border:1px solid rgba(255,255,255,0.04);
+    padding:28px;
     border-radius:12px;
-    backdrop-filter: blur(6px) saturate(1.1);
-    box-shadow: 0 8px 30px rgba(5,10,20,0.5);
+    max-width:880px;
+    box-shadow: 0 10px 30px rgba(2,6,20,0.6);
   }
-
-  h1{ margin:0 0.2rem 0.6rem; font-weight:600; font-size:1.6rem; letter-spacing:0.4px; color:var(--fg); }
-  p.lead{ margin:0 0 1rem; color:var(--muted); font-size:1rem; }
-  .meta { display:flex; gap:12px; justify-content:center; flex-wrap:wrap; margin-top:1rem; }
-  .pill{ padding:0.45rem 0.85rem; border-radius:999px; background:rgba(255,255,255,0.03); color:var(--fg); font-size:0.9rem; border:1px solid rgba(255,255,255,0.04); }
-
-  /* small terminal style line */
-  .terminal {
-    margin-top:1.4rem;
-    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", monospace;
-    color:#DFF7E3;
-    background: rgba(0,0,0,0.18);
-    border-radius:8px;
-    padding:0.9rem 1rem;
-    display:inline-block;
-    font-size:0.95rem;
-  }
-
-  /* responsive */
-  @media (max-width:700px){
-    .card{ padding:1.2rem; border-radius:10px; }
-    h1{ font-size:1.2rem; }
-  }
+  h1{font-size:1.5rem;margin:0 0 0.6rem;}
+  p{color:#a9d8ff;margin:0;}
+  .small{margin-top:12px;color:#9fbddf;font-size:0.9rem;}
+  @media (max-width:700px){ .box{padding:18px;} h1{font-size:1.15rem;} }
 </style>
 </head>
 <body>
-  <div class="bg"></div>
-  <div id="particles-js"></div>
+<canvas id="net"></canvas>
 
-  <div class="wrap">
-    <div class="card">
-      <h1>ctxzero — Penetration Tester</h1>
-      <p class="lead">Pentesting • OSINT • CTFs — Tools: nmap • burp • python • metasploit</p>
-
-      <div class="terminal" id="typed">ctxzero@portfolio:~$ <span id="out">whoami</span></div>
-
-      <div class="meta">
-        <div class="pill">eJPT (in progress)</div>
-        <div class="pill">GitHub: ctxzero</div>
-        <div class="pill">TryHackMe: ctxzero</div>
-      </div>
-    </div>
+<div class="content">
+  <div class="box">
+    <h1>ctxzero — Network Wave</h1>
+    <p>Live-like network visualization • subtle & professional</p>
+    <div class="small">Hover to push nodes away — looks great behind portfolio content.</div>
   </div>
+</div>
 
 <script>
-/* particles.js configuration — few, subtle, multi-color */
-particlesJS('particles-js', {
-  "particles": {
-    "number": { "value": 40, "density": { "enable": true, "value_area": 900 } },
-    "color": { "value": ["#9be7ff","#7b61ff","#ffd1dc","#b3ffdd"] },
-    "shape": { "type": "circle" },
-    "opacity": { "value": 0.7, "random": true, "anim": { "enable": false } },
-    "size": { "value": 3, "random": true, "anim": { "enable": false } },
-    "line_linked": {
-      "enable": true,
-      "distance": 160,
-      "color": "#9be7ff",
-      "opacity": 0.08,
-      "width": 1
-    },
-    "move": {
-      "enable": true,
-      "speed": 0.9,
-      "direction": "none",
-      "random": true,
-      "straight": false,
-      "out_mode": "out",
-      "bounce": false
-    }
-  },
-  "interactivity": {
-    "detect_on": "canvas",
-    "events": {
-      "onhover": { "enable": true, "mode": "repulse" },
-      "onclick": { "enable": true, "mode": "push" },
-      "resize": true
-    },
-    "modes": {
-      "grab": { "distance": 400, "line_linked": { "opacity": 0.2 } },
-      "bubble": { "distance": 250, "size": 0, "duration": 2, "opacity": 0 },
-      "repulse": { "distance": 120, "duration": 0.4 },
-      "push": { "particles_nb": 3 },
-      "remove": { "particles_nb": 2 }
-    }
-  },
-  "retina_detect": true
-});
+/* Canvas network: moving nodes + connecting lines (professional look) */
+const canvas = document.getElementById('net');
+const ctx = canvas.getContext('2d');
+let W = canvas.width = innerWidth;
+let H = canvas.height = innerHeight;
 
-/* tiny typed-like effect (no external lib) */
-const out = document.getElementById('out');
-const lines = [
-  'Bra — Penetration Tester',
-  'CTF player • OSINT • Web app security',
-  'Open to work • contact: hi@ctxzero.dev'
-];
-let li = 0, ci = 0;
-function typeLoop(){
-  if(li >= lines.length) li = 0;
-  const cur = lines[li];
-  out.textContent = cur.slice(0, ci++);
-  if(ci > cur.length){ li++; ci=0; setTimeout(typeLoop, 1200); }
-  else setTimeout(typeLoop, 40);
+window.addEventListener('resize', ()=>{ W = canvas.width = innerWidth; H = canvas.height = innerHeight; init(); });
+
+let nodes = [];
+const NODE_COUNT = Math.round((W*H) / 90000) + 18; // scale with size
+
+function rnd(min,max){ return Math.random()*(max-min)+min; }
+
+function init(){
+  nodes = [];
+  for(let i=0;i<NODE_COUNT;i++){
+    nodes.push({
+      x: rnd(0,W),
+      y: rnd(0,H),
+      vx: rnd(-0.3,0.3),
+      vy: rnd(-0.3,0.3),
+      r: rnd(1.2,2.8),
+      hue: rnd(180,210) // teal blue
+    });
+  }
 }
-setTimeout(typeLoop, 400);
+init();
+
+let mouse = {x:-9999,y:-9999};
+
+canvas.addEventListener('mousemove', (e)=>{ mouse.x = e.clientX; mouse.y = e.clientY; });
+canvas.addEventListener('mouseleave', ()=>{ mouse.x = -9999; mouse.y = -9999; });
+
+function draw(){
+  ctx.clearRect(0,0,W,H);
+
+  // faint vignette / background glow
+  const grad = ctx.createLinearGradient(0,0,W,H);
+  grad.addColorStop(0,'rgba(10,20,35,0.18)');
+  grad.addColorStop(1,'rgba(5,12,25,0.3)');
+  ctx.fillStyle = grad;
+  ctx.fillRect(0,0,W,H);
+
+  // update and draw nodes
+  for(let i=0;i<nodes.length;i++){
+    const a = nodes[i];
+    // simple movement
+    a.x += a.vx;
+    a.y += a.vy;
+
+    // bounce softly off edges
+    if(a.x < 0 || a.x > W) a.vx *= -1;
+    if(a.y < 0 || a.y > H) a.vy *= -1;
+
+    // mouse repulse
+    const dx = a.x - mouse.x, dy = a.y - mouse.y;
+    const dist = Math.sqrt(dx*dx + dy*dy);
+    if(dist < 120){
+      const force = (120 - dist) / 120 * 0.9;
+      a.vx += (dx/dist) * force;
+      a.vy += (dy/dist) * force;
+    }
+
+    // gentle friction
+    a.vx *= 0.995; a.vy *= 0.995;
+
+    // draw node (glow)
+    ctx.beginPath();
+    const glow = ctx.createRadialGradient(a.x,a.y,0,a.x,a.y,12);
+    glow.addColorStop(0, `hsla(${a.hue},80%,65%,0.9)`);
+    glow.addColorStop(0.6, `hsla(${a.hue},60%,55%,0.18)`);
+    glow.addColorStop(1, 'rgba(0,0,0,0)');
+    ctx.fillStyle = glow;
+    ctx.arc(a.x,a.y, a.r+2, 0, Math.PI*2);
+    ctx.fill();
+    // small crisp center
+    ctx.beginPath();
+    ctx.fillStyle = `hsla(${a.hue},80%,85%,0.98)`;
+    ctx.arc(a.x,a.y,a.r,0,Math.PI*2);
+    ctx.fill();
+  }
+
+  // draw close connections (lines) with low opacity
+  for(let i=0;i<nodes.length;i++){
+    for(let j=i+1;j<nodes.length;j++){
+      const n1 = nodes[i], n2 = nodes[j];
+      const dx = n1.x - n2.x, dy = n1.y - n2.y;
+      const d2 = dx*dx + dy*dy;
+      if(d2 < 14000){ // threshold ~ distance^2
+        const d = Math.sqrt(d2);
+        const alpha = 0.12 * (1 - d/120);
+        ctx.beginPath();
+        // color between both node hues
+        const hue = (n1.hue + n2.hue)/2;
+        ctx.strokeStyle = `hsla(${hue},60%,70%,${alpha})`;
+        ctx.lineWidth = 1 * (1 - d/120);
+        ctx.moveTo(n1.x,n1.y);
+        ctx.lineTo(n2.x,n2.y);
+        ctx.stroke();
+      }
+    }
+  }
+
+  requestAnimationFrame(draw);
+}
+requestAnimationFrame(draw);
 </script>
 </body>
 </html>
