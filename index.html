@@ -5,39 +5,37 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>ctxzero — Junior Penetration Tester</title>
 
-  <!-- Tailwind CDN (fast prototyping) -->
+  <!-- Tailwind CDN for quick styling -->
   <script src="https://cdn.tailwindcss.com"></script>
 
   <style>
-    /* subtle glass + typography */
     :root{
-      --accent: #12b981; /* emerald */
-      --muted: rgba(255,255,255,0.06);
+      --accent: #12b981;
+      --muted-bg: rgba(255,255,255,0.02);
     }
-    html,body,#app { height:100%; }
+    html,body { height:100%; }
     body{
-      background: #05060a; /* fallback */
+      margin:0;
       font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
       -webkit-font-smoothing:antialiased;
       -moz-osx-font-smoothing:grayscale;
+      background: #05060a;
       color: #e6eef3;
     }
 
-    /* canvas sits behind content */
-    #bg-canvas { position: fixed; inset:0; z-index: 0; }
+    /* canvas behind content */
+    #bg-canvas{ position: fixed; inset:0; z-index:0; }
 
-    /* main container above canvas */
-    #app { position: relative; z-index: 10; }
+    /* content area */
+    #app{ position: relative; z-index:10; min-height:100vh; }
 
-    /* subtle glass panels */
-    .glass {
+    .glass{
       background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
       border: 1px solid rgba(255,255,255,0.04);
       backdrop-filter: blur(6px) saturate(120%);
     }
 
-    /* terminal typing cursor */
-    .typing::after {
+    .typing-cursor::after{
       content:'';
       display:inline-block;
       width:8px;
@@ -49,25 +47,58 @@
     }
     @keyframes blink{50%{opacity:0}}
 
-    /* small hover effects */
-    .btn-ghost:hover { transform: translateY(-3px); box-shadow: 0 8px 30px rgba(0,0,0,0.4); }
-    .card:hover { transform: translateY(-6px); box-shadow: 0 18px 50px rgba(2,6,23,0.6); }
+    .card { transition: transform .28s ease, box-shadow .28s ease; }
+    .card:hover { transform: translateY(-8px); box-shadow: 0 30px 60px rgba(2,6,23,0.6); }
 
-    /* responsive tweaks */
+    .btn-ghost:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(0,0,0,0.4); }
+
+    /* terminal styles */
+    #terminal {
+      background: rgba(1,2,6,0.82);
+      border-radius: 10px;
+      padding: 14px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", monospace;
+      font-size: 13px;
+      color: #d6f8e6;
+      max-height: 360px;
+      overflow:auto;
+    }
+    .term-line { white-space: pre-wrap; }
+    .term-input {
+      display:flex;
+      gap:8px;
+      align-items:center;
+      margin-top:8px;
+    }
+    .term-input input {
+      background: transparent;
+      border: none;
+      outline: none;
+      color: #d6f8e6;
+      font-family: inherit;
+      font-size: 13px;
+      width: 100%;
+    }
+
+    /* responsive */
     @media (max-width: 900px){
-      .hero-grid { grid-template-columns: 1fr; gap:1.25rem; }
+      .hero-grid { grid-template-columns: 1fr; gap:1rem; }
+      #terminal { max-height: 260px; }
     }
   </style>
 </head>
 <body>
-  <!-- animated "hacker" background canvas -->
   <canvas id="bg-canvas"></canvas>
 
   <div id="app" class="min-h-screen flex flex-col">
     <!-- NAV -->
-    <header class="max-w-6xl mx-auto w-full px-6 py-6 flex items-center justify-between">
+    <header class="max-w-7xl mx-auto w-full px-6 py-6 flex items-center justify-between">
       <div class="flex items-center gap-4">
-        <div class="w-12 h-12 rounded-2xl flex items-center justify-center bg-[linear-gradient(135deg,#0ea5a3,#06b6d4)] text-slate-900 font-mono font-bold shadow-2xl">CZ</div>
+        <!-- PROFILE IMAGE: replace src if you want a local file -->
+        <img src="https://i.pinimg.com/originals/5f/f7/67/5ff767305fd93b8ea48632b217b53827.jpg"
+             alt="ctxzero profile"
+             class="w-12 h-12 rounded-2xl object-cover border border-white/6 shadow-lg"/>
+
         <div>
           <div class="text-lg font-semibold">ctxzero</div>
           <div class="text-xs text-slate-400">Junior Penetration Tester</div>
@@ -81,8 +112,8 @@
       </nav>
     </header>
 
-    <!-- HERO -->
-    <main class="max-w-6xl mx-auto px-6 flex-1 w-full">
+    <!-- HERO + CONTENT -->
+    <main class="max-w-7xl mx-auto px-6 w-full pb-20">
       <section class="grid hero-grid lg:grid-cols-2 gap-8 items-start">
         <div class="space-y-6">
           <div class="p-6 rounded-2xl glass">
@@ -90,7 +121,7 @@
               Hi — I’m <span style="color:var(--accent)">ctxzero</span>
             </h1>
             <p class="mt-3 text-slate-300 max-w-xl leading-relaxed">
-              Junior Penetration Tester focused on <strong>Web Application</strong>, <strong>Network</strong> and <strong>Active Directory</strong> pentesting. I deliver reproducible reports, automate reconnaissance and love converting noisy signals into reliable exploits. Open to Junior roles.
+              Junior Penetration Tester focused on <strong>Web Application</strong>, <strong>Network</strong> and <strong>Active Directory</strong> pentesting. I deliver reproducible reports, automate reconnaissance pipelines and love turning noisy clues into reliable exploits. Open to junior roles.
             </p>
 
             <div class="mt-5 flex flex-wrap gap-3">
@@ -107,33 +138,22 @@
             </div>
           </div>
 
-          <!-- terminal mock with typed line -->
-          <div class="p-4 rounded-2xl glass font-mono text-sm">
-            <div class="flex items-center justify-between">
-              <div class="flex gap-2 items-center">
-                <span class="w-2 h-2 rounded-full bg-red-500"></span>
-                <span class="w-2 h-2 rounded-full bg-yellow-400"></span>
-                <span class="w-2 h-2 rounded-full bg-green-500"></span>
-                <div class="ml-3 text-xs text-slate-400">interactive demo</div>
-              </div>
-              <div class="text-xs text-slate-400">local</div>
+          <!-- interactive terminal -->
+          <div class="p-1 rounded-2xl">
+            <div id="terminal" class="rounded-lg">
+              <!-- dynamic terminal lines will appear here -->
             </div>
 
-            <pre id="terminal" class="mt-3 text-slate-200/90 leading-6"> 
-$ nmap -A target.example.com
-Starting Nmap 7.95 at 2025-09-28
-22/tcp open ssh
-80/tcp open http
-$ gobuster dir -u https://target.example.com -w /usr/share/wordlists/raft-medium.txt
-Found: /admin (200)
-$ python3 recon.py --target target.example.com <span class="typing"></span>
-            </pre>
+            <div class="term-input mt-3 p-3 bg-transparent rounded-b-lg" aria-hidden="false">
+              <div style="color:#8bffd3; font-family:ui-monospace,monospace; font-size:13px;">$</div>
+              <input id="term-input" placeholder="type `help` for commands — e.g. whoami, skills, projects, contact, clear" autocomplete="off" />
+            </div>
           </div>
         </div>
 
-        <!-- right column: cards -->
+        <!-- RIGHT COLUMN -->
         <aside class="space-y-6">
-          <div class="p-6 rounded-2xl glass card transition-transform duration-300">
+          <div class="p-6 rounded-2xl glass card">
             <h4 class="font-semibold">Core Skills</h4>
             <div class="mt-4 text-sm text-slate-300 grid grid-cols-1 gap-2">
               <div><strong>Web App:</strong> Burp Suite, OWASP, Manual Exploits</div>
@@ -143,7 +163,7 @@ $ python3 recon.py --target target.example.com <span class="typing"></span>
             </div>
           </div>
 
-          <div class="p-6 rounded-2xl glass card transition-transform duration-300">
+          <div class="p-6 rounded-2xl glass card">
             <h4 class="font-semibold">Highlighted Projects</h4>
             <ul class="mt-4 space-y-3 text-sm">
               <li>
@@ -183,26 +203,26 @@ $ python3 recon.py --target target.example.com <span class="typing"></span>
         </aside>
       </section>
 
-      <!-- contact footer -->
-      <section class="mt-10 mb-16 text-center">
-        <div class="max-w-2xl mx-auto text-slate-400 text-sm">
-          <div>Contact — Email: <a class="underline" href="mailto:ZeroExploit.business@proton.me">ZeroExploit.business@proton.me</a> · Discord: <span class="font-mono">ctxzero</span></div>
-          <div class="mt-6 text-xs">© <span id="year"></span> ctxzero — Junior Penetration Tester</div>
+      <!-- extra spacing so page scrolls nicely -->
+      <section class="mt-12 mb-14 max-w-3xl mx-auto text-slate-400 text-sm">
+        <div class="prose prose-invert">
+          <h3>About this demo</h3>
+          <p>This single-file portfolio is designed to be clean, professional and recruiter-friendly. Background animation is intentionally subtle — gives a technical feel without being gimmicky.</p>
+          <p>Use the terminal above to try some quick commands (local only): <code>help</code>, <code>whoami</code>, <code>skills</code>, <code>projects</code>, <code>contact</code>, <code>clear</code>.</p>
         </div>
       </section>
+
+      <footer class="mt-6 mb-12 text-center text-slate-400 text-sm">
+        © <span id="year"></span> ctxzero — Junior Penetration Tester
+      </footer>
     </main>
   </div>
 
-  <!-- --------------------------
-       Background animation script
-       - Matrix-style falling glyphs + subtle particles
-       - Tuned to be professional and subtle
-       --------------------------->
+  <!-- Background animation script (slower movement now) -->
   <script>
     // set year
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // Canvas matrix/particle animation
     const canvas = document.getElementById('bg-canvas');
     const ctx = canvas.getContext('2d');
     let W, H, cols, size, drops;
@@ -210,35 +230,36 @@ $ python3 recon.py --target target.example.com <span class="typing"></span>
     function resize() {
       W = canvas.width = innerWidth;
       H = canvas.height = innerHeight;
-      size = Math.max(12, Math.floor(W / 120));
+      size = Math.max(12, Math.floor(W / 140)); // more columns -> smaller glyphs
       cols = Math.floor(W / size);
       drops = new Array(cols).fill(0).map(() => Math.random() * H);
     }
     window.addEventListener('resize', resize);
     resize();
 
-    // glyph set: mix numbers, hex, and subtle code-like chars
-    const glyphs = ('0123456789abcdef<>/{}[]()@#$%^&*-_+=:;,.').split('');
+    const glyphs = ('0123456789abcdef<>/{}[]()@#%*+-=:.').split('');
 
     function draw() {
-      // fade canvas with rgba to create trailing effect
-      ctx.fillStyle = 'rgba(5,6,10,0.12)';
+      // slower trailing fade -> subtler trails
+      ctx.fillStyle = 'rgba(5,6,10,0.14)';
       ctx.fillRect(0,0,W,H);
 
-      ctx.font = `${size}px ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", monospace`;
+      ctx.font = `${Math.floor(size*0.95)}px ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", monospace`;
       for (let i=0;i<cols;i++){
         const x = i * size;
         let y = drops[i] * size;
         const glyph = glyphs[Math.floor(Math.random() * glyphs.length)];
-        // bright for leading char, dim for trail
-        ctx.fillStyle = i%7===0 ? 'rgba(18,185,129,0.95)' : 'rgba(18,185,129,0.28)';
+        // make lead char brighter occasionally
+        const v = (i % 11 === 0) ? 0.9 : 0.26;
+        ctx.fillStyle = `rgba(18,185,129,${v})`;
         ctx.fillText(glyph, x, y);
-        drops[i] = (drops[i] + 0.5 + Math.random()*0.8);
-        if (drops[i] * size > H + 50) drops[i] = 0;
+        // slower speed: smaller increments
+        drops[i] = drops[i] + 0.18 + Math.random()*0.22;
+        if (drops[i] * size > H + 80) drops[i] = Math.random() * 0.05;
       }
 
-      // subtle overlay particles (sparks)
-      for (let s=0; s<3; s++){
+      // a couple faint particles for depth
+      for (let s=0; s<2; s++){
         ctx.fillStyle = 'rgba(255,255,255,0.02)';
         ctx.fillRect(Math.random()*W, Math.random()*H, 1 + Math.random()*2, 1 + Math.random()*2);
       }
@@ -246,18 +267,86 @@ $ python3 recon.py --target target.example.com <span class="typing"></span>
       requestAnimationFrame(draw);
     }
     requestAnimationFrame(draw);
+  </script>
 
-    // small terminal typing simulation
-    (function simulateTyping(){
-      const t = document.querySelector('#terminal .typing');
-      if(!t) return;
-      const words = ['_', 'root@target:~$', 'recon running...', '_'];
-      let i=0;
-      setInterval(()=> {
-        t.textContent = words[i % words.length];
-        i++;
-      }, 900);
-    })();
+  <!-- Terminal interaction script -->
+  <script>
+    const terminal = document.getElementById('terminal');
+    const input = document.getElementById('term-input');
+
+    // initial welcome lines
+    const intro = [
+      {t: 'Welcome to ctxzero local demo. Type `help` for available commands.'},
+      {t: 'This terminal is local-only and safe — no commands are executed on any remote hosts.'},
+      {t: ''}
+    ];
+    function writeLine(text, cls='term-line') {
+      const div = document.createElement('div');
+      div.className = cls;
+      div.textContent = text;
+      terminal.appendChild(div);
+      terminal.scrollTop = terminal.scrollHeight;
+    }
+    intro.forEach(l => writeLine(l.t));
+
+    const responses = {
+      help: [
+        'Available commands:',
+        '- whoami    : show identity',
+        '- skills    : list core skills',
+        '- projects  : list highlighted projects',
+        '- contact   : contact info',
+        '- clear     : clear the terminal',
+      ],
+      whoami: ['ctxzero — Junior Penetration Tester', 'Focused: WebApp, Network, Active Directory'],
+      skills: [
+        'Web App: Burp Suite, OWASP, SQLi/XSS, Manual Exploits',
+        'Network: Nmap, SMB, Pivoting, Port/Service enumeration',
+        'Active Directory: BloodHound, Kerberoast, AS-REP roasting',
+        'Scripting: Python, Bash, PowerShell'
+      ],
+      projects: [
+        'Interactive Pentest Portfolio — https://github.com/ctxzero',
+        'THM Labs Collection — https://tryhackme.com/p/ctxzero'
+      ],
+      contact: [
+        'Email: ZeroExploit.business@proton.me',
+        'Discord: ctxzero',
+        'GitHub: https://github.com/ctxzero'
+      ]
+    };
+
+    function handleCommand(raw) {
+      const cmd = raw.trim().toLowerCase();
+      if (!cmd) return;
+      writeLine('$ ' + raw, 'term-line text-slate-300');
+      if (cmd === 'clear') {
+        terminal.innerHTML = '';
+        return;
+      }
+      if (responses[cmd]) {
+        responses[cmd].forEach(line => writeLine(line));
+      } else {
+        writeLine(`Unknown command: ${cmd}`);
+        writeLine(`Type 'help' to see available commands.`);
+      }
+    }
+
+    // submit on Enter
+    input.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        handleCommand(input.value);
+        input.value = '';
+      } else if (e.key === 'c' && (e.ctrlKey || e.metaKey)) {
+        // Ctrl+C visual
+        writeLine('^C');
+        input.value = '';
+      }
+    });
+
+    // focus input on click anywhere in terminal area (UX)
+    terminal.addEventListener('click', () => input.focus());
+    input.focus();
   </script>
 </body>
 </html>
