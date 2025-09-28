@@ -1,19 +1,50 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>ctxzero — Portfolio</title>
+
+<!-- Particles.js CDN -->
+<script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+
 <style>
-body {
-  margin: 0;
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: monospace;
-  color: #0f0;
-  background: linear-gradient(-45deg, #0f0, #050, #020, #000);
-  background-size: 400% 400%;
-  animation: gradientBG 15s ease infinite;
-}
-@keyframes gradientBG {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-</style>
+  :root{
+    --fg: #e6f7ff;
+    --muted: #bcd8ff;
+  }
+  html,body{height:100%;margin:0;font-family:Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;}
+  /* animated gradient background */
+  .bg {
+    position:fixed; inset:0; z-index:-2;
+    background: linear-gradient(120deg,#0f4bff 0%, #8a2be2 50%, #ff416c 100%);
+    background-size: 400% 400%;
+    animation: bgAnim 12s ease infinite;
+    filter: saturate(1.05) contrast(1.02);
+  }
+  @keyframes bgAnim{
+    0%{background-position:0% 50%;}
+    50%{background-position:100% 50%;}
+    100%{background-position:0% 50%;}
+  }
+
+  /* particles container (canvas from particles.js) */
+  #particles-js{ position:fixed; inset:0; z-index:-1; width:100%; height:100%; }
+
+  /* layout */
+  .wrap{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:3rem;
+    box-sizing:border-box;
+    color:var(--fg);
+    text-align:center;
+  }
+
+  .card{
+    max-width:920px;
+    width:100%;
+    background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
+    border: 1px solid rgba(255,255,255,0.06
