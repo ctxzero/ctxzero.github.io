@@ -1,67 +1,263 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ctxzero Portfolio</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>ctxzero — Junior Penetration Tester</title>
+
+  <!-- Tailwind CDN (fast prototyping) -->
   <script src="https://cdn.tailwindcss.com"></script>
+
   <style>
-    @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-    .fade-up { animation: fadeUp 0.8s ease forwards; }
-    @keyframes blink { 50% { opacity: 0; } }
-    .typing::after { content: ''; display: inline-block; width: 8px; height: 18px; margin-left: 6px; background: linear-gradient(90deg, rgba(255,255,255,0.9), rgba(255,255,255,0.2)); animation: blink 1s steps(2, start) infinite; }
+    /* subtle glass + typography */
+    :root{
+      --accent: #12b981; /* emerald */
+      --muted: rgba(255,255,255,0.06);
+    }
+    html,body,#app { height:100%; }
+    body{
+      background: #05060a; /* fallback */
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      color: #e6eef3;
+    }
+
+    /* canvas sits behind content */
+    #bg-canvas { position: fixed; inset:0; z-index: 0; }
+
+    /* main container above canvas */
+    #app { position: relative; z-index: 10; }
+
+    /* subtle glass panels */
+    .glass {
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border: 1px solid rgba(255,255,255,0.04);
+      backdrop-filter: blur(6px) saturate(120%);
+    }
+
+    /* terminal typing cursor */
+    .typing::after {
+      content:'';
+      display:inline-block;
+      width:8px;
+      height:18px;
+      margin-left:8px;
+      background:linear-gradient(90deg, rgba(255,255,255,0.95), rgba(255,255,255,0.15));
+      animation: blink 1s steps(2,start) infinite;
+      vertical-align:middle;
+    }
+    @keyframes blink{50%{opacity:0}}
+
+    /* small hover effects */
+    .btn-ghost:hover { transform: translateY(-3px); box-shadow: 0 8px 30px rgba(0,0,0,0.4); }
+    .card:hover { transform: translateY(-6px); box-shadow: 0 18px 50px rgba(2,6,23,0.6); }
+
+    /* responsive tweaks */
+    @media (max-width: 900px){
+      .hero-grid { grid-template-columns: 1fr; gap:1.25rem; }
+    }
   </style>
 </head>
-<body class="bg-slate-900 text-slate-100 font-sans">
-  <header class="max-w-6xl mx-auto px-6 py-8 flex items-center justify-between fade-up">
-    <h1 class="text-3xl font-bold">ctxzero</h1>
-    <nav class="flex gap-3">
-      <a href="https://github.com/ctxzero" target="_blank" class="hover:underline">GitHub</a>
-      <a href="mailto:ZeroExploit.business@proton.me" class="hover:underline">Email</a>
-    </nav>
-  </header>
+<body>
+  <!-- animated "hacker" background canvas -->
+  <canvas id="bg-canvas"></canvas>
 
-  <main class="max-w-6xl mx-auto px-6 py-8 space-y-8">
-    <section class="fade-up">
-      <h2 class="text-xl font-semibold">Junior Penetration Tester</h2>
-      <p class="mt-2">Focused on Web Application, Network and Active Directory Pentesting. Open to Junior Roles.</p>
-      <div class="mt-4 flex flex-wrap gap-2">
-        <span class="px-3 py-1 rounded-full bg-white/10">Web App Pentesting</span>
-        <span class="px-3 py-1 rounded-full bg-white/10">Network</span>
-        <span class="px-3 py-1 rounded-full bg-white/10">Active Directory</span>
-        <span class="px-3 py-1 rounded-full bg-white/10">CTF / TryHackMe</span>
+  <div id="app" class="min-h-screen flex flex-col">
+    <!-- NAV -->
+    <header class="max-w-6xl mx-auto w-full px-6 py-6 flex items-center justify-between">
+      <div class="flex items-center gap-4">
+        <div class="w-12 h-12 rounded-2xl flex items-center justify-center bg-[linear-gradient(135deg,#0ea5a3,#06b6d4)] text-slate-900 font-mono font-bold shadow-2xl">CZ</div>
+        <div>
+          <div class="text-lg font-semibold">ctxzero</div>
+          <div class="text-xs text-slate-400">Junior Penetration Tester</div>
+        </div>
       </div>
-    </section>
 
-    <section class="fade-up">
-      <h3 class="font-semibold">Highlighted Projects</h3>
-      <ul class="mt-3 space-y-2">
-        <li><a href="https://github.com/ctxzero" target="_blank" class="hover:underline">Interactive Pentest Portfolio (this site) - React, Tailwind, Framer Motion</a></li>
-        <li><a href="https://tryhackme.com/p/ctxzero" target="_blank" class="hover:underline">TryHackMe Labs Collection - Recon & Scripting</a></li>
-      </ul>
-    </section>
+      <nav class="flex items-center gap-3">
+        <a class="text-sm text-slate-300 hover:text-white" href="https://github.com/ctxzero" target="_blank">GitHub</a>
+        <a class="text-sm text-slate-300 hover:text-white" href="https://tryhackme.com/p/ctxzero" target="_blank">TryHackMe</a>
+        <a class="text-sm px-3 py-2 rounded-lg glass btn-ghost" href="mailto:ZeroExploit.business@proton.me">Contact</a>
+      </nav>
+    </header>
 
-    <section class="fade-up">
-      <h3 class="font-semibold">Terminal Demo</h3>
-      <pre class="bg-black/80 p-4 rounded-lg font-mono text-sm overflow-x-auto mt-2">
+    <!-- HERO -->
+    <main class="max-w-6xl mx-auto px-6 flex-1 w-full">
+      <section class="grid hero-grid lg:grid-cols-2 gap-8 items-start">
+        <div class="space-y-6">
+          <div class="p-6 rounded-2xl glass">
+            <h1 class="text-4xl lg:text-5xl font-extrabold tracking-tight">
+              Hi — I’m <span style="color:var(--accent)">ctxzero</span>
+            </h1>
+            <p class="mt-3 text-slate-300 max-w-xl leading-relaxed">
+              Junior Penetration Tester focused on <strong>Web Application</strong>, <strong>Network</strong> and <strong>Active Directory</strong> pentesting. I deliver reproducible reports, automate reconnaissance and love converting noisy signals into reliable exploits. Open to Junior roles.
+            </p>
+
+            <div class="mt-5 flex flex-wrap gap-3">
+              <a href="https://github.com/ctxzero" target="_blank" class="px-4 py-2 rounded-lg text-sm glass">View code</a>
+              <a href="https://tryhackme.com/p/ctxzero" target="_blank" class="px-4 py-2 rounded-lg text-sm glass">TryHackMe</a>
+              <a href="mailto:ZeroExploit.business@proton.me" class="px-4 py-2 rounded-lg text-sm" style="background:var(--accent); color:#021013">Contact</a>
+            </div>
+
+            <div class="mt-6 flex flex-wrap gap-2">
+              <span class="px-3 py-1 rounded-full text-xs bg-white/6">Web App Pentesting</span>
+              <span class="px-3 py-1 rounded-full text-xs bg-white/6">Network</span>
+              <span class="px-3 py-1 rounded-full text-xs bg-white/6">Active Directory</span>
+              <span class="px-3 py-1 rounded-full text-xs bg-white/6">CTF / TryHackMe</span>
+            </div>
+          </div>
+
+          <!-- terminal mock with typed line -->
+          <div class="p-4 rounded-2xl glass font-mono text-sm">
+            <div class="flex items-center justify-between">
+              <div class="flex gap-2 items-center">
+                <span class="w-2 h-2 rounded-full bg-red-500"></span>
+                <span class="w-2 h-2 rounded-full bg-yellow-400"></span>
+                <span class="w-2 h-2 rounded-full bg-green-500"></span>
+                <div class="ml-3 text-xs text-slate-400">interactive demo</div>
+              </div>
+              <div class="text-xs text-slate-400">local</div>
+            </div>
+
+            <pre id="terminal" class="mt-3 text-slate-200/90 leading-6"> 
 $ nmap -A target.example.com
-Starting Nmap 7.95 ( https://nmap.org ) at 2025-09-28
-Interesting ports on 10.10.10.5: 22/tcp open ssh
-$ gobuster dir -u https://target.example.com -w /usr/share/wordlists/rockyou.txt
-Found: /admin (Status: 200)
-$ python3 recon.py --target target.example.com <span class="typing">_</span>
-      </pre>
-    </section>
+Starting Nmap 7.95 at 2025-09-28
+22/tcp open ssh
+80/tcp open http
+$ gobuster dir -u https://target.example.com -w /usr/share/wordlists/raft-medium.txt
+Found: /admin (200)
+$ python3 recon.py --target target.example.com <span class="typing"></span>
+            </pre>
+          </div>
+        </div>
 
-    <section class="fade-up">
-      <h3 class="font-semibold">Contact</h3>
-      <p>Email: <a href="mailto:ZeroExploit.business@proton.me" class="underline">ZeroExploit.business@proton.me</a></p>
-      <p>Discord: <span class="font-mono">ctxzero</span></p>
-    </section>
-  </main>
+        <!-- right column: cards -->
+        <aside class="space-y-6">
+          <div class="p-6 rounded-2xl glass card transition-transform duration-300">
+            <h4 class="font-semibold">Core Skills</h4>
+            <div class="mt-4 text-sm text-slate-300 grid grid-cols-1 gap-2">
+              <div><strong>Web App:</strong> Burp Suite, OWASP, Manual Exploits</div>
+              <div><strong>Network:</strong> Nmap, SMB, Pivoting</div>
+              <div><strong>Active Directory:</strong> BloodHound, Kerberoast, AS-REP</div>
+              <div><strong>Scripting:</strong> Python, Bash, PowerShell</div>
+            </div>
+          </div>
 
-  <footer class="mt-12 border-t border-white/10 pt-8 pb-8 max-w-6xl mx-auto text-slate-400 text-xs text-center">
-    © 2025 ctxzero — Junior Penetration Tester
-  </footer>
+          <div class="p-6 rounded-2xl glass card transition-transform duration-300">
+            <h4 class="font-semibold">Highlighted Projects</h4>
+            <ul class="mt-4 space-y-3 text-sm">
+              <li>
+                <a class="block p-3 rounded-md hover:bg-white/4 transition" href="https://github.com/ctxzero" target="_blank">
+                  <div class="flex justify-between items-start">
+                    <div>
+                      <div class="font-medium">Interactive Pentest Portfolio</div>
+                      <div class="text-xs text-slate-300">Animated portfolio with demos and contact hooks</div>
+                    </div>
+                    <div class="text-xs text-slate-400">React · Tailwind</div>
+                  </div>
+                </a>
+              </li>
+
+              <li>
+                <a class="block p-3 rounded-md hover:bg-white/4 transition" href="https://tryhackme.com/p/ctxzero" target="_blank">
+                  <div class="flex justify-between items-start">
+                    <div>
+                      <div class="font-medium">THM Labs Collection</div>
+                      <div class="text-xs text-slate-300">Curated notes & solved boxes</div>
+                    </div>
+                    <div class="text-xs text-slate-400">Recon · Scripting</div>
+                  </div>
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <div class="p-6 rounded-2xl glass">
+            <h4 class="font-semibold">Open to Junior Roles</h4>
+            <p class="mt-2 text-sm text-slate-300">Ready to join a hands-on team — I deliver reports, reproducible PoCs and automated recon scripts.</p>
+            <div class="mt-4 flex gap-2">
+              <a href="mailto:ZeroExploit.business@proton.me" class="px-3 py-2 rounded-lg" style="background:var(--accent); color:#021013">Hire me</a>
+              <a href="#" class="px-3 py-2 rounded-lg glass">Download resume</a>
+            </div>
+          </div>
+        </aside>
+      </section>
+
+      <!-- contact footer -->
+      <section class="mt-10 mb-16 text-center">
+        <div class="max-w-2xl mx-auto text-slate-400 text-sm">
+          <div>Contact — Email: <a class="underline" href="mailto:ZeroExploit.business@proton.me">ZeroExploit.business@proton.me</a> · Discord: <span class="font-mono">ctxzero</span></div>
+          <div class="mt-6 text-xs">© <span id="year"></span> ctxzero — Junior Penetration Tester</div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- --------------------------
+       Background animation script
+       - Matrix-style falling glyphs + subtle particles
+       - Tuned to be professional and subtle
+       --------------------------->
+  <script>
+    // set year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Canvas matrix/particle animation
+    const canvas = document.getElementById('bg-canvas');
+    const ctx = canvas.getContext('2d');
+    let W, H, cols, size, drops;
+
+    function resize() {
+      W = canvas.width = innerWidth;
+      H = canvas.height = innerHeight;
+      size = Math.max(12, Math.floor(W / 120));
+      cols = Math.floor(W / size);
+      drops = new Array(cols).fill(0).map(() => Math.random() * H);
+    }
+    window.addEventListener('resize', resize);
+    resize();
+
+    // glyph set: mix numbers, hex, and subtle code-like chars
+    const glyphs = ('0123456789abcdef<>/{}[]()@#$%^&*-_+=:;,.').split('');
+
+    function draw() {
+      // fade canvas with rgba to create trailing effect
+      ctx.fillStyle = 'rgba(5,6,10,0.12)';
+      ctx.fillRect(0,0,W,H);
+
+      ctx.font = `${size}px ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", monospace`;
+      for (let i=0;i<cols;i++){
+        const x = i * size;
+        let y = drops[i] * size;
+        const glyph = glyphs[Math.floor(Math.random() * glyphs.length)];
+        // bright for leading char, dim for trail
+        ctx.fillStyle = i%7===0 ? 'rgba(18,185,129,0.95)' : 'rgba(18,185,129,0.28)';
+        ctx.fillText(glyph, x, y);
+        drops[i] = (drops[i] + 0.5 + Math.random()*0.8);
+        if (drops[i] * size > H + 50) drops[i] = 0;
+      }
+
+      // subtle overlay particles (sparks)
+      for (let s=0; s<3; s++){
+        ctx.fillStyle = 'rgba(255,255,255,0.02)';
+        ctx.fillRect(Math.random()*W, Math.random()*H, 1 + Math.random()*2, 1 + Math.random()*2);
+      }
+
+      requestAnimationFrame(draw);
+    }
+    requestAnimationFrame(draw);
+
+    // small terminal typing simulation
+    (function simulateTyping(){
+      const t = document.querySelector('#terminal .typing');
+      if(!t) return;
+      const words = ['_', 'root@target:~$', 'recon running...', '_'];
+      let i=0;
+      setInterval(()=> {
+        t.textContent = words[i % words.length];
+        i++;
+      }, 900);
+    })();
+  </script>
 </body>
 </html>
