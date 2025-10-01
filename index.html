@@ -1,171 +1,365 @@
 <!doctype html>
-<html lang="en">
+<html lang="de">
 <head>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>ctxzero — Penetration Tester Portfolio</title>
-<meta name="description" content="Portfolio of ctxzero — Junior Penetration Tester specialising in Web, Network & AD security."/>
-<link rel="icon" href="favicon.ico"/>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>ctxzero — Junior Penetration Tester</title>
+<meta name="description" content="ctxzero — Junior Penetration Tester | Web, Network & Active Directory security. eJPT certified." />
+<link rel="icon" href="favicon.ico" />
 
+<!-- Tailwind (production: build a CSS bundle instead) -->
 <script src="https://cdn.tailwindcss.com"></script>
+
 <style>
-:root{
-  --accent:#00e0b8;
-  --bg:#0d1117;
-  --text:#f1f5f9;
-}
-html,body{
-  margin:0; font-family:Inter,ui-sans-serif,system-ui; background:var(--bg); color:var(--text);
-  scroll-behavior:smooth;
-}
-a{transition:.2s}
-a:hover{color:var(--accent)}
-.btn{
-  display:inline-block; background:var(--accent); color:#000; font-weight:600;
-  padding:.6rem 1.2rem; border-radius:.7rem; transition:.3s;
-}
-.btn:hover{transform:translateY(-2px); box-shadow:0 6px 16px rgba(0,224,184,.3)}
-.section{padding:5rem 1rem}
-.card{
-  background:rgba(255,255,255,0.03);
-  border:1px solid rgba(255,255,255,0.05);
-  border-radius:1rem; padding:2rem; backdrop-filter:blur(6px);
-}
-h2{font-size:2rem;font-weight:700;margin-bottom:1.5rem}
-h3{font-weight:600;font-size:1.25rem;margin-bottom:.5rem}
-footer{background:#080c11;color:#94a3b8;text-align:center;padding:2rem;font-size:.85rem}
+  :root{
+    --bg:#0b0f14;
+    --muted:#9fb8a8;
+    --text:#e6eef3;
+    --accent:#00e0b8;
+    --glass: rgba(255,255,255,0.02);
+  }
+  html,body{height:100%;margin:0;background:var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial; -webkit-font-smoothing:antialiased;}
+  a { color:inherit; }
+  .glass { background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); border:1px solid rgba(255,255,255,0.04); backdrop-filter: blur(6px) saturate(115%); border-radius: 14px; }
+  .card { padding: 1.25rem; border-radius: 12px; background: linear-gradient(180deg, rgba(255,255,255,0.015), rgba(255,255,255,0.01)); border:1px solid rgba(255,255,255,0.03); }
+  .btn { background:var(--accent); color:#00120b; padding:.64rem 1rem; border-radius:.6rem; font-weight:600; display:inline-flex; gap:.6rem; align-items:center; }
+  .muted { color:var(--muted) }
+  .accent { color:var(--accent) }
+  .fade-up { opacity:0; transform: translateY(18px); transition: all .6s cubic-bezier(.2,.9,.2,1); }
+  .fade-up.in { opacity:1; transform: translateY(0); }
+  .kbd { background:#071018; padding:.15rem .4rem; border-radius:.35rem; border:1px solid rgba(255,255,255,0.02); font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", monospace; font-size:.82rem }
+  .tag { display:inline-flex; gap:.5rem; align-items:center; padding:.35rem .6rem; border-radius:999px; background: rgba(255,255,255,0.015); border:1px solid rgba(255,255,255,0.02); font-size:.85rem; color:var(--muted); }
+  /* small responsive helpers */
+  @media (max-width:900px){ .cols-3 { grid-template-columns: 1fr; } .hero-grid { grid-template-columns: 1fr; text-align:center } .hero-cta { justify-content:center } }
 </style>
 </head>
-<body>
+<body class="antialiased">
 
 <!-- NAV -->
-<header class="fixed top-0 inset-x-0 bg-black/40 backdrop-blur-md z-50">
-  <nav class="max-w-6xl mx-auto px-6 py-3 flex justify-between items-center">
-    <span class="font-bold text-lg tracking-wide">ctxzero</span>
-    <div class="flex gap-6 text-sm">
-      <a href="#about">About</a>
-      <a href="#skills">Skills</a>
-      <a href="#projects">Projects</a>
-      <a href="#certs">Certifications</a>
-      <a href="#contact" class="btn text-sm">Contact</a>
+<header class="fixed top-0 left-0 right-0 z-50 backdrop-blur bg-black/30">
+  <div class="max-w-6xl mx-auto px-6 py-3 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <div class="text-lg font-semibold">ctxzero</div>
+      <div class="muted text-xs">Junior Penetration Tester</div>
     </div>
-  </nav>
+    <nav class="flex items-center gap-4 text-sm muted">
+      <a href="#about" class="hover:text-white">About</a>
+      <a href="#skills" class="hover:text-white">Skills</a>
+      <a href="#projects" class="hover:text-white">Projects</a>
+      <a href="#certs" class="hover:text-white">Certs</a>
+      <a href="#contact" class="btn text-sm">Contact</a>
+    </nav>
+  </div>
 </header>
 
-<!-- HERO -->
-<section class="section pt-28 max-w-5xl mx-auto text-center">
-  <h1 class="text-4xl md:text-5xl font-extrabold leading-tight">
-    Hi, I’m <span style="color:var(--accent)">ctxzero</span>
-  </h1>
-  <p class="mt-6 text-lg text-slate-300 leading-relaxed max-w-3xl mx-auto">
-    Junior Penetration Tester specialising in <strong>Web Applications</strong>,
-    <strong>Network</strong> & <strong>Active Directory</strong> security.  
-    My focus: reproducible exploits, clear documentation, actionable remediation.
-  </p>
-  <div class="mt-8">
-    <a class="btn" href="#contact">Contact</a>
-  </div>
-</section>
+<main class="pt-20">
 
-<!-- ABOUT -->
-<section id="about" class="section bg-black/20">
-  <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-10">
-    <div class="card">
-      <h2>About Me</h2>
-      <p class="text-slate-300 leading-relaxed">
-        Self-taught pentester from Germany, passionate about breaking & fixing systems.
-        I focus on practical exploitation, thorough reporting and smooth collaboration
-        with blue-teams to raise security maturity. Prefer remote-first environments.
+  <!-- HERO -->
+  <section class="max-w-6xl mx-auto px-6 py-12 hero-grid grid lg:grid-cols-2 gap-10 items-center">
+    <div class="space-y-6">
+      <div class="tag">Web • Network • Active Directory</div>
+      <h1 class="text-4xl lg:text-5xl font-extrabold leading-tight">Ich bin <span class="accent">ctxzero</span><br><span class="text-xl muted font-medium">Ich breche Systeme, damit sie sicherer werden.</span></h1>
+
+      <p class="text-slate-300 max-w-2xl">
+        Junior Penetration Tester mit Fokus auf Web-Applikationen, Netzwerke und Active Directory.
+        Stärke: praktische PoCs, reproduzierbare Reports und effiziente Recon-Automatisierung.
+        Remote-bereit, teamfähig und CTF-süchtig.
       </p>
-    </div>
-    <div class="card">
-      <h2>Approach & Values</h2>
-      <ul class="list-disc list-inside text-slate-300 space-y-2 text-sm">
-        <li>Method-driven: Recon → Exploitation → Reporting</li>
-        <li>Transparent & reproducible PoCs</li>
-        <li>Minimal attack surface exposure during testing</li>
-        <li>Continuous learning through CTFs & labs</li>
-      </ul>
-    </div>
-  </div>
-</section>
 
-<!-- SKILLS -->
-<section id="skills" class="section">
-  <div class="max-w-5xl mx-auto">
-    <h2>Technical Skills</h2>
-    <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-6 mt-8">
-      <div class="card"><h3>Web App Pentesting</h3><p class="text-sm text-slate-400">OWASP Top10, BurpSuite, RCE/SSRF/SQLi/XSS, auth-bypass.</p></div>
-      <div class="card"><h3>Network & AD</h3><p class="text-sm text-slate-400">Nmap, Responder, Kerberoasting, Pivoting, Lateral Movement.</p></div>
-      <div class="card"><h3>Post-Exploitation</h3><p class="text-sm text-slate-400">Linux & Windows priv-esc, Impacket, BloodHound, Mimikatz.</p></div>
-      <div class="card"><h3>Languages & Tools</h3><p class="text-sm text-slate-400">Python, Bash, PowerShell, Metasploit, CrackMapExec.</p></div>
-      <div class="card"><h3>CTFs & Labs</h3><p class="text-sm text-slate-400">HackTheBox, TryHackMe, custom AD-labs.</p></div>
-      <div class="card"><h3>Reporting</h3><p class="text-sm text-slate-400">Markdown & LaTeX reports, CVSS scoring, remediation guidance.</p></div>
-    </div>
-  </div>
-</section>
+      <div class="flex gap-3 items-center hero-cta">
+        <a href="#contact" class="btn">Contact</a>
+        <a href="https://certs.ine.com/332e236c-0c13-46b2-9f85-829313d2dd27#acc.JqzwKTYI" target="_blank" class="card inline-flex items-center gap-3">
+          <img src="ejpt-badge.png" alt="eJPT badge" class="w-8 h-8 rounded-md object-contain" />
+          <div>
+            <div class="font-medium">eJPT</div>
+            <div class="muted text-xs">INE — Junior Penetration Tester</div>
+          </div>
+        </a>
+      </div>
 
-<!-- PROJECTS -->
-<section id="projects" class="section bg-black/20">
-  <div class="max-w-5xl mx-auto">
-    <h2>Highlighted Projects</h2>
-    <div class="grid md:grid-cols-3 gap-6 mt-8">
-      <div class="card">
-        <h3>Recon Automation</h3>
-        <p class="text-sm text-slate-400">Custom Python pipeline for subdomain enum, screenshots & vuln-scan integration.</p>
-        <a href="https://github.com/ctxzero/recon-toolkit" target="_blank" class="mt-3 inline-block text-[var(--accent)] text-sm">View on GitHub →</a>
-      </div>
-      <div class="card">
-        <h3>Internal AD Lab</h3>
-        <p class="text-sm text-slate-400">Built Active Directory attack lab for Kerberoast, AS-REP roast, delegation abuse.</p>
-      </div>
-      <div class="card">
-        <h3>Write-Ups & Blog</h3>
-        <p class="text-sm text-slate-400">Curated CTF & real-world exploit write-ups focused on methodology.</p>
-        <a href="https://github.com/ctxzero/writeups" target="_blank" class="mt-3 inline-block text-[var(--accent)] text-sm">Browse →</a>
+      <div class="flex flex-wrap gap-2">
+        <div class="card tag">100+ Boxes (TryHackMe/CTF)</div>
+        <div class="card tag">Automation & Recon Tooling</div>
+        <div class="card tag">Reproducible PoCs</div>
       </div>
     </div>
-  </div>
-</section>
 
-<!-- CERTIFICATIONS -->
-<section id="certs" class="section">
-  <div class="max-w-4xl mx-auto card">
-    <h2>Certifications</h2>
-    <div class="flex flex-wrap gap-6 items-center mt-4">
-      <a href="https://certs.ine.com/332e236c-0c13-46b2-9f85-829313d2dd27#acc.JqzwKTYI"
-         target="_blank"
-         class="flex items-center gap-3 bg-black/40 px-4 py-3 rounded-lg border border-white/10 hover:border-[var(--accent)] transition">
-         <img src="ejpt-badge.png" alt="eJPT badge" class="w-10 h-10"/>
-         <span class="font-medium">eJPT – INE</span>
-      </a>
-      <div>
-        <ul class="list-disc list-inside text-sm text-slate-300 space-y-1">
-          <li>TryHackMe Jr Penetration Tester Path</li>
-          <li>TryHackMe Offensive Pentesting Path</li>
-          <li>Currently preparing for HTB CPTS → OSCP</li>
+    <!-- right: quick stats / activity -->
+    <aside class="space-y-4">
+      <div class="card fade-up" id="activity-card" style="min-height:220px;">
+        <div class="flex items-center justify-between">
+          <div>
+            <div class="muted text-xs">Activity</div>
+            <div class="text-lg font-semibold">Recent contributions & labs</div>
+          </div>
+          <div class="muted text-sm">Remote</div>
+        </div>
+
+        <div class="mt-4 grid grid-cols-2 gap-3">
+          <!-- GitHub chart (external service) -->
+          <div class="col-span-2">
+            <!-- ghchart: replace 'ctxzero' if your GitHub username differs -->
+            <img src="https://ghchart.rshah.org/ctxzero" alt="GitHub contribution chart" class="w-full h-28 object-cover rounded-md border border-white/5" />
+          </div>
+
+          <div class="flex flex-col gap-1">
+            <div class="muted text-xs">TryHackMe</div>
+            <a href="https://tryhackme.com/p/ctxzero" target="_blank" class="font-medium text-sm">ctxzero — Profile</a>
+            <div class="muted text-xs">Rank / Boxes solved</div>
+          </div>
+
+          <div class="flex flex-col gap-1">
+            <div class="muted text-xs">CTF</div>
+            <div class="font-medium text-sm">100+ boxes</div>
+            <div class="muted text-xs">Write-ups available</div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="card fade-up">
+        <div class="muted text-xs">Top Tools</div>
+        <div class="mt-3 flex flex-wrap gap-2">
+          <div class="tag">Burp Suite</div>
+          <div class="tag">Nmap</div>
+          <div class="tag">Impacket</div>
+          <div class="tag">BloodHound</div>
+          <div class="tag">Python</div>
+          <div class="tag">PowerShell</div>
+        </div>
+      </div>
+    </aside>
+  </section>
+
+  <!-- ABOUT + TIMELINE -->
+  <section id="about" class="max-w-6xl mx-auto px-6 py-10">
+    <div class="grid lg:grid-cols-3 gap-6">
+      <div class="card fade-up lg:col-span-2">
+        <h2 class="text-2xl font-semibold">Kurz & Knapp</h2>
+        <p class="muted mt-2">Hands-on Penetration Tester, spezialisiert auf Web, Netzwerke und Active Directory. Ich liefere technische PoCs und gut strukturierte Reports mit Priorisierung und Remediation-Schritten.</p>
+
+        <div class="mt-6 grid sm:grid-cols-2 gap-4">
+          <div>
+            <h3 class="font-semibold">What I do</h3>
+            <ul class="mt-2 text-sm muted list-disc list-inside">
+              <li>Web Application Testing (OWASP Top10, auth flows)</li>
+              <li>Active Directory assessments</li>
+              <li>Network & perimeter testing</li>
+              <li>Recon automation & tooling</li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 class="font-semibold">Deliverables</h3>
+            <ul class="mt-2 text-sm muted list-disc list-inside">
+              <li>Executive Summary + Technical Annex</li>
+              <li>CVSS / Risk Prioritization</li>
+              <li>PoCs + remediation guidance</li>
+              <li>Optional short posture workshop</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="card fade-up">
+        <h3 class="font-semibold">Meine Reise</h3>
+        <ol class="mt-4 space-y-3 text-sm muted">
+          <li><strong>2021</strong> — Erste CTFs & Grundlagen</li>
+          <li><strong>2023</strong> — TryHackMe-Poweruser (100+ Boxes)</li>
+          <li><strong>2025</strong> — eJPT Certification</li>
+          <li><strong>Now</strong> — Ziele: HTB CPTS, OSCP und echte Pentest-Erfahrung</li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES / METHODOLOGY -->
+  <section class="max-w-6xl mx-auto px-6 py-10">
+    <div class="grid lg:grid-cols-3 gap-6">
+      <div class="card fade-up">
+        <h3 class="font-semibold">Services</h3>
+        <ul class="mt-4 muted text-sm space-y-2">
+          <li><strong>Web Application Pentest</strong> — Auth, business-logic, server side issues.</li>
+          <li><strong>Active Directory Assessment</strong> — Kerberoast, delegation, lateral movement.</li>
+          <li><strong>Network & Perimeter</strong> — Scanning, service exploitation, routing checks.</li>
         </ul>
       </div>
+
+      <div class="card fade-up">
+        <h3 class="font-semibold">Methodology</h3>
+        <div class="mt-4 text-sm muted space-y-3">
+          <div><span class="kbd">1</span> Recon & Enumeration — passive + active pipelines</div>
+          <div><span class="kbd">2</span> Exploitation — PoC development, careful containment</div>
+          <div><span class="kbd">3</span> Reporting — prioritized, actionable remediation</div>
+        </div>
+      </div>
+
+      <div class="card fade-up">
+        <h3 class="font-semibold">Engagement Options</h3>
+        <div class="mt-4 text-sm muted space-y-2">
+          <div><strong>Baseline</strong> — small surface scan + executive report</div>
+          <div><strong>Standard</strong> — full web & network assessment</div>
+          <div><strong>Deep</strong> — AD + extended posture testing</div>
+        </div>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- CONTACT -->
-<section id="contact" class="section bg-black/20">
-  <div class="max-w-3xl mx-auto text-center">
-    <h2>Contact</h2>
-    <p class="text-slate-300 mb-8">For professional opportunities, collaborations or questions:</p>
-    <a class="btn" href="mailto:ZeroExploit.business@proton.me">ZeroExploit.business@proton.me</a>
-    <div class="mt-6 flex justify-center gap-6 text-slate-400 text-sm">
-      <a href="https://github.com/ctxzero" target="_blank">GitHub</a>
-      <a href="https://tryhackme.com/p/ctxzero" target="_blank">TryHackMe</a>
-      <a href="https://www.linkedin.com/in/luis-schlegel-a38937387/" target="_blank">LinkedIn</a>
+  <!-- FEATURED PROJECTS -->
+  <section id="projects" class="max-w-6xl mx-auto px-6 py-10">
+    <div class="flex items-center justify-between">
+      <h2 class="text-2xl font-semibold">Featured Projects</h2>
+      <div class="muted text-sm">Ausgewählte Repos & Labs</div>
     </div>
-  </div>
-</section>
 
-<footer>© <span id="year"></span> ctxzero — Penetration Tester Portfolio</footer>
-<script>document.getElementById('year').textContent=new Date().getFullYear()</script>
+    <div class="mt-6 grid cols-3 grid-cols-3 gap-6">
+      <!-- Project 1 -->
+      <article class="card fade-up">
+        <h3 class="font-semibold">Recon Automation Toolkit</h3>
+        <p class="mt-2 muted text-sm">Python pipeline: passive recon, subdomain enumeration, screenshot + vuln integration (modular).</p>
+        <div class="mt-4 flex items-center gap-3">
+          <a class="text-sm accent" href="https://github.com/ctxzero/recon-toolkit" target="_blank">GitHub →</a>
+          <span class="muted text-xs">Updated recently</span>
+        </div>
+      </article>
 
+      <!-- Project 2 -->
+      <article class="card fade-up">
+        <h3 class="font-semibold">AD Attack Playground</h3>
+        <p class="mt-2 muted text-sm">Internal lab for Kerberoasting, constrained delegation and post-exploitation workflows.</p>
+        <div class="mt-4 flex items-center gap-3">
+          <a class="text-sm accent" href="#" target="_blank" aria-disabled="true">Private repo</a>
+          <span class="muted text-xs">Available on request</span>
+        </div>
+      </article>
+
+      <!-- Project 3 -->
+      <article class="card fade-up">
+        <h3 class="font-semibold">CTF Writeups</h3>
+        <p class="mt-2 muted text-sm">Methodical writeups for web and AD boxes — focus on steps, tools and mitigations.</p>
+        <div class="mt-4 flex items-center gap-3">
+          <a class="text-sm accent" href="https://github.com/ctxzero/writeups" target="_blank">Browse →</a>
+          <span class="muted text-xs">Searchable & reproducible</span>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- CTF / STATS -->
+  <section class="max-w-6xl mx-auto px-6 py-10 bg-black/10">
+    <div class="grid md:grid-cols-3 gap-6">
+      <div class="card fade-up">
+        <h3 class="font-semibold">CTF & Labs</h3>
+        <p class="mt-2 muted text-sm">100+ boxes solved. Fokus: Web + AD.</p>
+        <div class="mt-4">
+          <a href="https://tryhackme.com/p/ctxzero" target="_blank" class="text-sm accent">TryHackMe Profile →</a>
+        </div>
+      </div>
+
+      <div class="card fade-up">
+        <h3 class="font-semibold">GitHub Activity</h3>
+        <p class="muted text-sm mt-2">Regelmäßige contributions, tooling & writeups.</p>
+        <img src="https://ghchart.rshah.org/ctxzero" alt="GitHub contributions" class="mt-4 w-full h-28 object-cover rounded-md border border-white/5" />
+      </div>
+
+      <div class="card fade-up">
+        <h3 class="font-semibold">Public Proofs</h3>
+        <p class="muted text-sm mt-2">Select PoCs and writeups illustrating methodology and remediation advice.</p>
+        <div class="mt-4 flex gap-3">
+          <a href="https://github.com/ctxzero/writeups" target="_blank" class="tag">Writeups</a>
+          <a href="#" class="tag" aria-disabled="true">PoCs (private)</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CERTIFICATIONS -->
+  <section id="certs" class="max-w-6xl mx-auto px-6 py-10">
+    <div class="card fade-up">
+      <h2 class="text-2xl font-semibold">Certifications & Learning</h2>
+      <div class="mt-4 grid md:grid-cols-3 gap-6 items-center">
+        <div class="flex items-center gap-4">
+          <img src="ejpt-badge.png" alt="eJPT badge" class="w-16 h-16 object-contain rounded-md border border-white/5" />
+          <div>
+            <div class="font-medium">eJPT — INE</div>
+            <div class="muted text-sm">Validierbar: <a href="https://certs.ine.com/332e236c-0c13-46b2-9f85-829313d2dd27#acc.JqzwKTYI" target="_blank" class="accent">Zertifikat ansehen</a></div>
+          </div>
+        </div>
+
+        <div class="muted text-sm">
+          <ul class="list-disc list-inside space-y-1">
+            <li>TryHackMe — Jr Penetration Tester path</li>
+            <li>TryHackMe — Offensive Pentesting</li>
+            <li>Preparing: HTB CPTS → OSCP</li>
+          </ul>
+        </div>
+
+        <div class="text-sm muted">
+          <strong>Badges & Trainings</strong>
+          <div class="mt-2 flex gap-2 flex-wrap">
+            <div class="tag">TryHackMe</div>
+            <div class="tag">INE</div>
+            <div class="tag">HTB (soon)</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS (placeholder but pro-looking) -->
+  <section class="max-w-6xl mx-auto px-6 py-10">
+    <h2 class="text-2xl font-semibold">Recommendations</h2>
+    <div class="mt-6 grid md:grid-cols-3 gap-6">
+      <div class="card fade-up">
+        <div class="muted text-sm">Mentor — Senior Pentester</div>
+        <div class="mt-2 italic">"Sehr methodisch, liefert reproduzierbare PoCs und klare Reports. Gute Kommunikation mit Devs." — M. Müller</div>
+      </div>
+      <div class="card fade-up">
+        <div class="muted text-sm">CTF Teammate</div>
+        <div class="mt-2 italic">"Zuverlässig, stark beim Web-Recon. Gute Script-Tools." — A. Schmidt</div>
+      </div>
+      <div class="card fade-up">
+        <div class="muted text-sm">Course Instructor</div>
+        <div class="mt-2 italic">"Schnelle Lernkurve und ernsthafte Hands-On Skills." — J. Becker</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="max-w-6xl mx-auto px-6 py-12">
+    <div class="card fade-up text-center">
+      <h2 class="text-2xl font-semibold">Kontakt</h2>
+      <p class="muted mt-2">Für Jobs, Kooperationen oder Test-Engagements: kurze Mail reicht.</p>
+      <div class="mt-6 flex flex-col sm:flex-row gap-4 justify-center items-center">
+        <a class="btn" href="mailto:ZeroExploit.business@proton.me">ZeroExploit.business@proton.me</a>
+        <a class="card tag" href="https://github.com/ctxzero" target="_blank">GitHub</a>
+        <a class="card tag" href="https://tryhackme.com/p/ctxzero" target="_blank">TryHackMe</a>
+        <a class="card tag" href="https://www.linkedin.com/in/luis-schlegel-a38937387/" target="_blank">LinkedIn</a>
+      </div>
+
+      <div class="mt-6 muted text-sm">Alternativ: schick mir eine kurze DM auf LinkedIn — antworte meist innerhalb 48h.</div>
+    </div>
+  </section>
+
+  <footer class="mt-10 py-8 muted text-center">
+    © <span id="year"></span> ctxzero — Junior Penetration Tester • Built for recruiters & teams
+  </footer>
+</main>
+
+<!-- INTERACTIONS: reveal on scroll -->
+<script>
+  // set year
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // simple intersection reveal
+  const els = document.querySelectorAll('.fade-up');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if(e.isIntersecting){ e.target.classList.add('in'); obs.unobserve(e.target); }
+    });
+  }, { threshold: 0.12 });
+  els.forEach(el => obs.observe(el));
+</script>
 </body>
 </html>
