@@ -53,46 +53,39 @@ footer{background:#080c11;color:#94a3b8;text-align:center;padding:2rem;font-size
 </header>
 
 <!-- HERO -->
-<section class="section pt-28 max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
-  <div>
-    <h1 class="text-4xl md:text-5xl font-extrabold leading-tight">Hi, I’m <span style="color:var(--accent)">ctxzero</span></h1>
-    <p class="mt-6 text-lg text-slate-300 leading-relaxed">
-      Junior Penetration Tester focused on <strong>Web Applications</strong>,
-      <strong>Network & Active Directory</strong> security. I combine curiosity
-      with structured methodology to find real vulnerabilities and help companies
-      strengthen their defences.
-    </p>
-    <div class="mt-8 flex gap-4 flex-wrap">
-      <a class="btn" href="mailto:ZeroExploit.business@proton.me">Hire Me</a>
-      <a class="btn bg-transparent border border-[var(--accent)] text-[var(--accent)] hover:bg-[var(--accent)] hover:text-black"
-         href="resume.pdf" target="_blank">Download Resume</a>
-    </div>
-  </div>
-  <div class="flex justify-center">
-    <img src="portrait.jpg" alt="ctxzero portrait"
-         class="rounded-2xl w-64 h-64 object-cover border-4 border-[var(--accent)] shadow-xl"/>
+<section class="section pt-28 max-w-5xl mx-auto text-center">
+  <h1 class="text-4xl md:text-5xl font-extrabold leading-tight">
+    Hi, I’m <span style="color:var(--accent)">ctxzero</span>
+  </h1>
+  <p class="mt-6 text-lg text-slate-300 leading-relaxed max-w-3xl mx-auto">
+    Junior Penetration Tester specialising in <strong>Web Applications</strong>,
+    <strong>Network</strong> & <strong>Active Directory</strong> security.  
+    My focus: reproducible exploits, clear documentation, actionable remediation.
+  </p>
+  <div class="mt-8">
+    <a class="btn" href="#contact">Contact</a>
   </div>
 </section>
 
 <!-- ABOUT -->
 <section id="about" class="section bg-black/20">
-  <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-10 items-start">
+  <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-10">
     <div class="card">
       <h2>About Me</h2>
       <p class="text-slate-300 leading-relaxed">
-        I’m a self-taught security enthusiast turned Penetration Tester from Germany.
-        Fascinated by networks since I was 14, I focus on hands-on exploitation,
-        clear reporting and reproducible PoCs. I thrive in remote-first teams
-        and love building automation to make engagements faster and cleaner.
+        Self-taught pentester from Germany, passionate about breaking & fixing systems.
+        I focus on practical exploitation, thorough reporting and smooth collaboration
+        with blue-teams to raise security maturity. Prefer remote-first environments.
       </p>
     </div>
     <div class="card">
-      <h2>What I’m Looking For</h2>
-      <p class="text-slate-300 leading-relaxed">
-        An opportunity as a <strong>Junior Penetration Tester</strong> where I can
-        continue growing my skills in real-world assessments — especially in
-        cloud-connected networks and red-team style engagements.
-      </p>
+      <h2>Approach & Values</h2>
+      <ul class="list-disc list-inside text-slate-300 space-y-2 text-sm">
+        <li>Method-driven: Recon → Exploitation → Reporting</li>
+        <li>Transparent & reproducible PoCs</li>
+        <li>Minimal attack surface exposure during testing</li>
+        <li>Continuous learning through CTFs & labs</li>
+      </ul>
     </div>
   </div>
 </section>
@@ -102,12 +95,12 @@ footer{background:#080c11;color:#94a3b8;text-align:center;padding:2rem;font-size
   <div class="max-w-5xl mx-auto">
     <h2>Technical Skills</h2>
     <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-6 mt-8">
-      <div class="card"><h3>Web App Pentesting</h3><p class="text-sm text-slate-400">OWASP Top 10, Burp Suite, SSRF, RCE, SQLi, auth bypass.</p></div>
+      <div class="card"><h3>Web App Pentesting</h3><p class="text-sm text-slate-400">OWASP Top10, BurpSuite, RCE/SSRF/SQLi/XSS, auth-bypass.</p></div>
       <div class="card"><h3>Network & AD</h3><p class="text-sm text-slate-400">Nmap, Responder, Kerberoasting, Pivoting, Lateral Movement.</p></div>
-      <div class="card"><h3>Linux / Windows Exploitation</h3><p class="text-sm text-slate-400">Privilege escalation, misconfigs, post-exploitation automation.</p></div>
-      <div class="card"><h3>Languages & Tools</h3><p class="text-sm text-slate-400">Python, Bash, PowerShell, Metasploit, Impacket, BloodHound.</p></div>
-      <div class="card"><h3>CTFs & Labs</h3><p class="text-sm text-slate-400">Hack The Box, TryHackMe, custom lab building.</p></div>
-      <div class="card"><h3>Reporting</h3><p class="text-sm text-slate-400">Markdown, LaTeX, remediation guidance with CVSS scoring.</p></div>
+      <div class="card"><h3>Post-Exploitation</h3><p class="text-sm text-slate-400">Linux & Windows priv-esc, Impacket, BloodHound, Mimikatz.</p></div>
+      <div class="card"><h3>Languages & Tools</h3><p class="text-sm text-slate-400">Python, Bash, PowerShell, Metasploit, CrackMapExec.</p></div>
+      <div class="card"><h3>CTFs & Labs</h3><p class="text-sm text-slate-400">HackTheBox, TryHackMe, custom AD-labs.</p></div>
+      <div class="card"><h3>Reporting</h3><p class="text-sm text-slate-400">Markdown & LaTeX reports, CVSS scoring, remediation guidance.</p></div>
     </div>
   </div>
 </section>
@@ -115,20 +108,20 @@ footer{background:#080c11;color:#94a3b8;text-align:center;padding:2rem;font-size
 <!-- PROJECTS -->
 <section id="projects" class="section bg-black/20">
   <div class="max-w-5xl mx-auto">
-    <h2>Selected Projects</h2>
+    <h2>Highlighted Projects</h2>
     <div class="grid md:grid-cols-3 gap-6 mt-8">
       <div class="card">
-        <h3>Recon Automation Toolkit</h3>
-        <p class="text-sm text-slate-400">Python-based passive recon + subdomain enumeration pipeline.</p>
+        <h3>Recon Automation</h3>
+        <p class="text-sm text-slate-400">Custom Python pipeline for subdomain enum, screenshots & vuln-scan integration.</p>
         <a href="https://github.com/ctxzero/recon-toolkit" target="_blank" class="mt-3 inline-block text-[var(--accent)] text-sm">View on GitHub →</a>
       </div>
       <div class="card">
-        <h3>AD Attack Playground</h3>
-        <p class="text-sm text-slate-400">Lab for Kerberoasting, AS-REP Roasting, constrained delegation exploitation.</p>
+        <h3>Internal AD Lab</h3>
+        <p class="text-sm text-slate-400">Built Active Directory attack lab for Kerberoast, AS-REP roast, delegation abuse.</p>
       </div>
       <div class="card">
-        <h3>Write-ups</h3>
-        <p class="text-sm text-slate-400">Curated public write-ups for CTF boxes & web exploits.</p>
+        <h3>Write-Ups & Blog</h3>
+        <p class="text-sm text-slate-400">Curated CTF & real-world exploit write-ups focused on methodology.</p>
         <a href="https://github.com/ctxzero/writeups" target="_blank" class="mt-3 inline-block text-[var(--accent)] text-sm">Browse →</a>
       </div>
     </div>
@@ -139,20 +132,29 @@ footer{background:#080c11;color:#94a3b8;text-align:center;padding:2rem;font-size
 <section id="certs" class="section">
   <div class="max-w-4xl mx-auto card">
     <h2>Certifications</h2>
-    <ul class="grid sm:grid-cols-2 gap-4 mt-4 text-sm text-slate-300 list-disc list-inside">
-      <li>eJPT — INE</li>
-      <li>TryHackMe Jr Penetration Tester Path</li>
-      <li>TryHackMe Offensive Pentesting Path</li>
-      <li>Currently pursuing HTB CPTS → OSCP</li>
-    </ul>
+    <div class="flex flex-wrap gap-6 items-center mt-4">
+      <a href="https://certs.ine.com/332e236c-0c13-46b2-9f85-829313d2dd27#acc.JqzwKTYI"
+         target="_blank"
+         class="flex items-center gap-3 bg-black/40 px-4 py-3 rounded-lg border border-white/10 hover:border-[var(--accent)] transition">
+         <img src="ejpt-badge.png" alt="eJPT badge" class="w-10 h-10"/>
+         <span class="font-medium">eJPT – INE</span>
+      </a>
+      <div>
+        <ul class="list-disc list-inside text-sm text-slate-300 space-y-1">
+          <li>TryHackMe Jr Penetration Tester Path</li>
+          <li>TryHackMe Offensive Pentesting Path</li>
+          <li>Currently preparing for HTB CPTS → OSCP</li>
+        </ul>
+      </div>
+    </div>
   </div>
 </section>
 
 <!-- CONTACT -->
 <section id="contact" class="section bg-black/20">
   <div class="max-w-3xl mx-auto text-center">
-    <h2>Get in Touch</h2>
-    <p class="text-slate-300 mb-8">Interested in collaboration or hiring me for a security assessment? Drop me a line.</p>
+    <h2>Contact</h2>
+    <p class="text-slate-300 mb-8">For professional opportunities, collaborations or questions:</p>
     <a class="btn" href="mailto:ZeroExploit.business@proton.me">ZeroExploit.business@proton.me</a>
     <div class="mt-6 flex justify-center gap-6 text-slate-400 text-sm">
       <a href="https://github.com/ctxzero" target="_blank">GitHub</a>
