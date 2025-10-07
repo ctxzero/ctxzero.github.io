@@ -1,26 +1,6 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>ctxzero — Pentest & Red Team</title>
-  <meta name="description" content="ctxzero — Penetration Tester & Red Teamer. WebApp, Network & AD testing. Contact: ctxzero.pentest@gmail.com" />
-  <style>
-    :root{
-      --bg:#050507;
-      --panel:#0b0f14;
-      --glass:rgba(255,255,255,0.04);
-      --muted:rgba(255,255,255,0.6);
-      --accent-a:#4cc9f0;
-      --accent-b:#7b2ff7;
-      --accent-gradient: linear-gradient(90deg,var(--accent-a),var(--accent-b));
-      --glass-2: rgba(255,255,255,0.03);
-      --radius:16px;
-      --max-w:1200px;
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
-    }
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>ctxzero — Pentest & Red Team</title>
@@ -44,88 +24,6 @@ html,body{height:100%;margin:0;background:#000;color:#eaf2ff}
 a{color:inherit;text-decoration:none}
 img{max-width:100%;display:block}
 
-    html,body{height:100%;margin:0;background:var(--bg);color:#eaf2ff}
-    a{color:inherit;text-decoration:none}
-    img{max-width:100%;display:block}
-
-    .site{min-height:100vh;position:relative;overflow-x:hidden}
-    .wrap{max-width:var(--max-w);margin:0 auto;padding:48px 28px}
-
-    /* Header */
-    header.site-head{display:flex;align-items:center;justify-content:space-between;gap:12px}
-    .brand{font-size:18px;font-weight:600;color:#cfe9ff;letter-spacing:0.6px}
-    .brand small{opacity:0.85;color:var(--muted);font-weight:600}
-    .badges{display:flex;gap:12px;align-items:center}
-    .badge{display:inline-flex;align-items:center;gap:8px;padding:10px 12px;border-radius:12px;background:transparent;border:1px solid rgba(255,255,255,0.05);backdrop-filter:blur(6px);cursor:pointer}
-    .badge svg{width:18px;height:18px;opacity:0.95}
-    .badge span{font-size:14px;color:var(--muted)}
-
-    /* Hero */
-    .hero{display:flex;flex-direction:column;align-items:center;text-align:center;padding:100px 16px 60px;position:relative}
-    .hero h1{font-size:56px;margin:0;line-height:1.05;font-weight:800}
-    .hero .handle{background:linear-gradient(90deg,var(--accent-a),var(--accent-b));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-    .hero p.lead{margin:16px 0 8px;color:#dfe9ff;font-weight:600;font-size:22px}
-    .hero p.sub{color:var(--muted);margin:8px 0 0;font-size:18px}
-    .hero .roles{margin-top:12px;color:#e9f6ff;font-weight:600}
-    .hero .roles strong{display:inline-block;margin:0 8px;padding:8px 16px;border-radius:999px;background:rgba(255,255,255,0.02);font-weight:700}
-
-    .fancy-underline{height:8px;border-radius:999px;margin-top:16px;background:transparent;display:inline-block;padding:2px}
-    .fancy-underline i{display:block;height:8px;border-radius:999px;background:linear-gradient(90deg,var(--accent-a),var(--accent-b));animation:glow 2.8s linear infinite}
-    @keyframes glow{0%{filter:blur(0px)}50%{filter:blur(6px)}100%{filter:blur(0px)}}
-
-    /* Sections */
-    section{margin-top:48px}
-    .section-title{font-size:28px;margin:0 0 18px;text-align:center;font-weight:700}
-    .section-title .g1{background:var(--accent-gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-    .section-sub{max-width:860px;margin:10px auto 0;color:var(--muted);text-align:center;font-size:16px}
-
-    /* Glass Card */
-    .glass{background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));border-radius:var(--radius);padding:28px;border:1px solid rgba(255,255,255,0.03);box-shadow:0 14px 36px rgba(2,6,23,0.7);transition:all 0.3s ease}
-    .glass:hover{transform:translateY(-6px);box-shadow:0 20px 48px rgba(2,6,23,0.8)}
-    .cols{display:grid;grid-template-columns:1fr 1fr;gap:28px}
-
-    /* Skills grid */
-    .skills-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
-    .skill-card{padding:24px;border-radius:16px;background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.02));border:1px solid rgba(255,255,255,0.03);transition:all 0.3s ease}
-    .skill-card:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(2,6,23,0.8)}
-    .skill-card h4{margin:0 0 12px;font-size:20px;font-weight:700}
-    .skill-meta{color:var(--muted);font-size:15px;line-height:1.55}
-
-    .two-row{display:flex;justify-content:center;gap:24px;margin-top:18px}
-    .two-row .skill-card{width:48%}
-
-    /* Certifications & Projects */
-    .certs{display:flex;flex-direction:column;gap:12px;align-items:center}
-    .cert-list{background:var(--panel);padding:20px;border-radius:16px;border:1px solid rgba(255,255,255,0.03);width:100%;max-width:720px;transition:all 0.3s ease}
-    .cert-list li{margin:10px 0;color:#dfe9ff;font-size:15px;line-height:1.5}
-
-    .projects{display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
-    .proj{padding:20px;border-radius:16px;background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.02));border:1px solid rgba(255,255,255,0.03);transition:all 0.3s ease}
-    .proj:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(2,6,23,0.8)}
-    .proj h4{margin:0 0 8px;font-size:18px;font-weight:700}
-    .proj .meta{color:var(--muted);font-size:14px;line-height:1.5}
-
-    /* Contact */
-    .contact-box{display:flex;flex-direction:column;align-items:center;gap:10px;padding:24px;border-radius:16px;background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.02));border:1px solid rgba(255,255,255,0.03);max-width:640px;margin:0 auto;transition:all 0.3s ease}
-    .contact-box:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(2,6,23,0.8)}
-    .contact-box a.email{font-weight:800;color:var(--accent-a)}
-
-    footer{margin-top:60px;text-align:center;color:var(--muted);font-size:14px}
-
-    @media (max-width:900px){
-      .cols{grid-template-columns:1fr}
-      .skills-grid{grid-template-columns:repeat(2,1fr)}
-      .projects{grid-template-columns:1fr}
-      .wrap{padding:28px}
-      .hero h1{font-size:42px}
-    }
-    @media (max-width:560px){
-      .skills-grid{grid-template-columns:1fr}
-      .two-row .skill-card{width:100%}
-      header.site-head{flex-direction:column;align-items:flex-start;gap:16px}
-      .badges{order:2}
-      .brand{order:1}
-    }
 /* layout */
 .site{min-height:100vh;position:relative;overflow-x:hidden}
 .wrap{max-width:var(--max-w);margin:0 auto;padding:48px 28px;position:relative;z-index:3}
@@ -190,9 +88,6 @@ section{margin-top:48px}
 
 footer{margin-top:60px;text-align:center;color:var(--muted);font-size:14px}
 
-    canvas#net{position:fixed;inset:0;z-index:0;pointer-events:none}
-    .wrap, header, section, footer{position:relative;z-index:2}
-  </style>
 /* responsive */
 @media (max-width:980px){
   .skills-grid{grid-template-columns:repeat(2,1fr)}
@@ -214,16 +109,6 @@ canvas#net{position:fixed;inset:0;z-index:1;pointer-events:none}
 </style>
 </head>
 <body>
-<div class="site">
-  <canvas id="net"></canvas>
-  <div class="wrap">
-    <header class="site-head">
-      <div class="brand"><small>ctxzero</small></div>
-      <div class="badges">
-        <a class="badge" href="https://www.linkedin.com/in/luis-schlegel-a38937387/" target="_blank" rel="noopener"><span>LinkedIn</span></a>
-        <a class="badge" href="https://tryhackme.com/p/ctxzero" target="_blank" rel="noopener"><span>TryHackMe</span></a>
-        <a class="badge" href="https://discord.gg/NqY3w9JHQU" target="_blank" rel="noopener"><span>Discord</span></a>
-        <a class="badge" href="https://github.com/ctxzero" target="_blank" rel="noopener"><span>GitHub</span></a>
 <canvas id="net"></canvas>
 <div class="wrap">
   <header class="site-head">
@@ -262,33 +147,6 @@ canvas#net{position:fixed;inset:0;z-index:1;pointer-events:none}
           <div style="margin-top:14px"><a class="badge" href="#contact"><span>Contact</span></a></div>
         </div>
       </div>
-    </header>
-
-    <main>
-      <section class="hero">
-        <h1>I'm <span class="handle">ctxzero</span></h1>
-        <p class="lead">Penetration Tester & <span style="background:var(--accent-gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:800">Red Teamer</span></p>
-        <p class="sub">Web Application, Network & Active Directory Penetration Testing</p>
-        <div class="fancy-underline" style="width:280px"><i></i></div>
-      </section>
-
-      <section id="about">
-        <h2 class="section-title"><span class="g1">About</span> Me</h2>
-        <div class="cols">
-          <div class="glass">
-            <h3>Hello! I'm ctxzero</h3>
-            <p style="color:var(--muted)">19 years old — based in Germany</p>
-            <p>Focused on Penetration Testing & Red Teaming in WebApp, Network & AD environments. Continuous learner, delivering deep, actionable insights.</p>
-          </div>
-          <div class="glass">
-            <h4>Quick Info</h4>
-            <p style="color:var(--muted)">Languages: English / German</p>
-            <p style="color:var(--muted)">Availability: Mon-Fri 8am - 10pm UTC+1</p>
-            <p style="color:var(--muted)">Contact: <a href="mailto:ctxzero.pentest@gmail.com" style="color:var(--accent-a)">ctxzero.pentest@gmail.com</a></p>
-            <div style="margin-top:12px">
-              <a class="badge" href="#contact"><span>Contact</span></a>
-            </div>
-          </div>
     </section>
 
     <section id="skills">
@@ -300,55 +158,16 @@ canvas#net{position:fixed;inset:0;z-index:1;pointer-events:none}
           <h4>Penetration Testing</h4>
           <p class="skill-meta">CTF player • Active learner • From Network, WebApp to Active Directory. Professional penetration tests to ensure your infrastructure is secure and resilient.</p>
         </div>
-      </section>
-
-      <section id="skills">
-        <h2 class="section-title"><span class="g1">Skills</span></h2>
-        <p class="section-sub">Core capabilities across offensive security domains — presented with clarity.</p>
-        <div class="skills-grid">
-          <div class="skill-card">
-            <h4>Penetration Testing</h4>
-            <p class="skill-meta">CTF player • Active learner • From Network, WebApp to Active Directory. I perform professional penetration tests that ensure your infrastructure is secure and resilient.</p>
-          </div>
-          <div class="skill-card">
-            <h4>Red Teaming</h4>
-            <p class="skill-meta">Simulating real-world adversaries to strengthen defenses, improve detection and response, and validate security controls under pressure.</p>
-          </div>
-          <div class="skill-card">
-            <h4>Scripting</h4>
-            <p class="skill-meta">Bash • Python • Shell scripting for automation, tooling and small exploitation helpers.</p>
-          </div>
 
         <div class="skill-card">
           <h4>Red Teaming</h4>
           <p class="skill-meta">Simulating real-world adversaries to strengthen defenses, improve detection and response, and validate security controls under pressure.</p>
         </div>
-        <div class="two-row">
-          <div class="skill-card">
-            <h4>Professional Methodology</h4>
-            <p class="skill-meta">From reconnaissance and enumeration to exploitation and lateral movement — I provide thorough methodology that yields deep, verifiable results and clear remediation paths.</p>
-          </div>
-          <div class="skill-card">
-            <h4>Tool Skills</h4>
-            <p class="skill-meta">Very good knowledge of most of the Security & Offensive Security Tools.</p>
-          </div>
 
         <div class="skill-card">
           <h4>Scripting</h4>
           <p class="skill-meta">Bash • Python • Shell scripting for automation, tooling and small exploitation helpers.</p>
         </div>
-      </section>
-
-      <section id="certs">
-        <h2 class="section-title"><span class="g1">Certifications</span></h2>
-        <div class="certs">
-          <div class="glass cert-list">
-            <ul>
-              <li>iNE eJPT (Junior Penetration Tester)</li>
-              <li>Multiple TryHackMe Certifications</li>
-              <li>HTB CPTS (soon)</li>
-            </ul>
-          </div>
       </div>
 
       <div class="two-row">
@@ -356,30 +175,11 @@ canvas#net{position:fixed;inset:0;z-index:1;pointer-events:none}
           <h4>Professional Methodology</h4>
           <p class="skill-meta">From reconnaissance and enumeration to exploitation and lateral movement — I provide thorough methodology that yields deep, verifiable results and clear remediation paths.</p>
         </div>
-      </section>
-
-      <section id="projects">
-        <h2 class="section-title"><span class="g1">Projects</span></h2>
-        <p class="section-sub">Selected findings and write-ups demonstrating methodology and impact.</p>
-        <div class="projects">
-          <div class="proj"><h4>SQL Injection — Auth Bypass</h4><p class="meta">Found an injectable endpoint allowing login bypass via crafted payloads. Provided PoC, exploit payloads and patch recommendations.</p></div>
-          <div class="proj"><h4>Broken Authorization — IDOR</h4><p class="meta">Endpoint permitted resource access by changing numeric IDs; sensitive data exposure. Reported with reproduction steps.</p></div>
-          <div class="proj"><h4>AD: Privilege Escalation</h4><p class="meta">Identified misconfigured ACLs enabling Kerberoasting and lateral movement. Included remediation and detection advice.</p></div>
-          <div class="proj"><h4>Open S3 Buckets — Data Exposure</h4><p class="meta">Publicly accessible storage with sensitive files — automated enumeration and cleanup guidance included.</p></div>
 
         <div class="skill-card">
           <h4>Tool Skills</h4>
           <p class="skill-meta">Very good knowledge of most of the Security &amp; Offensive Security Tools.</p>
         </div>
-      </section>
-
-      <section id="contact">
-        <h2 class="section-title"><span class="g1">Lets</span> Connect</h2>
-        <p class="section-sub">Contact me for engagements, responsible disclosure or collaboration.</p>
-        <div class="contact-box">
-          <div style="font-size:14px;color:var(--muted)">Email</div>
-          <a class="email" href="mailto:ctxzero.pentest@gmail.com">ctxzero.pentest@gmail.com</a>
-          <div style="margin-top:8px;color:var(--muted);font-size:13px">Reach out via GitHub / TryHackMe / Discord (links in header)</div>
       </div>
     </section>
 
@@ -394,7 +194,6 @@ canvas#net{position:fixed;inset:0;z-index:1;pointer-events:none}
             <li>HTB CPTS (soon)</li>
           </ul>
         </div>
-      </section>
       </div>
     </section>
 
@@ -409,7 +208,6 @@ canvas#net{position:fixed;inset:0;z-index:1;pointer-events:none}
       </div>
     </section>
 
-    </main>
     <section id="contact">
       <h2 class="section-title"><span class="g1">Lets</span><span class="g2"> Connect</span></h2>
       <p class="section-sub">Contact me for engagements, responsible disclosure or collaboration.</p>
@@ -421,18 +219,10 @@ canvas#net{position:fixed;inset:0;z-index:1;pointer-events:none}
     </section>
   </main>
 
-    <footer>© 2025 ctxzero — Penetration Tester & Red Teamer • Built responsibly</footer>
-  </div>
   <footer style="margin-top:44px">© 2025 ctxzero — Penetration Tester &amp; Red Teamer • Built responsibly</footer>
 </div>
 
 <script>
-const canvas = document.getElementById("net");
-const ctx = canvas.getContext("2d");
-let w = canvas.width = window.innerWidth;
-let h = canvas.height = window.innerHeight;
-let pts = [];
-const cols = 20, rows = 12;
 /*
  Animated network lines canvas
  - dark black background
@@ -445,15 +235,6 @@ const ctx = canvas.getContext('2d');
 let W = canvas.width = innerWidth;
 let H = canvas.height = innerHeight;
 
-function resize(){
-  w = canvas.width = window.innerWidth;
-  h = canvas.height = window.innerHeight;
-  pts = [];
-  for(let i=0;i<cols;i++){
-    for(let j=0;j<rows;j++){
-      const x = (i+0.5)*(w/cols) + Math.random()*30-15;
-      const y = (j+0.5)*(h/rows) + Math.random()*30-15;
-      pts.push({x,y,ox:x,oy:y,rx:Math.random()*40-20,ry:Math.random()*40-20,phase:Math.random()*Math.PI*2});
 const COLS = 22;
 const ROWS = 12;
 const pts = [];
@@ -475,10 +256,6 @@ function initPoints(){
     }
   }
 }
-function draw(t){
-  ctx.clearRect(0,0,w,h);
-  ctx.fillStyle = "#050507";
-  ctx.fillRect(0,0,w,h);
 function resize(){
   W = canvas.width = innerWidth;
   H = canvas.height = innerHeight;
@@ -486,10 +263,6 @@ function resize(){
 }
 window.addEventListener('resize', resize);
 
-  // lines
-  for(let i=0;i<pts.length;i++){
-    pts[i].x = pts[i].ox + Math.sin(t*0.0008 + pts[i].phase)*pts[i].rx;
-    pts[i].y = pts[i].oy + Math.cos(t*0.0006 + pts[i].phase)*pts[i].ry;
 // mouse interaction
 window.addEventListener('mousemove', e => { mouse.x = e.clientX; mouse.y = e.clientY; mouse.active = true; });
 window.addEventListener('mouseleave', ()=>{ mouse.active = false; });
@@ -524,15 +297,11 @@ function draw(time){
       }
     }
   }
-  ctx.lineWidth=1;
 
   // draw lines between close points
   ctx.lineWidth = 1;
   for(let i=0;i<pts.length;i++){
     for(let j=i+1;j<pts.length;j++){
-      const a=pts[i],b=pts[j];
-      const dx=a.x-b.x,dy=a.y-b.y,d=Math.sqrt(dx*dx+dy*dy);
-      if(d<160){
       const a = pts[i], b = pts[j];
       const dx = a.x - b.x, dy = a.y - b.y;
       const d2 = dx*dx + dy*dy;
@@ -549,11 +318,6 @@ function draw(time){
         ctx.beginPath();
         ctx.moveTo(a.x,a.y);
         ctx.lineTo(b.x,b.y);
-        const p=1-d/160;
-        const grad=ctx.createLinearGradient(a.x,a.y,b.x,b.y);
-        grad.addColorStop(0,"rgba(76,201,240,"+p+")");
-        grad.addColorStop(1,"rgba(123,47,247,"+p+")");
-        ctx.strokeStyle=grad;
         ctx.stroke();
       }
     }
@@ -575,10 +339,7 @@ function draw(time){
 }
 
 resize();
-window.addEventListener("resize",resize);
 requestAnimationFrame(draw);
-
 </script>
-
 </body>
 </html>
