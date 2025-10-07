@@ -1,1 +1,138 @@
-<h1 Penetration Tester>
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>ctxzero — Pentest Portfolio</title>
+  <meta name="description" content="Pentest Portfolio von ctxzero — Schwachstellen, Tools und Projekte." />
+  <style>
+    :root{
+      --bg:#0b0f14; --card:#0f1720; --accent:#ffd166; --muted:#9aa5b1; --glass:rgba(255,255,255,0.03);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+    }
+    html,body{height:100%;margin:0;background:linear-gradient(180deg,#061021 0%, #08121a 60%);color:#e6eef6}
+    .wrap{max-width:980px;margin:32px auto;padding:28px}
+    header{display:flex;align-items:center;justify-content:space-between;gap:16px}
+    .brand{display:flex;gap:12px;align-items:center}
+    .logo{width:48px;height:48px;border-radius:10px;background:linear-gradient(135deg,var(--accent),#ff9a3c);display:grid;place-items:center;color:#08121a;font-weight:700}
+    h1{margin:0;font-size:22px}
+    .sub{color:var(--muted);font-size:13px}
+    nav a{color:var(--muted);text-decoration:none;margin-left:14px}
+
+    .hero{display:flex;gap:20px;align-items:center;margin-top:28px}
+    .intro{flex:1}
+    .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin-top:18px}
+    .card{background:var(--card);padding:14px;border-radius:10px;box-shadow:0 6px 18px rgba(0,0,0,0.45)}
+    .muted{color:var(--muted);font-size:13px}
+    .pill{display:inline-block;padding:6px 10px;background:var(--glass);border-radius:999px;color:var(--accent);font-weight:600}
+
+    footer{margin-top:28px;color:var(--muted);font-size:13px}
+
+    /* simple hover effect */
+    .card:hover{transform:translateY(-6px);transition:transform .18s ease}
+
+    /* animated decorative lines that follow mouse a bit */
+    .canvas{position:fixed;inset:0;pointer-events:none;mix-blend-mode:screen}
+    .dot{position:absolute;width:8px;height:8px;border-radius:50%;background:var(--accent);opacity:.08}
+
+    @media (max-width:640px){.hero{flex-direction:column;align-items:flex-start}}
+  </style>
+</head>
+<body>
+  <div class="canvas" id="canvas"></div>
+  <div class="wrap">
+    <header>
+      <div class="brand">
+        <div class="logo">CZ</div>
+        <div>
+          <h1>ctxzero</h1>
+          <div class="sub">Pentester · Bug Bounty · Security Research</div>
+        </div>
+      </div>
+      <nav>
+        <a href="#projects">Projekte</a>
+        <a href="#about">Über mich</a>
+        <a href="#contact">Kontakt</a>
+      </nav>
+    </header>
+
+    <section class="hero">
+      <div class="intro">
+        <p class="muted">Hi — ich bin <strong>ctxzero</strong>. Ich suche Schwachstellen, schreibe Exploits und dokumentiere Findings sauber. Hier sind ein paar Highlights meiner Arbeit.</p>
+        <div class="cards">
+          <article class="card">
+            <div class="pill">Web App</div>
+            <h3>Broken Auth PoC</h3>
+            <p class="muted">Proof-of-concept: Umgehung der Session-Validierung in einer internen App. Mit verantwortungsvoller Disclosure behandelt.</p>
+            <p class="muted"><strong>Tool:</strong> Burp · Custom scripts</p>
+          </article>
+
+          <article class="card">
+            <div class="pill">Infra</div>
+            <h3>Misconfigured S3</h3>
+            <p class="muted">Aufdeckung falsch gesetzter ACLs, Sensitive files exposed — Report & remediation steps erstellt.</p>
+            <p class="muted"><strong>Tool:</strong> AWS CLI · nmap</p>
+          </article>
+
+          <article class="card">
+            <div class="pill">Mobile</div>
+            <h3>Insecure storage</h3>
+            <p class="muted">Credentials stored in cleartext in app cache; Vorschläge für sichere Implementierungen.</p>
+            <p class="muted"><strong>Tool:</strong> MobSF · Frida</p>
+          </article>
+        </div>
+      </div>
+      <div style="min-width:220px;text-align:center">
+        <div style="background:linear-gradient(180deg,#071125,#0b1420);padding:18px;border-radius:12px;box-shadow:inset 0 1px 0 rgba(255,255,255,0.02);">
+          <h2 style="margin:0;color:var(--accent)">ctxzero.dev</h2>
+          <p class="muted" style="margin:8px 0 0 0">Kurz & bündig — CV, Reports, Contact</p>
+          <a href="#contact" style="display:inline-block;margin-top:12px;padding:8px 12px;background:var(--accent);color:#08121a;border-radius:8px;text-decoration:none;font-weight:700">Kontakt</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" style="margin-top:22px">
+      <h3>Über mich</h3>
+      <p class="muted">Penetrationtester mit Interesse an Web- & Cloud-Security. Arbeite mit verantwortlicher Offenlegung (Responsible Disclosure) und lege Wert auf reproduzierbare Reports.</p>
+    </section>
+
+    <section id="projects" style="margin-top:18px">
+      <h3>Ausgewählte Projekte</h3>
+      <div class="cards" style="margin-top:12px">
+        <div class="card">
+          <h4>Recon-Toolkit</h4>
+          <p class="muted">Kleine Sammlung von Skripten zur Automatisierung der Angriffs-Vorbereitung (subdomain enumeration, quick scans).</p>
+        </div>
+        <div class="card">
+          <h4>Report Samples</h4>
+          <p class="muted">Beispiel-Report (anonymisiert) mit Impact-Analyse und Fix-Empfehlungen.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" style="margin-top:18px">
+      <h3>Kontakt</h3>
+      <p class="muted">Mail: <a href="mailto:hello@ctxzero.dev" style="color:var(--accent);text-decoration:none">hello@ctxzero.dev</a></p>
+      <p class="muted">GitHub: <a href="https://github.com/ctxzero" target="_blank" style="color:var(--accent);text-decoration:none">github.com/ctxzero</a></p>
+    </section>
+
+    <footer>
+      <div>© ctxzero — Designed for testing & learning. Use responsibly.</div>
+    </footer>
+  </div>
+
+  <script>
+    // Dekorative Dots folgen leicht der Maus
+    const canvas = document.getElementById('canvas')
+    for(let i=0;i<20;i++){const d=document.createElement('div');d.className='dot';d.style.left=(Math.random()*100)+'%';d.style.top=(Math.random()*100)+'%';d.style.opacity=0.04+(Math.random()*0.06);d.style.transform='scale('+(0.6+Math.random()*1.2)+')';canvas.appendChild(d)}
+    document.addEventListener('mousemove', e=>{
+      const dots = document.querySelectorAll('.dot')
+      dots.forEach((dot,i)=>{
+        const dx = (e.clientX - window.innerWidth/2)*(0.02 + i*0.0006)
+        const dy = (e.clientY - window.innerHeight/2)*(0.02 + i*0.0006)
+        dot.style.transform = `translate(${dx}px,${dy}px) ${dot.style.transform.split(') ')[1] || ''}`
+      })
+    })
+  </script>
+</body>
+</html>
