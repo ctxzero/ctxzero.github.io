@@ -24,27 +24,53 @@ html,body{height:100%;margin:0;background:#000;color:#eaf2ff}
 a{color:inherit;text-decoration:none}
 img{max-width:100%;display:block}
 
-body{overflow-x:hidden;position:relative;}
-
-.grain{
-  position:fixed;inset:0;z-index:2;pointer-events:none;opacity:0.03;background-image:linear-gradient(transparent, rgba(255,255,255,0.02));
-}
-
-/* Canvas für animiertes Liniennetz */
-canvas#net{
+/* ---------- NEW BACKGROUND: canvas network + subtle gradients ---------- */
+#bg-canvas{
   position:fixed;
-  top:0;
-  left:0;
+  inset:0;
   width:100%;
   height:100%;
   z-index:0;
   pointer-events:none;
+  display:block;
 }
 
-/* Rest deines CSS bleibt unverändert */
-.site{min-height:100vh;position:relative;z-index:3}
-.wrap{max-width:var(--max-w);margin:0 auto;padding:48px 28px;position:relative;z-index:3}
+/* keep a subtle base gradient to give depth under canvas */
+body{
+  background:
+    radial-gradient(800px 400px at 12% 18%, rgba(76,201,240,0.035), transparent 20%),
+    radial-gradient(700px 350px at 88% 78%, rgba(123,47,247,0.03), transparent 18%),
+    linear-gradient(180deg,#030409 0%, #05060a 100%);
+  overflow-x:hidden;
+  position:relative;
+}
 
+/* faint scanline + vignette for cinematic, serious look */
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  z-index:1;
+  pointer-events:none;
+  background-image:
+    linear-gradient(transparent 48%, rgba(255,255,255,0.01) 50%, transparent 52%),
+    radial-gradient(ellipse at center, rgba(0,0,0,0.35), transparent 60%);
+  background-size:100% 6px, cover;
+  mix-blend-mode:overlay;
+  opacity:0.6;
+  filter:blur(0.5px);
+}
+
+/* retain subtle grain but slightly toned down (kept .grain element) */
+.grain{
+  position:fixed;inset:0;z-index:6;pointer-events:none;opacity:0.02;background-image:linear-gradient(transparent, rgba(255,255,255,0.01));
+}
+
+/* make site content sit above canvas */
+.site{min-height:100vh;position:relative;z-index:7}
+.wrap{max-width:var(--max-w);margin:0 auto;padding:48px 28px;position:relative;z-index:7}
+
+/* rest of your styles unchanged (copied from original) */
 header.site-head{display:flex;align-items:center;justify-content:space-between;gap:12px}
 .brand{font-size:18px;font-weight:600;color:#cfe9ff;letter-spacing:0.6px}
 .badges{display:flex;gap:12px;align-items:center}
@@ -61,33 +87,39 @@ header.site-head{display:flex;align-items:center;justify-content:space-between;g
 .fancy-underline i{display:block;height:8px;border-radius:999px;background:linear-gradient(90deg,var(--accent-a),var(--accent-b));animation:glow 2.8s linear infinite}
 @keyframes glow{0%{filter:blur(0)}50%{filter:blur(6px)}100%{filter:blur(0)}}
 
-/* Sections, Glass, Skills, Certs, Projects, Contact etc. bleiben unverändert */
 section{margin-top:48px}
 .section-title{font-size:30px;margin:0 0 18px;text-align:center;font-weight:800}
 .section-title .g1{background:var(--accent-gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;display:inline-block}
 .section-title .g2{color:#fff;display:inline-block;margin-left:8px}
 .section-sub{max-width:900px;margin:10px auto 0;color:var(--muted);text-align:center;font-size:16px}
+
 .glass{background:var(--glass);border-radius:var(--radius);padding:30px;border:1px solid rgba(255,255,255,0.04);box-shadow:0 18px 50px rgba(0,0,0,0.7);transition:transform .22s ease,box-shadow .22s ease}
 .glass:hover{transform:translateY(-8px);box-shadow:0 28px 80px rgba(30,30,60,0.6)}
 .cols{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+
 .skills-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
 .skill-card{padding:26px;border-radius:14px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.03);transition:transform .18s ease,box-shadow .18s ease}
 .skill-card:hover{transform:translateY(-6px);box-shadow:0 18px 48px rgba(20,30,60,0.6)}
 .skill-card h4{margin:0 0 12px;font-size:20px;font-weight:800}
 .skill-meta{color:var(--muted);font-size:15px;line-height:1.5}
+
 .two-row{display:flex;justify-content:center;gap:24px;margin-top:18px}
 .two-row .skill-card{width:48%}
+
 .certs{display:flex;flex-direction:column;gap:12px;align-items:center}
 .cert-list{width:100%;max-width:760px;border-radius:14px;padding:22px;background:var(--glass);border:1px solid rgba(255,255,255,0.04);transition:transform .18s ease}
 .cert-list:hover{transform:translateY(-6px);box-shadow:0 18px 48px rgba(20,30,60,0.6)}
 .cert-list ul{margin:0;padding-left:20px;color:#e9f5ff;line-height:1.6;font-weight:600}
+
 .projects{display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
 .proj{padding:22px;border-radius:14px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.03);transition:transform .18s ease}
 .proj:hover{transform:translateY(-6px);box-shadow:0 18px 48px rgba(20,30,60,0.6)}
 .proj h4{margin:0 0 10px;font-size:18px;font-weight:800}
 .proj .meta{color:var(--muted);font-size:15px}
+
 .contact-box{display:flex;flex-direction:column;align-items:center;gap:10px;padding:26px;border-radius:14px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.03);max-width:640px;margin:0 auto}
 .contact-box a.email{font-weight:900;color:var(--accent-a);font-size:16px}
+
 footer{margin-top:60px;text-align:center;color:var(--muted);font-size:14px}
 
 @media (max-width:980px){
@@ -107,120 +139,251 @@ footer{margin-top:60px;text-align:center;color:var(--muted);font-size:14px}
 </style>
 </head>
 <body>
-<canvas id="net"></canvas>
+<!-- Canvas for animated particle/network background -->
+<canvas id="bg-canvas" aria-hidden="true"></canvas>
+
 <div class="grain"></div>
 <div class="wrap">
-<!-- Header, Main, Sections etc. bleiben unverändert -->
-<header class="site-head">
-  <div class="brand"><small>ctxzero</small></div>
-  <div class="badges">
-    <a class="badge" href="https://www.linkedin.com/in/luis-schlegel-a38937387/" target="_blank" rel="noopener"><span>LinkedIn</span></a>
-    <a class="badge" href="https://tryhackme.com/p/ctxzero" target="_blank" rel="noopener"><span>TryHackMe</span></a>
-    <a class="badge" href="https://discord.gg/NqY3w9JHQU" target="_blank" rel="noopener"><span>Discord</span></a>
-    <a class="badge" href="https://github.com/ctxzero" target="_blank" rel="noopener"><span>GitHub</span></a>
-  </div>
-</header>
-<!-- Rest deines Main-Contents hier unverändert -->
-<main>
-<!-- Alles wie gehabt -->
-</main>
-<footer style="margin-top:44px">© 2025 ctxzero — Penetration Tester &amp; Red Teamer • Built responsibly</footer>
+  <header class="site-head">
+    <div class="brand"><small>ctxzero</small></div>
+    <div class="badges">
+      <a class="badge" href="https://www.linkedin.com/in/luis-schlegel-a38937387/" target="_blank" rel="noopener"><span>LinkedIn</span></a>
+      <a class="badge" href="https://tryhackme.com/p/ctxzero" target="_blank" rel="noopener"><span>TryHackMe</span></a>
+      <a class="badge" href="https://discord.gg/NqY3w9JHQU" target="_blank" rel="noopener"><span>Discord</span></a>
+      <a class="badge" href="https://github.com/ctxzero" target="_blank" rel="noopener"><span>GitHub</span></a>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <h1>I'm <span class="handle">ctxzero</span></h1>
+      <p class="lead">Penetration Tester & <span style="background:var(--accent-gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:900">Red Teamer</span></p>
+      <p class="sub">Web Application, Network & Active Directory Penetration Testing</p>
+      <div class="fancy-underline" style="width:300px"><i></i></div>
+    </section>
+
+    <section id="about">
+      <h2 class="section-title"><span class="g1">About</span><span class="g2"> Me</span></h2>
+      <div class="cols">
+        <div class="glass">
+          <h3 style="margin:0 0 8px">Hello! I'm ctxzero</h3>
+          <p style="color:var(--muted);margin:0 0 12px">19 years old — based in Germany</p>
+          <p style="margin:0 0 10px">Focused on Penetration Testing & Red Teaming in WebApp, Network & AD environments. Continuous learner, delivering deep, actionable insights.</p>
+          <p style="color:var(--muted);margin:0"><strong>Approach:</strong> Responsible disclosure, thorough reporting, pragmatic remediation advice.</p>
+        </div>
+
+        <div class="glass">
+          <h4 style="margin:0 0 12px">Quick Info</h4>
+          <p style="color:var(--muted);margin:6px 0">Languages: English / German</p>
+          <p style="color:var(--muted);margin:6px 0">Availability: Mon–Fri 8am – 10pm UTC+1</p>
+          <p style="color:var(--muted);margin:6px 0">Contact: <a href="mailto:ctxzero.pentest@gmail.com" style="color:var(--accent-a)">ctxzero.pentest@gmail.com</a></p>
+          <div style="margin-top:14px"><a class="badge" href="#contact"><span>Contact</span></a></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="skills">
+      <h2 class="section-title"><span class="g1">My</span><span class="g2"> Skills</span></h2>
+      <p class="section-sub">Core capabilities across offensive security domains — presented with clarity.</p>
+
+      <div class="skills-grid" style="margin-top:20px">
+        <div class="skill-card">
+          <h4>Penetration Testing</h4>
+          <p class="skill-meta">CTF player • Active learner • From Network, WebApp to Active Directory. Professional penetration tests to ensure your infrastructure is secure and resilient.</p>
+        </div>
+
+        <div class="skill-card">
+          <h4>Red Teaming</h4>
+          <p class="skill-meta">Simulating real-world adversaries to strengthen defenses, improve detection and response, and validate security controls under pressure.</p>
+        </div>
+
+        <div class="skill-card">
+          <h4>Scripting</h4>
+          <p class="skill-meta">Bash • Python • Shell scripting for automation, tooling and small exploitation helpers.</p>
+        </div>
+      </div>
+
+      <div class="two-row">
+        <div class="skill-card">
+          <h4>Professional Methodology</h4>
+          <p class="skill-meta">From reconnaissance and enumeration to exploitation and lateral movement — I provide thorough methodology that yields deep, verifiable results and clear remediation paths.</p>
+        </div>
+
+        <div class="skill-card">
+          <h4>Tool Skills</h4>
+          <p class="skill-meta">Very good knowledge of most of the Security &amp; Offensive Security Tools.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="certs">
+      <h2 class="section-title"><span class="g1">My</span><span class="g2"> Certifications</span></h2>
+      <div class="certs" style="margin-top:18px">
+       
+        <div class="cert-list glass">
+          <ul>
+            <li>iNE eJPT (Junior Penetration Tester)</li>
+            <li>Multiple TryHackMe Certifications</li>
+            <li>HTB CPTS (soon)</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects">
+      <h2 class="section-title"><span class="g1">My</span><span class="g2"> Projects</span></h2>
+      <p class="section-sub">Selected findings and write-ups demonstrating methodology and impact.</p>
+      <div class="projects" style="margin-top:18px">
+        <div class="proj"><h4>SQL Injection — Auth Bypass</h4><p class="meta">Found an injectable endpoint allowing login bypass via crafted payloads. Provided PoC and patch recommendations.</p></div>
+        <div class="proj"><h4>Broken Authorization — IDOR</h4><p class="meta">Endpoint permitted resource access by changing numeric IDs; sensitive data exposure. Reported with reproduction steps.</p></div>
+        <div class="proj"><h4>AD: Privilege Escalation</h4><p class="meta">Identified misconfigured ACLs enabling Kerberoasting and lateral movement. Included remediation and detection advice.</p></div>
+        <div class="proj"><h4>Open S3 Buckets — Data Exposure</h4><p class="meta">Publicly accessible storage with sensitive files — automated enumeration and cleanup guidance included.</p></div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <h2 class="section-title"><span class="g1">Lets</span><span class="g2"> Connect</span></h2>
+      <p class="section-sub">Contact me for engagements, responsible disclosure or collaboration.</p>
+      <div class="contact-box" style="margin-top:18px">
+        <div style="font-size:14px;color:var(--muted)">Email</div>
+        <a class="email" href="mailto:ctxzero.pentest@gmail.com">ctxzero.pentest@gmail.com</a>
+        <div style="margin-top:8px;color:var(--muted);font-size:13px">Reach out via GitHub / TryHackMe / Discord (links in header)</div>
+      </div>
+    </section>
+  </main>
+
+  <footer style="margin-top:44px">© 2025 ctxzero — Penetration Tester &amp; Red Teamer • Built responsibly</footer>
 </div>
 
+<!-- Canvas animation script: lightweight particle network + mouse interaction -->
 <script>
-// Animiertes Liniennetz für Hintergrund
-const canvas = document.getElementById('net');
-const ctx = canvas.getContext('2d');
-let W = canvas.width = innerWidth;
-let H = canvas.height = innerHeight;
+(function(){
+  const canvas = document.getElementById('bg-canvas');
+  const ctx = canvas.getContext('2d');
+  let w, h, particles = [], mouse = {x: -9999, y: -9999, repel: true};
 
-const COLS = 22;
-const ROWS = 12;
-const pts = [];
-let mouse = { x: W/2, y: H/2, active: false };
+  const ACCENT_A = [76,201,240]; // --accent-a rgb
+  const ACCENT_B = [123,47,247]; // --accent-b rgb
 
-function initPoints(){
-  pts.length = 0;
-  for(let i=0;i<COLS;i++){
-    for(let j=0;j<ROWS;j++){
-      const x = (i + 0.5) * (W / COLS) + (Math.random()*40 - 20);
-      const y = (j + 0.5) * (H / ROWS) + (Math.random()*40 - 20);
-      pts.push({ox:x,oy:y,x:x,y:y,vx:0,vy:0,phase:Math.random()*Math.PI*2,r:1+Math.random()*2});
+  function resize(){
+    w = canvas.width = innerWidth;
+    h = canvas.height = innerHeight;
+    initParticles();
+  }
+
+  function lerp(a,b,t){return a + (b-a)*t}
+  function mixColor(t){
+    return `rgba(${Math.round(lerp(ACCENT_A[0],ACCENT_B[0],t))},${Math.round(lerp(ACCENT_A[1],ACCENT_B[1],t))},${Math.round(lerp(ACCENT_A[2],ACCENT_B[2],t))},`;
+  }
+
+  function initParticles(){
+    particles = [];
+    const count = Math.max(18, Math.floor((w*h)/90000)); // scale with viewport
+    for(let i=0;i<count;i++){
+      particles.push({
+        x: Math.random()*w,
+        y: Math.random()*h,
+        vx: (Math.random()-0.5)*0.25,
+        vy: (Math.random()-0.5)*0.25,
+        r: 1.0 + Math.random()*2.0,
+        t: Math.random()
+      });
     }
   }
-}
 
-function resize(){
-  W = canvas.width = innerWidth;
-  H = canvas.height = innerHeight;
-  initPoints();
-}
-window.addEventListener('resize', resize);
+  function update(){
+    ctx.clearRect(0,0,w,h);
 
-window.addEventListener('mousemove', e => { mouse.x = e.clientX; mouse.y = e.clientY; mouse.active = true; });
-window.addEventListener('mouseleave', ()=>{ mouse.active = false; });
+    // draw subtle glow radial centers (kept in canvas for crisp layering)
+    const g = ctx.createRadialGradient(w*0.1,h*0.15,0,w*0.1,h*0.15,Math.min(w,h)*0.45);
+    g.addColorStop(0, 'rgba(76,201,240,0.04)');
+    g.addColorStop(1, 'rgba(76,201,240,0)');
+    ctx.fillStyle = g; ctx.fillRect(0,0,w,h);
 
-function draw(time){
-  ctx.clearRect(0,0,W,H);
-  const bgGrad = ctx.createLinearGradient(0,0,W,H);
-  bgGrad.addColorStop(0,'#030409');
-  bgGrad.addColorStop(1,'#05060a');
-  ctx.fillStyle = bgGrad;
-  ctx.fillRect(0,0,W,H);
+    const g2 = ctx.createRadialGradient(w*0.88,h*0.78,0,w*0.88,h*0.78,Math.min(w,h)*0.45);
+    g2.addColorStop(0, 'rgba(123,47,247,0.035)');
+    g2.addColorStop(1, 'rgba(123,47,247,0)');
+    ctx.fillStyle = g2; ctx.fillRect(0,0,w,h);
 
-  for(let p of pts){
-    const t = time*0.0009;
-    p.x = p.ox + Math.sin(t + p.phase) * 18;
-    p.y = p.oy + Math.cos(t*0.8 + p.phase) * 12;
-    if(mouse.active){
-      const dx = mouse.x - p.x;
-      const dy = mouse.y - p.y;
-      const d = Math.sqrt(dx*dx + dy*dy);
-      if(d < 220){
-        p.x += (dx / d) * (40 * (1 - d/220)) * 0.02;
-        p.y += (dy / d) * (40 * (1 - d/220)) * 0.02;
+    // update particles
+    for(let p of particles){
+      p.x += p.vx;
+      p.y += p.vy;
+      p.t += 0.002;
+
+      // small wrapped movement
+      if(p.x < -20) p.x = w+20;
+      if(p.x > w+20) p.x = -20;
+      if(p.y < -20) p.y = h+20;
+      if(p.y > h+20) p.y = -20;
+
+      // mouse interaction: slight repulsion or attraction
+      const dx = p.x - mouse.x, dy = p.y - mouse.y;
+      const dist = Math.sqrt(dx*dx+dy*dy);
+      if(dist < 120){
+        const force = (120 - dist) / 120;
+        const ang = Math.atan2(dy,dx);
+        p.x += Math.cos(ang) * force * (mouse.repel ? 2.0 : -0.6);
+        p.y += Math.sin(ang) * force * (mouse.repel ? 2.0 : -0.6);
+      }
+
+      // draw particle
+      const alpha = 0.3 + 0.6*Math.abs(Math.sin(p.t + p.r));
+      const color = mixColor((p.x/w + p.y/h)/2) + (0.35*alpha) + ')';
+      ctx.fillStyle = color;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
+      ctx.fill();
+    }
+
+    // draw lines between close particles
+    for(let i=0;i<particles.length;i++){
+      for(let j=i+1;j<particles.length;j++){
+        const a = particles[i], b = particles[j];
+        const dx = a.x - b.x, dy = a.y - b.y;
+        const d = dx*dx + dy*dy;
+        if(d < 16000){ // distance threshold (squared)
+          const t = Math.min(1, d/16000);
+          const alpha = (1 - t) * 0.28;
+          // gradient per connection
+          const grad = ctx.createLinearGradient(a.x,a.y,b.x,b.y);
+          grad.addColorStop(0, mixColor((a.x/w + a.y/h)/2) + (alpha*0.9) + ')');
+          grad.addColorStop(1, mixColor((b.x/w + b.y/h)/2) + (alpha*0.9) + ')');
+          ctx.strokeStyle = grad;
+          ctx.lineWidth = 0.8;
+          ctx.beginPath();
+          ctx.moveTo(a.x,a.y);
+          ctx.lineTo(b.x,b.y);
+          ctx.stroke();
+        }
       }
     }
+
+    requestAnimationFrame(update);
   }
 
-  ctx.lineWidth = 1;
-  for(let i=0;i<pts.length;i++){
-    for(let j=i+1;j<pts.length;j++){
-      const a = pts[i], b = pts[j];
-      const dx = a.x - b.x, dy = a.y - b.y;
-      const d2 = dx*dx + dy*dy;
-      if(d2 < 160*160){
-        const d = Math.sqrt(d2);
-        const p = 1 - (d / 160);
-        const grad = ctx.createLinearGradient(a.x,a.y,b.x,b.y);
-        grad.addColorStop(0, `rgba(76,201,240,${0.04 + 0.35*p})`);
-        grad.addColorStop(1, `rgba(123,47,247,${0.04 + 0.35*p})`);
-        ctx.strokeStyle = grad;
-        ctx.globalAlpha = 0.9 * p * 0.9;
-        ctx.beginPath();
-        ctx.moveTo(a.x,a.y);
-        ctx.lineTo(b.x,b.y);
-        ctx.stroke();
-      }
-    }
-  }
-  ctx.globalAlpha = 1;
+  // mouse handlers
+  window.addEventListener('mousemove', (e) => {
+    mouse.x = e.clientX;
+    mouse.y = e.clientY;
+  });
+  window.addEventListener('mouseleave', ()=>{ mouse.x = -9999; mouse.y = -9999; });
+  // small touch support (set repel=false to slightly attract)
+  window.addEventListener('touchstart', (e)=>{ const t=e.touches[0]; mouse.x=t.clientX; mouse.y=t.clientY; mouse.repel=false; }, {passive:true});
+  window.addEventListener('touchmove', (e)=>{ const t=e.touches[0]; mouse.x=t.clientX; mouse.y=t.clientY; }, {passive:true});
+  window.addEventListener('touchend', ()=>{ mouse.x=-9999; mouse.y=-9999; mouse.repel=true; });
 
-  for(let p of pts){
-    const g = ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,18);
-    g.addColorStop(0,'rgba(76,201,240,0.06)');
-    g.addColorStop(1,'rgba(4,7,10,0)');
-    ctx.fillStyle = g;
-    ctx.beginPath();
-    ctx.arc(p.x,p.y, p.r*3, 0, Math.PI*2);
-    ctx.fill();
-  }
+  // respawn nicely on resize / DPR changes
+  let resizeTimeout;
+  window.addEventListener('resize', ()=>{
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(resize, 120);
+  });
 
-  requestAnimationFrame(draw);
-}
-
-resize();
-requestAnimationFrame(draw);
+  // init
+  resize();
+  requestAnimationFrame(update);
+})();
 </script>
 </body>
 </html>
