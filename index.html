@@ -7,7 +7,7 @@
 <meta name="description" content="ctxzero — Penetration Tester & Red Teamer. WebApp, Network & AD testing. Contact: ctxzero.pentest@gmail.com" />
 <style>
 :root{
-  --bg:#070708;                /* durchgehendes sehr dunkles Grau/Schwarz */
+  --bg:#070708;
   --panel:#0b0f14;
   --glass:linear-gradient(180deg, rgba(0,0,0,0.55), rgba(255,255,255,0.02));
   --muted:rgba(255,255,255,0.65);
@@ -35,7 +35,7 @@ img{max-width:100%;display:block}
   display:block;
 }
 
-/* soft, diffuse "fen"-like light accents (very subtle) */
+/* soft, diffuse "fen"-like light accents */
 body::before{
   content:"";
   position:fixed;
@@ -50,7 +50,7 @@ body::before{
   opacity:0.95;
 }
 
-/* faint scanlines and film grain for cinematic look (very subtle) */
+/* faint scanlines and film grain */
 body::after{
   content:"";
   position:fixed;
@@ -65,18 +65,16 @@ body::after{
   transform:translateZ(0);
 }
 
-/* subtle grain element (kept for older browsers) */
+/* subtle grain element */
 .grain{
   position:fixed; inset:0; z-index:6; pointer-events:none;
   background-image: linear-gradient(transparent, rgba(255,255,255,0.008));
   opacity:0.9;
 }
 
-/* ensure the site content is above the canvas layers */
 .site{min-height:100vh;position:relative;z-index:7}
 .wrap{max-width:var(--max-w);margin:0 auto;padding:48px 28px;position:relative;z-index:7}
 
-/* ---------- original site styles (kept intact, minor z-index adjustments) ---------- */
 header.site-head{display:flex;align-items:center;justify-content:space-between;gap:12px}
 .brand{font-size:18px;font-weight:600;color:#cfe9ff;letter-spacing:0.6px}
 .badges{display:flex;gap:12px;align-items:center}
@@ -145,9 +143,7 @@ footer{margin-top:60px;text-align:center;color:var(--muted);font-size:14px}
 </style>
 </head>
 <body>
-<!-- Canvas for refined soft particle + lines background -->
 <canvas id="bg-canvas" aria-hidden="true"></canvas>
-
 <div class="grain"></div>
 <div class="wrap">
   <header class="site-head">
@@ -262,13 +258,7 @@ footer{margin-top:60px;text-align:center;color:var(--muted);font-size:14px}
 </div>
 
 <script>
-/*
-  Lightweight, efficient canvas background:
-  - soft glowing particles in blue/purple
-  - subtle connecting lines
-  - mouse interaction gentle (repel)
-  - particle count scales with viewport
-*/
+/* ---------- Partikel Hintergrund ---------- */
 (function(){
   const canvas = document.getElementById('bg-canvas');
   const ctx = canvas.getContext('2d', { alpha: true });
@@ -276,10 +266,7 @@ footer{margin-top:60px;text-align:center;color:var(--muted);font-size:14px}
   let w = 0, h = 0;
   let particles = [];
   let mouse = { x: -9999, y: -9999, down: false };
-
-  // color anchors
-  const A = [76,201,240]; // blue
-  const B = [123,47,247]; // purple
+  const A = [76,201,240]; const B = [123,47,247];
 
   function setSize(){
     DPR = Math.max(1, window.devicePixelRatio || 1);
@@ -294,7 +281,7 @@ footer{margin-top:60px;text-align:center;color:var(--muted);font-size:14px}
   function initParticles(){
     particles = [];
     const area = window.innerWidth * window.innerHeight;
-    const base = Math.max(14, Math.floor(area / 110000)); // tuned: not too many
+    const base = Math.max(14, Math.floor(area / 110000));
     for(let i=0;i<base;i++){
       particles.push({
         x: Math.random() * window.innerWidth,
@@ -308,7 +295,6 @@ footer{margin-top:60px;text-align:center;color:var(--muted);font-size:14px}
   }
 
   function mixColor(t, alpha=1){
-    // t in [0,1]
     const r = Math.round(A[0] + (B[0]-A[0]) * t);
     const g = Math.round(A[1] + (B[1]-A[1]) * t);
     const b = Math.round(A[2] + (B[2]-A[2]) * t);
@@ -317,110 +303,93 @@ footer{margin-top:60px;text-align:center;color:var(--muted);font-size:14px}
 
   function step(){
     ctx.clearRect(0,0,window.innerWidth,window.innerHeight);
-
-    // subtle backdrop: low-opacity composite for glow depth
     ctx.globalCompositeOperation = 'source-over';
 
-    // draw particles
     for(let p of particles){
-      p.x += p.vx;
-      p.y += p.vy;
-      p.phase += 0.01;
-
-      // wrap
+      p.x += p.vx; p.y += p.vy; p.phase += 0.01;
       if(p.x < -20) p.x = window.innerWidth + 20;
       if(p.x > window.innerWidth + 20) p.x = -20;
       if(p.y < -20) p.y = window.innerHeight + 20;
       if(p.y > window.innerHeight + 20) p.y = -20;
-
-      // mouse interaction (gentle repel)
       const dx = p.x - mouse.x, dy = p.y - mouse.y;
       const d2 = dx*dx + dy*dy;
-      if(d2 < 14000){
-        const d = Math.sqrt(d2) || 1;
-        const force = (140 - d) / 140; // 0..1
-        p.x += (dx / d) * force * 1.6;
-        p.y += (dy / d) * force * 1.6;
-      }
-
-      // glow circle (soft)
+      if(d2 < 14000){ const d = Math.sqrt(d2) || 1; const force = (140 - d) / 140; p.x += (dx/d)*1.6; p.y += (dy/d)*1.6; }
       const t = (p.x / window.innerWidth + p.y / window.innerHeight) * 0.5;
       const color = mixColor(t % 1, 0.16 + 0.12 * Math.sin(p.phase));
-      ctx.beginPath();
-      ctx.fillStyle = color;
-      ctx.arc(p.x, p.y, p.r * 2.2, 0, Math.PI*2);
-      ctx.fill();
-
-      // core
-      ctx.beginPath();
-      ctx.fillStyle = mixColor(t % 1, 0.9);
-      ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
-      ctx.fill();
+      ctx.beginPath(); ctx.fillStyle=color; ctx.arc(p.x,p.y,p.r*2.2,0,Math.PI*2); ctx.fill();
+      ctx.beginPath(); ctx.fillStyle=mixColor(t%1,0.9); ctx.arc(p.x,p.y,p.r,0,Math.PI*2); ctx.fill();
     }
 
-    // connecting lines (sparse, low alpha)
     ctx.lineWidth = 0.6;
     for(let i=0;i<particles.length;i++){
-      const a = particles[i];
+      const a=particles[i];
       for(let j=i+1;j<particles.length;j++){
-        const b = particles[j];
-        const dx = a.x - b.x;
-        const dy = a.y - b.y;
-        const dist2 = dx*dx + dy*dy;
-        if(dist2 < 18000){ // threshold (squared)
-          const t = Math.min(1, dist2 / 18000);
-          const alpha = (1 - t) * 0.14;
-          const mix = ((a.x + b.x) / (2*window.innerWidth) + (a.y + b.y) / (2*window.innerHeight)) * 0.5;
-          ctx.strokeStyle = mixColor(mix % 1, alpha);
-          ctx.beginPath();
-          ctx.moveTo(a.x, a.y);
-          ctx.lineTo(b.x, b.y);
-          ctx.stroke();
+        const b=particles[j];
+        const dx=a.x-b.x, dy=a.y-b.y, dist2=dx*dx+dy*dy;
+        if(dist2<18000){
+          const t = Math.min(1, dist2/18000);
+          const alpha=(1-t)*0.14;
+          const mix=((a.x+b.x)/(2*window.innerWidth)+(a.y+b.y)/(2*window.innerHeight))*0.5;
+          ctx.strokeStyle=mixColor(mix%1,alpha);
+          ctx.beginPath(); ctx.moveTo(a.x,a.y); ctx.lineTo(b.x,b.y); ctx.stroke();
         }
       }
     }
 
-    // slight vignette at top/bottom corners for depth (very subtle)
-    // draw once per frame cheap: a translucent black radial overlay
-    ctx.globalCompositeOperation = 'multiply';
-    const vg = ctx.createLinearGradient(0, 0, 0, window.innerHeight);
-    vg.addColorStop(0, 'rgba(0,0,0,0.04)');
-    vg.addColorStop(0.5, 'rgba(0,0,0,0)');
-    vg.addColorStop(1, 'rgba(0,0,0,0.06)');
-    ctx.fillStyle = vg;
-    ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
-
-    ctx.globalCompositeOperation = 'source-over';
+    ctx.globalCompositeOperation='multiply';
+    const vg=ctx.createLinearGradient(0,0,0,window.innerHeight);
+    vg.addColorStop(0,'rgba(0,0,0,0.04)'); vg.addColorStop(0.5,'rgba(0,0,0,0)'); vg.addColorStop(1,'rgba(0,0,0,0.06)');
+    ctx.fillStyle=vg; ctx.fillRect(0,0,window.innerWidth,window.innerHeight);
+    ctx.globalCompositeOperation='source-over';
     requestAnimationFrame(step);
   }
 
-  // mouse / touch handlers
-  window.addEventListener('mousemove', (e) => {
-    mouse.x = e.clientX;
-    mouse.y = e.clientY;
-  });
-  window.addEventListener('mouseleave', () => {
-    mouse.x = -9999; mouse.y = -9999;
-  });
-  window.addEventListener('touchmove', (e) => {
-    if(e.touches && e.touches[0]) {
-      mouse.x = e.touches[0].clientX;
-      mouse.y = e.touches[0].clientY;
-    }
-  }, { passive: true });
-  window.addEventListener('touchend', () => { mouse.x = -9999; mouse.y = -9999; });
-
-  // resize
+  window.addEventListener('mousemove',(e)=>{mouse.x=e.clientX;mouse.y=e.clientY;});
+  window.addEventListener('mouseleave',()=>{mouse.x=-9999;mouse.y=-9999;});
+  window.addEventListener('touchmove',(e)=>{if(e.touches&&e.touches[0]){mouse.x=e.touches[0].clientX;mouse.y=e.touches[0].clientY;}},{passive:true});
+  window.addEventListener('touchend',()=>{mouse.x=-9999;mouse.y=-9999;});
   let rt;
-  window.addEventListener('resize', () => {
-    clearTimeout(rt);
-    rt = setTimeout(setSize, 120);
-  });
-
-  // init
+  window.addEventListener('resize',()=>{clearTimeout(rt); rt=setTimeout(setSize,120);});
   setSize();
   requestAnimationFrame(step);
 })();
+
+/* ---------- Hero Typing Animation ---------- */
+const textEl = document.getElementById('animated-text');
+const texts = ["ctxzero","a Red Teamer","a Pentester","an Ethical Hacker"];
+let textIndex = 0;
+let charIndex = 0;
+let deleting = false;
+
+function type(){
+  const currentText = texts[textIndex];
+  let display = '';
+
+  if(!deleting){
+    charIndex++;
+    display = currentText.slice(0,charIndex);
+    textEl.innerHTML = display.replace(/(ctxzero|Red Teamer|Pentester|Ethical Hacker)/g,
+      '<span style="background:var(--accent-gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:900">$1</span>'
+    );
+    if(charIndex === currentText.length){
+      deleting = true;
+      setTimeout(type,1200);
+      return;
+    }
+  } else {
+    charIndex--;
+    display = currentText.slice(0,charIndex);
+    textEl.innerHTML = display.replace(/(ctxzero|Red Teamer|Pentester|Ethical Hacker)/g,
+      '<span style="background:var(--accent-gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:900">$1</span>'
+    );
+    if(charIndex===0){
+      deleting=false;
+      textIndex=(textIndex+1)%texts.length;
+    }
+  }
+  setTimeout(type,deleting?50:100);
+}
+type();
 </script>
 </body>
 </html>
