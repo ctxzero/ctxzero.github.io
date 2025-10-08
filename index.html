@@ -24,7 +24,6 @@ html,body{height:100%;margin:0;background:var(--bg);color:#eaf2ff}
 a{color:inherit;text-decoration:none}
 img{max-width:100%;display:block}
 
-/* ---------- Canvas background + soft vignette / fen lights ---------- */
 #bg-canvas{
   position:fixed;
   inset:0;
@@ -35,7 +34,6 @@ img{max-width:100%;display:block}
   display:block;
 }
 
-/* soft, diffuse "fen"-like light accents */
 body::before{
   content:"";
   position:fixed;
@@ -50,7 +48,6 @@ body::before{
   opacity:0.95;
 }
 
-/* faint scanlines and film grain */
 body::after{
   content:"";
   position:fixed;
@@ -65,7 +62,6 @@ body::after{
   transform:translateZ(0);
 }
 
-/* subtle grain element */
 .grain{
   position:fixed; inset:0; z-index:6; pointer-events:none;
   background-image: linear-gradient(transparent, rgba(255,255,255,0.008));
@@ -258,7 +254,6 @@ footer{margin-top:60px;text-align:center;color:var(--muted);font-size:14px}
 </div>
 
 <script>
-/* ---------- Partikel Hintergrund ---------- */
 (function(){
   const canvas = document.getElementById('bg-canvas');
   const ctx = canvas.getContext('2d', { alpha: true });
@@ -354,7 +349,6 @@ footer{margin-top:60px;text-align:center;color:var(--muted);font-size:14px}
   requestAnimationFrame(step);
 })();
 
-/* ---------- Hero Typing Animation ---------- */
 const textEl = document.getElementById('animated-text');
 const texts = ["ctxzero","a Red Teamer","a Pentester","an Ethical Hacker"];
 let textIndex = 0;
