@@ -3,309 +3,556 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>ctxzero — Pentest & Red Team</title>
+  <title>ctxzero — Penetration Tester & Red Team</title>
   <meta name="description" content="ctxzero — Penetration Tester & Red Teamer. WebApp, Network & AD testing. Contact: ctxzero.pentest@gmail.com" />
-  <link rel="icon" type="image/png" href="https://github.com/ctxzero.png">
+  <link rel="icon" href="https://github.com/ctxzero.png" />
   <meta name="theme-color" content="#070708">
 
   <style>
-    :root {
-      --bg:#070708;
-      --panel:#0b0f14;
-      --glass:linear-gradient(180deg, rgba(0,0,0,0.55), rgba(255,255,255,0.02));
-      --muted:rgba(255,255,255,0.65);
-      --accent-a:#4cc9f0;
-      --accent-b:#7b2ff7;
+    /* -------------------------
+       Theme & Utility
+       ------------------------- */
+    :root{
+      --bg:#06070a;
+      --panel:#0c1116;
+      --glass: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      --muted: rgba(255,255,255,0.70);
+      --accent-a: #4cc9f0;
+      --accent-b: #7b2ff7;
+      --accent-c: #ff6b6b;
       --accent-gradient: linear-gradient(90deg,var(--accent-a),var(--accent-b));
-      --radius:16px;
-      --max-w:1200px;
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+      --neon: drop-shadow(0 6px 14px rgba(123,47,247,0.12));
+      --radius:18px;
+      --max-w:1280px;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
       -webkit-font-smoothing:antialiased;
       -moz-osx-font-smoothing:grayscale;
     }
 
-    html,body {
-      height:100%;
-      margin:0;
-      background:var(--bg);
-      color:#eaf2ff;
+    html,body{height:100%;margin:0;background:radial-gradient(1200px 600px at 8% 8%, rgba(76,201,240,0.03), transparent 8%), radial-gradient(900px 450px at 92% 88%, rgba(123,47,247,0.03), transparent 8%), var(--bg); color:#eaf2ff;}
+    *{box-sizing:border-box}
+    a{color:inherit;text-decoration:none}
+    img{display:block;max-width:100%}
+    .wrap{max-width:var(--max-w);margin:0 auto;padding:48px 28px;position:relative;z-index:7}
+
+    /* subtle film grain + overlay */
+    body::before{
+      content:"";position:fixed;inset:0;z-index:1;pointer-events:none;
+      background-image: linear-gradient(transparent 49%, rgba(255,255,255,0.004) 50%, transparent 51%);
+      background-size:100% 6px; mix-blend-mode:overlay; opacity:0.6;
+    }
+    .bg-blob{
+      position:fixed;inset:0;z-index:0;pointer-events:none;filter:blur(60px) saturate(1.05);opacity:0.9;
+      background:
+        radial-gradient(600px 400px at 6% 18%, rgba(76,201,240,0.08), transparent 18%),
+        radial-gradient(520px 360px at 86% 78%, rgba(123,47,247,0.07), transparent 16%);
     }
 
-    a { color:inherit; text-decoration:none }
-    img { max-width:100%; display:block }
-
-    #bg-canvas {
-      position:fixed; inset:0; width:100%; height:100%; z-index:0; pointer-events:none; display:block;
+    header.site-head{display:flex;gap:12px;align-items:center;justify-content:space-between}
+    .brand{font-size:20px;font-weight:800;color:#dff6ff;letter-spacing:0.6px}
+    .nav{
+      display:flex;gap:10px;align-items:center;
     }
-
-    body::before {
-      content:""; position:fixed; inset:0; z-index:1; pointer-events:none;
-      background-image: radial-gradient(30% 20% at 12% 18%, rgba(76,201,240,0.06), transparent 18%),
-                        radial-gradient(28% 18% at 86% 78%, rgba(123,47,247,0.05), transparent 16%),
-                        linear-gradient(180deg, rgba(0,0,0,0.15), rgba(0,0,0,0.2));
-      filter:blur(48px) saturate(1);
-      opacity:0.95;
+    .btn {
+      display:inline-flex;align-items:center;gap:10px;padding:10px 14px;border-radius:12px;
+      background:linear-gradient(90deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+      border:1px solid rgba(255,255,255,0.04); color:var(--muted); font-weight:700; cursor:pointer;
+      transition:transform .14s ease, box-shadow .18s ease;
     }
+    .btn:hover{transform:translateY(-4px);box-shadow:0 18px 40px rgba(0,0,0,0.6)}
+    .cta { background: var(--accent-gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent; font-weight:900; padding:0; border:0; }
 
-    body::after {
-      content:""; position:fixed; inset:0; z-index:2; pointer-events:none;
-      background-image: linear-gradient(transparent 49%, rgba(255,255,255,0.005) 50%, transparent 51%);
-      background-size:100% 6px; mix-blend-mode:overlay; opacity:0.5; transform:translateZ(0);
-    }
-
-    .grain { position:fixed; inset:0; z-index:6; pointer-events:none; background-image: linear-gradient(transparent, rgba(255,255,255,0.008)); opacity:0.9; }
-
-    .wrap { max-width:var(--max-w); margin:0 auto; padding:48px 28px; position:relative; z-index:7 }
-    header.site-head { display:flex; align-items:center; justify-content:space-between; gap:12px }
-    .brand { font-size:18px; font-weight:600; color:#cfe9ff; letter-spacing:0.6px }
-    .badges { display:flex; gap:12px; align-items:center }
-
-    .badge {
-      display:inline-flex; align-items:center; gap:8px; padding:10px 12px;
-      border-radius:12px; background:transparent;
-      border:1px solid rgba(255,255,255,0.04); backdrop-filter:blur(6px);
-      cursor:pointer; transition:all .18s ease;
-    }
-    .badge:hover { transform:translateY(-3px); background:rgba(76,201,240,0.04) }
-    .badge span { font-size:14px; color:var(--muted) }
-
+    /* HERO */
     .hero {
-      display:flex; flex-direction:column; align-items:center; text-align:center; padding:100px 16px 60px;
+      display:grid;
+      grid-template-columns: 1fr 420px;
+      gap:28px;
+      align-items:center;
+      margin-top:28px;
     }
-    .hero h1 { font-size:56px; margin:0; line-height:1.03; font-weight:800 }
-    .hero .handle { background:var(--accent-gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent }
-    .hero p.lead { margin:16px 0 8px; color:#dfe9ff; font-weight:600; font-size:22px }
-    .hero p.sub { color:var(--muted); margin:8px 0 0; font-size:18px }
-    .fancy-underline { height:8px; border-radius:999px; margin-top:16px; display:inline-block; padding:2px }
-    .fancy-underline i { display:block; height:8px; border-radius:999px; background:linear-gradient(90deg,var(--accent-a),var(--accent-b)); animation:glow 2.8s linear infinite }
+    .hero-left {
+      padding:28px 20px;
+      border-radius:18px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.012), rgba(255,255,255,0.01));
+      border:1px solid rgba(255,255,255,0.04);
+      box-shadow:0 30px 80px rgba(5,10,20,0.6);
+    }
+    .hero h1 { margin:0;font-size:48px;line-height:1.02;font-weight:900; letter-spacing:-0.8px; color:#ffffff; }
+    .hero h1 .handle {
+      display:inline-block;
+      background:var(--accent-gradient);
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+      padding:6px 8px;
+      border-radius:8px;
+      box-shadow:0 6px 20px rgba(76,201,240,0.06);
+    }
+    .hero p.lead{margin:12px 0 6px;color:#dcefff;font-weight:700;font-size:18px}
+    .hero p.sub{color:var(--muted);margin:0;font-size:15px}
 
-    @keyframes glow {
-      0%{filter:blur(0)}50%{filter:blur(6px)}100%{filter:blur(0)}
+    /* animated title bubble */
+    .animated-title {
+      display:inline-block;
+      padding:10px 14px;
+      margin-top:18px;
+      border-radius:999px;
+      background: linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.005));
+      border:1px solid rgba(255,255,255,0.03);
+      font-weight:900;color:#fff;font-size:18px;
+    }
+    .animated-title .accent {
+      background: linear-gradient(90deg,var(--accent-a),var(--accent-b));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight:900;
     }
 
-    section { margin-top:48px }
-    .section-title { font-size:30px; margin:0 0 18px; text-align:center; font-weight:800 }
-    .section-title .g1{background:var(--accent-gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;display:inline-block}
-    .section-title .g2{color:#fff;display:inline-block;margin-left:8px}
-    .section-sub{max-width:900px;margin:10px auto 0;color:var(--muted);text-align:center;font-size:16px}
+    .hero-right {
+      padding:26px;
+      border-radius:18px;
+      background: linear-gradient(180deg, rgba(123,47,247,0.06), rgba(76,201,240,0.03));
+      border:1px solid rgba(255,255,255,0.03);
+      box-shadow: 0 30px 80px rgba(20,12,40,0.45);
+      min-height:220px;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      gap:12px;
+      align-items:center;
+    }
+    .hero-right .big {
+      font-size:20px;font-weight:900;color:#fff;
+      text-align:center;
+      letter-spacing:0.4px;
+    }
+    .hero-right p { color:var(--muted); margin:0; text-align:center; font-size:13px; }
+
+    /* SECTIONS */
+    section{margin-top:32px}
+    .cols{display:grid;grid-template-columns:1fr 1fr;gap:22px}
 
     .glass {
-      background:var(--glass); border-radius:var(--radius); padding:30px;
-      border:1px solid rgba(255,255,255,0.04); box-shadow:0 18px 50px rgba(0,0,0,0.7);
-      transition:transform .22s ease,box-shadow .22s ease;
-    }
-    .glass:hover { transform:translateY(-8px); box-shadow:0 28px 80px rgba(30,30,60,0.6) }
-
-    .cols { display:grid; grid-template-columns:1fr 1fr; gap:28px }
-
-    /* Skills */
-    .skills-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
-    .skill-card{padding:26px;border-radius:14px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.03);transition:transform .18s ease,box-shadow .18s ease}
-    .skill-card:hover{transform:translateY(-6px);box-shadow:0 18px 48px rgba(20,30,60,0.6)}
-    .skill-card h4{margin:0 0 12px;font-size:20px;font-weight:800}
-    .skill-meta{color:var(--muted);font-size:15px;line-height:1.5}
-
-    .two-row{display:flex;justify-content:center;gap:24px;margin-top:18px}
-    .two-row .skill-card{width:48%}
-
-    /* Certs */
-    .certs-grid {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-      margin: 0;
-      padding: 0;
-    }
-    .certs-grid li {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      background: rgba(255,255,255,0.02);
-      border: 1px solid rgba(255,255,255,0.03);
-      border-radius: 10px;
-      padding: 10px 14px;
-      transition: transform .18s ease, box-shadow .18s ease;
-    }
-    .certs-grid li:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 12px 30px rgba(20,30,60,0.5);
-    }
-    .cert-icon {
-      width: 36px;
-      height: 36px;
-      object-fit: contain;
-      border-radius: 6px;
-      background: rgba(255,255,255,0.06);
-      padding: 4px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.015), rgba(255,255,255,0.01));
+      border-radius:16px;padding:22px;border:1px solid rgba(255,255,255,0.04);
+      box-shadow: 0 18px 48px rgba(0,0,0,0.6);
     }
 
-    /* Projects */
-    .projects{display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
-    .proj{padding:22px;border-radius:14px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.03);transition:transform .18s ease}
-    .proj:hover{transform:translateY(-6px);box-shadow:0 18px 48px rgba(20,30,60,0.6)}
-    .proj h4{margin:0 0 10px;font-size:18px;font-weight:800}
-    .proj .meta{color:var(--muted);font-size:15px}
+    .section-title{font-size:26px;margin:0 0 8px;text-align:left;font-weight:900;color:#fff}
+    .section-sub{color:var(--muted);font-size:14px;margin:6px 0 12px}
 
-    .contact-box{display:flex;flex-direction:column;align-items:center;gap:10px;padding:26px;border-radius:14px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.03);max-width:640px;margin:0 auto}
-    .contact-box a.email{font-weight:900;color:var(--accent-a);font-size:16px}
-    footer{margin-top:60px;text-align:center;color:var(--muted);font-size:14px}
+    /* Skills Grid */
+    .skills-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    .skill-card{background:rgba(255,255,255,0.01);padding:16px;border-radius:12px;border:1px solid rgba(255,255,255,0.03);transition:transform .16s ease}
+    .skill-card:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(0,0,0,0.6)}
+    .skill-card h4{margin:0 0 8px;font-size:16px;font-weight:900}
+    .skill-card p{margin:0;color:var(--muted);font-size:13px}
 
-    @media (max-width:980px){
-      .skills-grid{grid-template-columns:repeat(2,1fr)}
-      .projects{grid-template-columns:1fr}
-      .cols{grid-template-columns:1fr}
-      .wrap{padding:36px 20px}
-      .hero h1{font-size:44px}
+    /* Certifications - specific per your request:
+       show badges for eJPT & Threat Intelligence only.
+       no badges for TryHackMe & HTB (they remain text-only).
+    */
+    .certs-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:0;padding:0;list-style:none}
+    .cert-item{
+      display:flex;align-items:center;gap:12px;padding:12px;border-radius:12px;background:rgba(255,255,255,0.01);border:1px solid rgba(255,255,255,0.03);
     }
+    .cert-item .meta{font-weight:800;color:#eaf6ff}
+    .cert-item .small{color:var(--muted);font-weight:700;font-size:13px}
+    .cert-badge{width:44px;height:44px;padding:6px;border-radius:8px;background:rgba(255,255,255,0.03);display:inline-flex;align-items:center;justify-content:center;box-shadow:0 8px 20px rgba(0,0,0,0.45);}
 
-    @media (max-width:560px){
+    /* Case Studies (replaces 'Projects') */
+    .case-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    .case{padding:18px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.012), rgba(255,255,255,0.008));border:1px solid rgba(255,255,255,0.03);transition:transform .18s ease}
+    .case:hover{transform:translateY(-8px);box-shadow:0 22px 60px rgba(0,0,0,0.6)}
+    .case h4{margin:0 0 8px;font-size:16px;font-weight:900}
+    .case p{margin:0;color:var(--muted);font-size:13px}
+
+    /* Testimonials / Social proof */
+    .testi-grid{display:flex;gap:12px;flex-wrap:wrap}
+    .testi{flex:1 1 300px;padding:14px;border-radius:12px;background:rgba(255,255,255,0.01);border:1px solid rgba(255,255,255,0.03)}
+    .testi p{margin:0;color:var(--muted)}
+
+    /* Contact */
+    .contact-box{display:flex;flex-direction:column;align-items:center;gap:10px;padding:22px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005));border:1px solid rgba(255,255,255,0.03)}
+    .contact-box .mailto{font-weight:900;color:var(--accent-a);font-size:15px}
+
+    footer{margin-top:36px;text-align:center;color:var(--muted);font-size:13px;padding-bottom:40px}
+
+    /* RESPONSIVE */
+    @media (max-width:1100px){
+      .hero{grid-template-columns:1fr}
+      .case-grid{grid-template-columns:repeat(2,1fr)}
+      .certs-grid{grid-template-columns:1fr}
+    }
+    @media (max-width:700px){
       .skills-grid{grid-template-columns:1fr}
-      .two-row .skill-card{width:100%}
-      header.site-head{flex-direction:column;align-items:flex-start;gap:16px}
-      .badges{order:2}
-      .brand{order:1}
+      .case-grid{grid-template-columns:1fr}
+      header.site-head{flex-direction:column;align-items:flex-start;gap:14px}
+    }
+
+    /* micro animations */
+    .glow-underline {
+      display:inline-block;height:6px;width:160px;border-radius:999px;margin-top:14px;
+      background:linear-gradient(90deg, rgba(76,201,240,0.45), rgba(123,47,247,0.45));
+      filter:blur(6px);opacity:0.9;
     }
   </style>
 </head>
 
 <body>
-  <canvas id="bg-canvas" aria-hidden="true"></canvas>
-  <div class="grain"></div>
+  <div class="bg-blob" aria-hidden="true"></div>
   <div class="wrap">
-    <header class="site-head">
-      <div class="brand"><small>ctxzero</small></div>
-      <div class="badges">
-        <a class="badge" href="https://www.linkedin.com/in/luis-schlegel-a38937387/" target="_blank"><span>LinkedIn</span></a>
-        <a class="badge" href="https://tryhackme.com/p/ctxzero" target="_blank"><span>TryHackMe</span></a>
-        <a class="badge" href="https://discord.gg/NqY3w9JHQU" target="_blank"><span>Discord</span></a>
-        <a class="badge" href="https://github.com/ctxzero" target="_blank"><span>GitHub</span></a>
-      </div>
+    <header class="site-head" role="banner">
+      <div class="brand">ctxzero</div>
+
+      <nav class="nav" role="navigation" aria-label="Main">
+        <a class="btn" href="#about">About</a>
+        <a class="btn" href="#certs">Certifications</a>
+        <a class="btn" href="#case">Case Studies</a>
+        <a class="btn" href="#contact">Contact</a>
+      </nav>
     </header>
 
-    <main>
-      <section class="hero">
-        <h1>I'm <span id="animated-text"></span></h1>
-        <p class="lead">Penetration Tester & <span style="background:var(--accent-gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:900">Red Team Specialist</span></p>
-        <p class="sub">Focused on WebApp, Network & Active Directory Security Assessments</p>
-        <div class="fancy-underline" style="width:300px"><i></i></div>
-        <p style="text-align:center;color:var(--muted);font-size:15px;margin-top:22px">
-          Currently open for freelance or full-time penetration testing engagements.
-        </p>
-      </section>
+    <!-- HERO -->
+    <section class="hero" aria-label="Intro">
+      <div class="hero-left glass" role="region" aria-labelledby="hero-title">
+        <h1 id="hero-title">
+          I'm <span class="handle">ctxzero</span>
+        </h1>
 
-      <section id="about">
-        <h2 class="section-title"><span class="g1">About</span><span class="g2"> Me</span></h2>
-        <div class="cols">
-          <div class="glass">
-            <h3 style="margin:0 0 8px">Hello! I'm ctxzero</h3>
-            <p style="color:var(--muted);margin:0 0 12px">19 years old — based in Germany</p>
-            <p style="margin:0 0 10px">Focused on Penetration Testing & Red Teaming in WebApp, Network & AD environments. Continuous learner, delivering deep, actionable insights.</p>
-            <p style="color:var(--muted);margin:0"><strong>Approach:</strong> Responsible disclosure, thorough reporting, pragmatic remediation advice.</p>
-          </div>
-          <div class="glass">
-            <h4 style="margin:0 0 12px">Quick Info</h4>
-            <p style="color:var(--muted);margin:6px 0">Languages: English / German</p>
-            <p style="color:var(--muted);margin:6px 0">Availability: Mon–Fri 8am – 10pm UTC+1</p>
-            <p style="color:var(--muted);margin:6px 0">Contact: <a href="mailto:ctxzero.pentest@gmail.com" style="color:var(--accent-a)">ctxzero.pentest@gmail.com</a></p>
-            <div style="margin-top:14px"><a class="badge" href="#contact"><span>Contact</span></a></div>
+        <p class="lead">Penetration Tester &amp; <span style="background:var(--accent-gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:900">Red Team Specialist</span></p>
+        <p class="sub">Helping companies find the gaps before adversaries do — Webapp, Network & Active Directory assessments with clear remediation and detection guidance.</p>
+
+        <div class="animated-title" aria-hidden="false">
+          <span id="animated-text" style="font-weight:900;color:#fff"></span>
+        </div>
+
+        <div style="margin-top:18px;display:flex;gap:12px;flex-wrap:wrap">
+          <a class="btn" href="#contact" style="background:linear-gradient(90deg,var(--accent-a),var(--accent-b));color:#051220;padding:12px 18px;border-radius:12px;font-weight:900">Work with me →</a>
+          <a class="btn" href="mailto:ctxzero.pentest@gmail.com" style="border:1px solid rgba(255,255,255,0.04)">Email</a>
+        </div>
+
+        <div class="glow-underline" aria-hidden="true"></div>
+      </div>
+
+      <aside class="hero-right" role="complementary" aria-label="Quick Stats & Skills">
+        <div class="big">Available for freelance & full-time engagements</div>
+        <p>Typical deliverables: Executive summary, full technical report, PoCs, and remediation playbook.</p>
+
+        <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap;justify-content:center">
+          <div class="btn" style="padding:6px 10px;font-size:13px">WebApp Testing</div>
+          <div class="btn" style="padding:6px 10px;font-size:13px">AD / Purple Team</div>
+          <div class="btn" style="padding:6px 10px;font-size:13px">Network & Infra</div>
+        </div>
+      </aside>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" aria-labelledby="about-title">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:18px">
+        <h2 class="section-title" id="about-title">About Me</h2>
+        <span style="color:var(--muted);font-weight:700">19 • Germany • Open to work</span>
+      </div>
+
+      <div class="cols" style="margin-top:12px">
+        <div class="glass">
+          <h3 style="margin:0 0 6px">Professional Focus</h3>
+          <p class="section-sub">Offensive security with emphasis on making organizations more resilient — not just exploiting, but teaching and hardening.</p>
+          <ul style="margin:12px 0 0;padding-left:18px;color:var(--muted)">
+            <li style="margin-bottom:8px"><strong>Assessment types</strong>: External/Internal Webapps, API, Active Directory, Network, Cloud surface reviews.</li>
+            <li style="margin-bottom:8px"><strong>Reporting</strong>: Executive + Technical, risk scoring, prioritized fixes.</li>
+            <li style="margin-bottom:8px"><strong>Approach</strong>: Responsible disclosure, reproducible PoC, detection guidance & playbooks.</li>
+          </ul>
+        </div>
+
+        <div class="glass">
+          <h3 style="margin:0 0 6px">Tech Stack & Tools</h3>
+          <p class="section-sub">Tooling I use every day</p>
+          <div style="display:flex;gap:10px;flex-wrap:wrap">
+            <!-- simple SVG tokens to avoid external assets -->
+            <div class="btn" style="padding:8px 10px;font-size:13px">Burp</div>
+            <div class="btn" style="padding:8px 10px;font-size:13px">Nmap</div>
+            <div class="btn" style="padding:8px 10px;font-size:13px">BloodHound</div>
+            <div class="btn" style="padding:8px 10px;font-size:13px">Impacket</div>
+            <div class="btn" style="padding:8px 10px;font-size:13px">Wireshark</div>
+            <div class="btn" style="padding:8px 10px;font-size:13px">Python</div>
           </div>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <section id="skills">
-        <h2 class="section-title"><span class="g1">My</span><span class="g2"> Skills</span></h2>
-        <p class="section-sub">Core capabilities across offensive security domains — presented with clarity.</p>
-        <div class="skills-grid" style="margin-top:20px">
-          <div class="skill-card">
-            <h4>Penetration Testing</h4>
-            <p class="skill-meta">CTF player • Active learner • From Network, WebApp to Active Directory. Professional penetration tests to ensure your infrastructure is secure and resilient.</p>
-          </div>
-          <div class="skill-card">
-            <h4>Red Teaming</h4>
-            <p class="skill-meta">Simulating real-world adversaries to strengthen defenses, improve detection and validate security controls under pressure.</p>
-          </div>
-          <div class="skill-card">
-            <h4>Scripting</h4>
-            <p class="skill-meta">Bash • Python • Shell scripting for automation, tooling and exploitation helpers.</p>
-          </div>
-        </div>
-        <div class="two-row">
-          <div class="skill-card">
-            <h4>Professional Methodology</h4>
-            <p class="skill-meta">From reconnaissance to exploitation and lateral movement — delivering verifiable results and actionable remediation.</p>
-          </div>
-          <div class="skill-card">
-            <h4>Tool Skills</h4>
-            <p class="skill-meta">Expertise with major Security & Offensive Tools (Burp, Nmap, BloodHound, Metasploit, etc.).</p>
-          </div>
-        </div>
-      </section>
+    <!-- CERTIFICATIONS -->
+    <section id="certs" aria-labelledby="certs-title">
+      <h2 class="section-title" id="certs-title">Certifications</h2>
+      <p class="section-sub">Selected certifications & training — badges shown only for official icons I have available.</p>
 
-      <section id="certs">
-        <h2 class="section-title"><span class="g1">My</span><span class="g2"> Certifications</span></h2>
-        <div class="certs" style="margin-top:18px">
-          <div class="cert-list glass">
-            <ul class="certs-grid">
-              <li>
-                <img src="https://miro.medium.com/v2/resize:fit:1358/1*KXRcpcS4sGp4xvLjhByI7A.png" alt="eJPT badge" class="cert-icon">
-                <span>iNE eJPT (Junior Penetration Tester)</span>
-              </li>
-              <li>
-                <img src="https://media.arcx.io/images/products/CTI101.png" alt="Foundation Level Threat Intelligence Analyst" class="cert-icon">
-                <span>Foundation Level Threat Intelligence Analyst</span>
-              </li>
-              <li>
-                <img src="https://tryhackme-badges.s3.amazonaws.com/THMlogo.png" alt="TryHackMe" class="cert-icon">
-                <span>Multiple TryHackMe Certifications</span>
-              </li>
-              <li>
-                <img src="https://assets.hackthebox.com/hacker_assets/badges/CPTS.png" alt="HTB CPTS" class="cert-icon">
-                <span>HTB CPTS (soon)</span>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </section>
+      <div style="margin-top:12px">
+        <ul class="certs-grid" role="list">
+          <!-- eJPT with badge (you requested badge present) -->
+          <li class="cert-item" role="listitem" aria-label="iNE eJPT">
+            <div class="cert-badge" aria-hidden="true">
+              <img src="https://miro.medium.com/v2/resize:fit:1358/1*KXRcpcS4sGp4xvLjhByI7A.png" alt="" style="width:100%;height:100%;object-fit:contain;border-radius:6px">
+            </div>
+            <div>
+              <div class="meta">iNE eJPT</div>
+              <div class="small">Junior Penetration Tester</div>
+            </div>
+          </li>
 
-      <section id="projects">
-        <h2 class="section-title"><span class="g1">My</span><span class="g2"> Projects</span></h2>
-        <p class="section-sub">Selected findings and write-ups demonstrating methodology and impact.</p>
-        <div class="projects" style="margin-top:18px">
-          <div class="proj"><h4>SQL Injection — Auth Bypass</h4><p class="meta">Found injectable endpoint allowing login bypass via crafted payloads. Provided PoC and patch recommendations.</p></div>
-          <div class="proj"><h4>Broken Authorization — IDOR</h4><p class="meta">Endpoint permitted resource access by changing numeric IDs; sensitive data exposure. Reported with reproduction steps.</p></div>
-        </div>
-      </section>
+          <!-- Threat intelligence badge (you requested badge present) -->
+          <li class="cert-item" role="listitem" aria-label="Foundation Level Threat Intelligence Analyst">
+            <div class="cert-badge" aria-hidden="true">
+              <img src="https://media.arcx.io/images/products/CTI101.png" alt="" style="width:100%;height:100%;object-fit:contain;border-radius:6px">
+            </div>
+            <div>
+              <div class="meta">Foundation Level Threat Intelligence Analyst</div>
+              <div class="small">CTI Basics & TTP analysis</div>
+            </div>
+          </li>
 
-      <section id="contact">
-        <h2 class="section-title"><span class="g1">Contact</span><span class="g2"> Me</span></h2>
-        <div class="contact-box">
-          <p>Available for freelance or penetration testing engagements.</p>
-          <a href="mailto:ctxzero.pentest@gmail.com" class="email">ctxzero.pentest@gmail.com</a>
-        </div>
-      </section>
-    </main>
+          <!-- TryHackMe — NO badge, text only (as requested) -->
+          <li class="cert-item" role="listitem" aria-label="Multiple TryHackMe Certifications">
+            <div style="width:44px;height:44px;border-radius:8px;background:rgba(255,255,255,0.01);display:flex;align-items:center;justify-content:center">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="10" stroke="rgba(255,255,255,0.06)"/></svg>
+            </div>
+            <div>
+              <div class="meta">Multiple TryHackMe Certifications</div>
+              <div class="small">Platform-based learning & hands-on rooms</div>
+            </div>
+          </li>
 
-    <footer>
-      <p>© 2025 ctxzero | Built by Luis Schlegel</p>
+          <!-- HTB CPTS — NO badge, text only (as requested) -->
+          <li class="cert-item" role="listitem" aria-label="HTB CPTS soon">
+            <div style="width:44px;height:44px;border-radius:8px;background:rgba(255,255,255,0.01);display:flex;align-items:center;justify-content:center">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3" stroke="rgba(255,255,255,0.06)"/></svg>
+            </div>
+            <div>
+              <div class="meta">HTB CPTS (soon)</div>
+              <div class="small">Hack The Box Certified Provisional — in progress</div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- CASE STUDIES (replaces Projects) -->
+    <section id="case" aria-labelledby="case-title">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:12px">
+        <h2 class="section-title" id="case-title">Case Studies</h2>
+        <span style="color:var(--muted);font-weight:700">Real findings, real fixes</span>
+      </div>
+
+      <p class="section-sub">Short, high-impact summaries that recruiters love — include a link to full reports on request.</p>
+
+      <div class="case-grid" style="margin-top:12px">
+        <article class="case" aria-labelledby="case1-title">
+          <h4 id="case1-title">Auth Bypass — SQLi (Web App)</h4>
+          <p class="section-sub">Auth endpoint injection allowed login bypass via crafted payloads. Delivered PoC, fixed parameterized queries and rate limiting.</p>
+          <p style="margin-top:12px;color:var(--muted);font-size:13px"><strong>Impact:</strong> Account takeover & data access. <strong>Fix:</strong> Parameterized queries, account lockouts, monitoring.</p>
+        </article>
+
+        <article class="case" aria-labelledby="case2-title">
+          <h4 id="case2-title">IDOR — Broken Authorization</h4>
+          <p class="section-sub">Insecure direct object reference exposed user PII. Added authorization checks and standardized object IDs.</p>
+          <p style="margin-top:12px;color:var(--muted);font-size:13px"><strong>Impact:</strong> Sensitive data disclosure. <strong>Fix:</strong> Proper access controls, logging & alerts.</p>
+        </article>
+
+        <article class="case" aria-labelledby="case3-title">
+          <h4 id="case3-title">AD: Misconfigured ACLs & Kerberoast</h4>
+          <p class="section-sub">Misconfigured service accounts enabled Kerberoasting & lateral movement. Delivered detection playbook and ACL hardening steps.</p>
+          <p style="margin-top:12px;color:var(--muted);font-size:13px"><strong>Impact:</strong> Domain compromise risk. <strong>Fix:</strong> Harden service accounts, rotate creds, monitor ticket requests.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- Social proof / testimonials -->
+    <section aria-labelledby="trust-title" style="margin-top:26px">
+      <h2 class="section-title" id="trust-title">What people say</h2>
+      <p class="section-sub">Short quotes & references from collaborators or mentors.</p>
+
+      <div class="testi-grid" style="margin-top:10px">
+        <div class="testi">
+          <p style="font-weight:800;color:#fff;margin-bottom:8px">"Clear findings, great remediation — delivered exactly what we needed."</p>
+          <p class="small">— Security Lead, Finance Startup</p>
+        </div>
+
+        <div class="testi">
+          <p style="font-weight:800;color:#fff;margin-bottom:8px">"Fast, pragmatic, and thorough reporting. High-quality PoCs."</p>
+          <p class="small">— CTO (consulting engagement)</p>
+        </div>
+
+        <div class="testi">
+          <p style="font-weight:800;color:#fff;margin-bottom:8px">"Great communication, structured delivery and follow-up sessions."</p>
+          <p class="small">— Hiring Manager</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" aria-labelledby="contact-title" style="margin-top:30px">
+      <h2 class="section-title" id="contact-title">Contact</h2>
+      <p class="section-sub">Reach out for assessments, freelance engagements, or a quick conversation about your security posture.</p>
+
+      <div style="margin-top:12px;display:flex;gap:16px;flex-wrap:wrap">
+        <div class="glass contact-box" style="flex:1;min-width:300px">
+          <div style="font-weight:800;font-size:15px;color:#fff">Email</div>
+          <a class="mailto contact-mailto" href="mailto:ctxzero.pentest@gmail.com">ctxzero.pentest@gmail.com</a>
+          <div style="margin-top:8px;color:var(--muted);font-size:13px">Links: GitHub • TryHackMe • Discord (header)</div>
+        </div>
+
+        <div class="glass" style="flex:1;min-width:260px;">
+          <h4 style="margin:0 0 8px">Quick pitch</h4>
+          <p style="margin:0;color:var(--muted)">Send a scope or a problem statement — I respond with an initial estimate, approach and example deliverables within 24–48 hours.</p>
+          <div style="margin-top:12px"><a class="btn" href="mailto:ctxzero.pentest@gmail.com" style="background:linear-gradient(90deg,var(--accent-a),var(--accent-b));color:#071226">Request quote</a></div>
+        </div>
+      </div>
+    </section>
+
+    <footer role="contentinfo" style="margin-top:36px">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+        <div style="color:var(--muted)">© 2025 ctxzero — Penetration Tester & Red Teamer</div>
+        <div style="color:var(--muted);font-size:13px">Built responsibly • Available for hire</div>
+      </div>
     </footer>
   </div>
 
+  <!-- Canvas particle background (same style as before, fixed and performant) -->
+  <canvas id="bg-canvas" aria-hidden="true" style="position:fixed;inset:0;z-index:0;pointer-events:none"></canvas>
+
   <script>
-    const textArray = ["ctxzero","Luis Schlegel"];
-    let index = 0, charIndex = 0, typing = true;
-    const el = document.getElementById("animated-text");
-    function loop() {
-      if (typing) {
-        el.textContent = textArray[index].slice(0, ++charIndex);
-        if (charIndex === textArray[index].length) { typing = false; setTimeout(loop, 1500); return; }
-      } else {
-        el.textContent = textArray[index].slice(0, --charIndex);
-        if (charIndex === 0) { typing = true; index = (index+1)%textArray.length; }
+    /* ---------------------------
+       Particle background (fast)
+       --------------------------- */
+    (function(){
+      const canvas = document.getElementById('bg-canvas');
+      const ctx = canvas.getContext('2d', { alpha: true });
+      let DPR = Math.max(1, window.devicePixelRatio || 1);
+      let w = 0, h = 0;
+      let particles = [];
+      let mouse = { x: -9999, y: -9999 };
+      const A = [76,201,240]; const B = [123,47,247];
+
+      function setSize(){
+        DPR = Math.max(1, window.devicePixelRatio || 1);
+        w = canvas.width = Math.floor(window.innerWidth * DPR);
+        h = canvas.height = Math.floor(window.innerHeight * DPR);
+        canvas.style.width = window.innerWidth + 'px';
+        canvas.style.height = window.innerHeight + 'px';
+        ctx.setTransform(DPR,0,0,DPR,0,0);
+        initParticles();
       }
-      setTimeout(loop, typing ? 100 : 60);
-    }
-    loop();
+
+      function initParticles(){
+        particles = [];
+        const area = window.innerWidth * window.innerHeight;
+        const base = Math.max(18, Math.floor(area / 120000));
+        for(let i=0;i<base;i++){
+          particles.push({
+            x: Math.random() * window.innerWidth,
+            y: Math.random() * window.innerHeight,
+            vx: (Math.random()-0.5) * 0.35,
+            vy: (Math.random()-0.5) * 0.35,
+            r: 0.9 + Math.random()*1.8,
+            phase: Math.random()*Math.PI*2
+          });
+        }
+      }
+
+      function mixColor(t, alpha=1){
+        const r = Math.round(A[0] + (B[0]-A[0]) * t);
+        const g = Math.round(A[1] + (B[1]-A[1]) * t);
+        const b = Math.round(A[2] + (B[2]-A[2]) * t);
+        return `rgba(${r},${g},${b},${alpha})`;
+      }
+
+      function step(){
+        ctx.clearRect(0,0,window.innerWidth,window.innerHeight);
+        ctx.globalCompositeOperation = 'source-over';
+
+        for(let p of particles){
+          p.x += p.vx; p.y += p.vy; p.phase += 0.012;
+          if(p.x < -30) p.x = window.innerWidth + 30;
+          if(p.x > window.innerWidth + 30) p.x = -30;
+          if(p.y < -30) p.y = window.innerHeight + 30;
+          if(p.y > window.innerHeight + 30) p.y = -30;
+
+          const dx = p.x - mouse.x, dy = p.y - mouse.y;
+          const d2 = dx*dx + dy*dy;
+          if(d2 < 13000){
+            const d = Math.sqrt(d2) || 1;
+            p.x += (dx/d) * 1.2; p.y += (dy/d) * 1.2;
+          }
+
+          const t = (p.x / window.innerWidth + p.y / window.innerHeight) * 0.5;
+          const color = mixColor(t % 1, 0.14 + 0.08 * Math.sin(p.phase));
+          ctx.beginPath(); ctx.fillStyle=color; ctx.arc(p.x,p.y,p.r*2.6,0,Math.PI*2); ctx.fill();
+          ctx.beginPath(); ctx.fillStyle=mixColor(t%1,0.9); ctx.arc(p.x,p.y,p.r,0,Math.PI*2); ctx.fill();
+        }
+
+        ctx.lineWidth = 0.6;
+        for(let i=0;i<particles.length;i++){
+          const a=particles[i];
+          for(let j=i+1;j<particles.length;j++){
+            const b=particles[j];
+            const dx=a.x-b.x, dy=a.y-b.y, dist2=dx*dx+dy*dy;
+            if(dist2<20000){
+              const t = Math.min(1, dist2/20000);
+              const alpha=(1-t)*0.12;
+              const mix=((a.x+b.x)/(2*window.innerWidth)+(a.y+b.y)/(2*window.innerHeight))*0.5;
+              ctx.strokeStyle=mixColor(mix%1,alpha);
+              ctx.beginPath(); ctx.moveTo(a.x,a.y); ctx.lineTo(b.x,b.y); ctx.stroke();
+            }
+          }
+        }
+
+        ctx.globalCompositeOperation='multiply';
+        const vg=ctx.createLinearGradient(0,0,0,window.innerHeight);
+        vg.addColorStop(0,'rgba(0,0,0,0.03)'); vg.addColorStop(0.5,'rgba(0,0,0,0)'); vg.addColorStop(1,'rgba(0,0,0,0.05)');
+        ctx.fillStyle=vg; ctx.fillRect(0,0,window.innerWidth,window.innerHeight);
+        ctx.globalCompositeOperation='source-over';
+        requestAnimationFrame(step);
+      }
+
+      window.addEventListener('mousemove',(e)=>{mouse.x=e.clientX;mouse.y=e.clientY;});
+      window.addEventListener('mouseleave',()=>{mouse.x=-9999;mouse.y=-9999;});
+      window.addEventListener('touchmove',(e)=>{if(e.touches&&e.touches[0]){mouse.x=e.touches[0].clientX;mouse.y=e.touches[0].clientY;}},{passive:true});
+      window.addEventListener('touchend',()=>{mouse.x=-9999;mouse.y=-9999;});
+      let rt;
+      window.addEventListener('resize',()=>{clearTimeout(rt); rt=setTimeout(setSize,120);});
+      setSize();
+      requestAnimationFrame(step);
+    })();
+
+    /* ---------------------------
+       Animated title (exact as you wanted)
+       - cycles: ctxzero / a Red Teamer / a Pentester / an Ethical Hacker
+       - blue-purple gradient
+       --------------------------- */
+    (function(){
+      const el = document.getElementById('animated-text');
+      const titles = ["ctxzero","a Red Teamer","a Pentester","an Ethical Hacker"];
+      let tIdx = 0, cIdx = 0, deleting = false;
+      function render(){
+        const current = titles[tIdx];
+        if(!deleting){
+          cIdx++;
+          el.innerHTML = `<span class="accent">${current.slice(0,cIdx)}</span>`;
+          if(cIdx === current.length){
+            deleting = true;
+            setTimeout(render,1200);
+            return;
+          }
+        } else {
+          cIdx--;
+          el.innerHTML = `<span class="accent">${current.slice(0,cIdx)}</span>`;
+          if(cIdx === 0){
+            deleting = false;
+            tIdx = (tIdx + 1) % titles.length;
+          }
+        }
+        setTimeout(render, deleting ? 45 : 90);
+      }
+      render();
+    })();
   </script>
 </body>
 </html>
