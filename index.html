@@ -5,105 +5,98 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ctxzero — Pentest & Red Team</title>
 <style>
-  /* ================= Reset & Base ================= */
+  /* ===== Reset & Base ===== */
   * {margin:0; padding:0; box-sizing:border-box; font-family: 'Inter', sans-serif;}
-  html, body {height:100%; overflow-x:hidden;}
-  body {background:#0b0f14; color:#eaf2ff;}
-
+  html, body {height:100%; overflow-x:hidden; background:#0f0f0f; color:#ffffff;}
   a {text-decoration:none; color:inherit;}
 
-  /* ================= Intro Section ================= */
+  /* ===== Intro Section ===== */
   #intro {
-    position:relative;
-    height:100vh;
+    position:fixed;
+    inset:0;
     display:flex;
     justify-content:center;
     align-items:center;
     flex-direction:column;
-    background: linear-gradient(135deg, #4cc9f0, #7b2ff7);
-    overflow:hidden;
+    background: #0f0f0f;
+    z-index:100;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+  }
+  #intro.hidden {
+    opacity:0;
+    visibility:hidden;
   }
   #intro h1 {
-    font-size: 5rem;
-    font-weight: 900;
-    background: linear-gradient(90deg,#4cc9f0,#7b2ff7);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    font-size:5rem;
+    font-weight:900;
+    color:#ffffff;
     text-align:center;
-    animation: glow 2.5s infinite;
-  }
-  @keyframes glow {
-    0%,100%{text-shadow: 0 0 10px rgba(76,201,240,0.7), 0 0 20px rgba(123,47,247,0.7);}
-    50%{text-shadow: 0 0 30px rgba(76,201,240,1), 0 0 40px rgba(123,47,247,1);}
+    margin-bottom:40px;
   }
   #enter-btn {
-    margin-top:40px;
     padding:18px 36px;
     border:none;
-    border-radius:12px;
+    border-radius:10px;
     font-size:1.2rem;
     font-weight:700;
-    color:#0b0f14;
-    background: #4cc9f0;
+    color:#0f0f0f;
+    background: linear-gradient(90deg,#d4af37,#bfa130); /* edles Gold */
     cursor:pointer;
     transition: all 0.3s ease;
   }
   #enter-btn:hover {
-    background: #7b2ff7;
-    color:#fff;
-    transform: scale(1.1);
+    transform: scale(1.05);
+    box-shadow: 0 0 20px #d4af37;
   }
 
-  /* ================= Main Portfolio ================= */
+  /* ===== Main Portfolio ===== */
   #main-content {
-    display:none;
-    background:#070708;
     padding:60px 20px;
-    min-height:100vh;
+    max-width:1200px;
+    margin:0 auto;
   }
-  .wrap {max-width:1200px; margin:0 auto;}
-
   h2 {font-size:2.5rem; margin-bottom:20px; text-align:center;}
   .section {margin-bottom:60px;}
+  p {color:rgba(255,255,255,0.8); line-height:1.6;}
 
-  /* ================= Badges & Certificates ================= */
+  /* ===== Badges & Certifications ===== */
   .certs {display:flex; flex-direction:column; gap:16px; max-width:800px; margin:0 auto;}
   .cert-item {
     display:flex; align-items:center; gap:12px;
-    background: rgba(255,255,255,0.02);
+    background: rgba(255,255,255,0.03);
     padding:16px 20px;
     border-radius:12px;
-    border:1px solid rgba(255,255,255,0.04);
+    border:1px solid rgba(255,255,255,0.1);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
   }
   .cert-item:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 18px 48px rgba(20,30,60,0.6);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 36px rgba(0,0,0,0.6);
   }
   .cert-item img {width:36px; height:36px;}
-  .cert-item span {font-weight:700; color:#eaf2ff;}
+  .cert-item span {font-weight:700; color:#ffffff;}
 
-  /* ================= Skills ================= */
+  /* ===== Skills ===== */
   .skills-grid {display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:24px;}
   .skill-card {
-    padding:24px; border-radius:14px; background: rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.03);
+    padding:24px; border-radius:14px; background: rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.1);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
   }
   .skill-card:hover {
     transform: translateY(-6px);
-    box-shadow:0 18px 48px rgba(20,30,60,0.6);
+    box-shadow:0 18px 48px rgba(0,0,0,0.5);
   }
   .skill-card h4 {margin-bottom:12px; font-size:1.4rem;}
-  .skill-card p {color:rgba(255,255,255,0.7); font-size:0.95rem; line-height:1.5;}
+  .skill-card p {color:rgba(255,255,255,0.8); font-size:0.95rem; line-height:1.5;}
 
-  /* ================= Contact ================= */
+  /* ===== Contact ===== */
   .contact-box {
     max-width:640px;
     margin:0 auto;
     padding:26px;
     border-radius:14px;
     background: rgba(255,255,255,0.02);
-    border:1px solid rgba(255,255,255,0.03);
+    border:1px solid rgba(255,255,255,0.1);
     display:flex;
     flex-direction:column;
     align-items:center;
@@ -111,11 +104,10 @@
   }
   .contact-box a.email {
     font-weight:900;
-    color:#4cc9f0;
+    color:#d4af37; /* edles Gold */
     font-size:1.1rem;
   }
 
-  /* ================= Responsive ================= */
   @media (max-width:768px){
     #intro h1 {font-size:3.5rem;}
     #enter-btn {padding:14px 28px;}
@@ -124,85 +116,81 @@
 </head>
 <body>
 
-<!-- ================= Intro ================= -->
+<!-- ===== Intro ===== -->
 <section id="intro">
   <h1 id="animated-text">ctxzero</h1>
   <button id="enter-btn">Enter Portfolio</button>
 </section>
 
-<!-- ================= Main Portfolio ================= -->
+<!-- ===== Main Portfolio ===== -->
 <section id="main-content">
-  <div class="wrap">
+  <!-- About -->
+  <div class="section" id="about">
+    <h2>About Me</h2>
+    <p>
+      19 years old — based in Germany. Focused on Penetration Testing & Red Teaming in WebApp, Network & AD environments. Continuous learner, delivering deep, actionable insights. Responsible disclosure, thorough reporting, pragmatic remediation advice.
+    </p>
+  </div>
 
-    <!-- About -->
-    <div class="section" id="about">
-      <h2>About Me</h2>
-      <p style="text-align:center; max-width:800px; margin:0 auto; color:rgba(255,255,255,0.8)">
-        19 years old — based in Germany. Focused on Penetration Testing & Red Teaming in WebApp, Network & AD environments. Continuous learner, delivering deep, actionable insights. Responsible disclosure, thorough reporting, pragmatic remediation advice.
-      </p>
-    </div>
-
-    <!-- Skills -->
-    <div class="section" id="skills">
-      <h2>My Skills</h2>
-      <div class="skills-grid">
-        <div class="skill-card">
-          <h4>Penetration Testing</h4>
-          <p>CTF player • Active learner • From Network, WebApp to Active Directory. Professional penetration tests to ensure your infrastructure is secure and resilient.</p>
-        </div>
-        <div class="skill-card">
-          <h4>Red Teaming</h4>
-          <p>Simulating real-world adversaries to strengthen defenses, improve detection and response, and validate security controls under pressure.</p>
-        </div>
-        <div class="skill-card">
-          <h4>Scripting</h4>
-          <p>Bash • Python • Shell scripting for automation, tooling and small exploitation helpers.</p>
-        </div>
-        <div class="skill-card">
-          <h4>Professional Methodology</h4>
-          <p>From reconnaissance and enumeration to exploitation and lateral movement — I provide thorough methodology that yields deep, verifiable results and clear remediation paths.</p>
-        </div>
+  <!-- Skills -->
+  <div class="section" id="skills">
+    <h2>My Skills</h2>
+    <div class="skills-grid">
+      <div class="skill-card">
+        <h4>Penetration Testing</h4>
+        <p>CTF player • Active learner • From Network, WebApp to Active Directory. Professional penetration tests to ensure your infrastructure is secure and resilient.</p>
+      </div>
+      <div class="skill-card">
+        <h4>Red Teaming</h4>
+        <p>Simulating real-world adversaries to strengthen defenses, improve detection and response, and validate security controls under pressure.</p>
+      </div>
+      <div class="skill-card">
+        <h4>Scripting</h4>
+        <p>Bash • Python • Shell scripting for automation, tooling and small exploitation helpers.</p>
+      </div>
+      <div class="skill-card">
+        <h4>Professional Methodology</h4>
+        <p>From reconnaissance and enumeration to exploitation and lateral movement — I provide thorough methodology that yields deep, verifiable results and clear remediation paths.</p>
       </div>
     </div>
+  </div>
 
-    <!-- Certifications -->
-    <div class="section" id="certs">
-      <h2>My Certifications</h2>
-      <div class="certs">
-        <div class="cert-item">
-          <img src="https://miro.medium.com/v2/resize:fit:1358/1*KXRcpcS4sGp4xvLjhByI7A.png" alt="eJPT">
-          <span>iNE eJPT (Junior Penetration Tester)</span>
-        </div>
-        <div class="cert-item">
-          <img src="https://media.arcx.io/images/products/CTI101.png" alt="CTI101">
-          <span>Foundation Level Threat Intelligence Analyst</span>
-        </div>
-        <div class="cert-item">
-          <span>Multiple TryHackMe Certifications</span>
-        </div>
-        <div class="cert-item">
-          <span>HTB CPTS (soon)</span>
-        </div>
+  <!-- Certifications -->
+  <div class="section" id="certs">
+    <h2>My Certifications</h2>
+    <div class="certs">
+      <div class="cert-item">
+        <img src="https://miro.medium.com/v2/resize:fit:1358/1*KXRcpcS4sGp4xvLjhByI7A.png" alt="eJPT">
+        <span>iNE eJPT (Junior Penetration Tester)</span>
+      </div>
+      <div class="cert-item">
+        <img src="https://media.arcx.io/images/products/CTI101.png" alt="CTI101">
+        <span>Foundation Level Threat Intelligence Analyst</span>
+      </div>
+      <div class="cert-item">
+        <span>Multiple TryHackMe Certifications</span>
+      </div>
+      <div class="cert-item">
+        <span>HTB CPTS (soon)</span>
       </div>
     </div>
+  </div>
 
-    <!-- Contact -->
-    <div class="section" id="contact">
-      <h2>Contact</h2>
-      <div class="contact-box">
-        <div>Email</div>
-        <a class="email" href="mailto:ctxzero.pentest@gmail.com">ctxzero.pentest@gmail.com</a>
-        <div style="margin-top:8px; color:rgba(255,255,255,0.6); font-size:0.85rem">
-          Reach out via LinkedIn / TryHackMe / Discord
-        </div>
+  <!-- Contact -->
+  <div class="section" id="contact">
+    <h2>Contact</h2>
+    <div class="contact-box">
+      <div>Email</div>
+      <a class="email" href="mailto:ctxzero.pentest@gmail.com">ctxzero.pentest@gmail.com</a>
+      <div style="margin-top:8px; color:rgba(255,255,255,0.6); font-size:0.85rem">
+        Reach out via LinkedIn / TryHackMe / Discord
       </div>
     </div>
-
   </div>
 </section>
 
 <script>
-  // ================= Animated Intro Text =================
+  // ===== Animated Intro Text =====
   const textEl = document.getElementById('animated-text');
   const texts = ["ctxzero","a Red Teamer","a Pentester","an Ethical Hacker"];
   let textIndex = 0, charIndex = 0, deleting = false;
@@ -232,15 +220,11 @@
   }
   type();
 
-  // ================= Enter Button =================
+  // ===== Enter Button =====
   const enterBtn = document.getElementById('enter-btn');
-  const mainContent = document.getElementById('main-content');
-
+  const intro = document.getElementById('intro');
   enterBtn.addEventListener('click', ()=>{
-    mainContent.style.display = 'block';
-    window.scrollTo({top:0, behavior:'smooth'});
-    enterBtn.style.display='none';
-    document.getElementById('intro').style.height='60vh';
+    intro.classList.add('hidden');
   });
 </script>
 
