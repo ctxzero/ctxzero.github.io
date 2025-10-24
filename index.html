@@ -1,10 +1,19 @@
 <!doctype html>
-<html lang="de">
+<html lang="en">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>ctxzero — Penetration Tester & Red Teamer</title>
-<meta name="description" content="ctxzero — Professional Penetration Tester & Red Teamer. Portfolio, Skills, Certifications, Projects & Contact." />
+<meta name="description" content="ctxzero — Penetration Tester & Red Teamer for WebApp, Network & Active Directory. Portfolio, services, certifications, case studies, and contact." />
+<link rel="canonical" href="https://www.ctxzero.dev">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0f1318">
+<meta property="og:title" content="ctxzero — Penetration Tester & Red Teamer">
+<meta property="og:description" content="Offensive security portfolio: services, certifications, and case studies. Available for freelance engagements and roles.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.ctxzero.dev">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
@@ -30,7 +39,7 @@ img{max-width:100%;display:block}
 .wrap{max-width:var(--max-w);margin:0 auto;padding:30px 26px;position:relative}
 
 /* Header */
-.header{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.header{position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;background:rgba(6,6,10,0.7);backdrop-filter:saturate(1.2) blur(8px);border-bottom:1px solid rgba(255,255,255,0.04);padding:12px 0}
 .brand{font-weight:800;letter-spacing:0.6px;font-size:20px;color:#e8f8fb}
 .nav{display:flex;gap:10px;align-items:center}
 .btn{display:inline-flex;align-items:center;gap:10px;padding:10px 14px;border-radius:12px;background:transparent;border:1px solid rgba(255,255,255,0.04);cursor:pointer;font-weight:700}
@@ -89,25 +98,44 @@ img{max-width:100%;display:block}
 a:hover{opacity:0.95}
 .panel:hover{transform:translateY(-6px);transition:transform .22s}
 
+/* accessibility & focus */
+.skip-link{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
+.skip-link:focus{left:12px;top:12px;width:auto;height:auto;z-index:999;padding:10px 12px;background:#11151b;color:#fff;border-radius:8px;border:1px solid rgba(255,255,255,0.2)}
+.btn:focus-visible{outline:2px solid var(--accent-a);outline-offset:2px}
+
+/* services */
+.service-list{margin:8px 0 0;padding-left:18px;color:var(--muted);font-size:14px;line-height:1.6}
+.service-list li{margin:6px 0}
+
+/* prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce){
+  .underline i{animation:none}
+  .panel:hover{transform:none}
+  *{scroll-behavior:auto !important}
+}
+
 </style>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"ctxzero","jobTitle":"Penetration Tester & Red Teamer","url":"https://www.ctxzero.dev","email":"mailto:ctxzero.pentest@gmail.com","sameAs":["https://github.com/ctxzero","https://www.linkedin.com/in/luis-schlegel-a38937387/","https://tryhackme.com/p/ctxzero"],"knowsLanguage":["English","German"]}</script>
 </head>
 <body>
+<a href="#main" class="skip-link">Skip to content</a>
 <div class="wrap">
   <header class="header">
     <div class="brand">ctxzero <small style="font-weight:600;color:var(--muted);font-size:12px;display:block">Penetration Tester & Red Teamer</small></div>
     <nav class="nav">
+      <a class="btn" href="#services">Services</a>
       <a class="btn" href="#projects">Projects</a>
       <a class="btn" href="#certs">Certs</a>
       <a class="btn" href="#contact">Contact</a>
-      <a class="btn primary" href="mailto:ctxzero.pentest@gmail.com">Hire / Contact</a>
+      <a class="btn primary" href="mailto:ctxzero.pentest@gmail.com" aria-label="Hire ctxzero via email">Hire / Contact</a>
     </nav>
   </header>
 
-  <main>
+  <main id="main">
     <section class="hero">
       <div class="hero-left">
         <h1 class="h-title">I'm <span id="animated" style="background:var(--accent-gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent">ctxzero</span></h1>
-        <p class="h-sub">Penetration Tester & Red Teamer — WebApp, Network & Active Directory focused. Ich liefere verwertbare Findings und klare Remediation-Pläne.</p>
+        <p class="h-sub">Penetration Tester & Red Teamer — WebApp, Network & Active Directory focused. I deliver actionable findings and clear remediation plans.</p>
         <div class="lead-badges">
           <span class="chip">Available for freelance</span>
           <span class="chip">Remote / On-site</span>
@@ -115,7 +143,7 @@ a:hover{opacity:0.95}
         </div>
 
         <div style="margin-top:20px;display:flex;gap:12px;align-items:center">
-          <a class="btn primary" href="mailto:ctxzero.pentest@gmail.com"><i class="fa-solid fa-envelope"></i> Contact</a>
+          <a class="btn primary" href="mailto:ctxzero.pentest@gmail.com" aria-label="Email ctxzero"><i class="fa-solid fa-envelope"></i> Contact</a>
           <a class="btn" href="#certs"><i class="fa-regular fa-certificate"></i> Certifications</a>
           <a class="btn" href="#projects"><i class="fa-solid fa-briefcase"></i> Case Studies</a>
         </div>
@@ -126,7 +154,7 @@ a:hover{opacity:0.95}
 
       <aside class="hero-right panel">
         <div style="display:flex;gap:12px;align-items:center">
-          <img src="https://avatars.githubusercontent.com/u/583231?v=4" alt="avatar" style="width:72px;height:72px;border-radius:14px;object-fit:cover;border:1px solid rgba(255,255,255,0.04)">
+          <img src="https://avatars.githubusercontent.com/u/583231?v=4" alt="ctxzero avatar" loading="lazy" decoding="async" style="width:72px;height:72px;border-radius:14px;object-fit:cover;border:1px solid rgba(255,255,255,0.04)">
           <div>
             <div style="font-weight:800">ctxzero</div>
             <div style="color:var(--muted);font-size:13px;margin-top:4px">19, Germany — Pentester & Red Teamer</div>
@@ -148,12 +176,71 @@ a:hover{opacity:0.95}
         </div>
 
         <div style="margin-top:14px;display:flex;gap:10px">
-          <a class="socials" href="https://github.com/ctxzero" target="_blank" rel="noopener"><span class="btn" style="padding:8px 10px"><i class="fab fa-github"></i></span></a>
-          <a class="socials" href="https://www.linkedin.com/in/luis-schlegel-a38937387/" target="_blank" rel="noopener"><span class="btn" style="padding:8px 10px"><i class="fab fa-linkedin"></i></span></a>
-          <a class="socials" href="https://tryhackme.com/p/ctxzero" target="_blank" rel="noopener"><span class="btn" style="padding:8px 10px"><i class="fas fa-shield-heart"></i></span></a>
+          <a class="socials" href="https://github.com/ctxzero" target="_blank" rel="noopener" aria-label="GitHub profile"><span class="btn" style="padding:8px 10px"><i class="fab fa-github"></i></span></a>
+          <a class="socials" href="https://www.linkedin.com/in/luis-schlegel-a38937387/" target="_blank" rel="noopener" aria-label="LinkedIn profile"><span class="btn" style="padding:8px 10px"><i class="fab fa-linkedin"></i></span></a>
+          <a class="socials" href="https://tryhackme.com/p/ctxzero" target="_blank" rel="noopener" aria-label="TryHackMe profile"><span class="btn" style="padding:8px 10px"><i class="fas fa-shield-heart"></i></span></a>
         </div>
 
       </aside>
+    </section>
+
+    <!-- Services -->
+    <section id="services" style="margin-top:28px">
+      <h2 style="margin:0 0 12px;font-size:20px">Services</h2>
+      <div class="grid-3">
+        <div class="panel">
+          <h3 style="margin:0 0 8px">Web Application Penetration Test</h3>
+          <ul class="service-list">
+            <li>OWASP Top 10 and business logic coverage</li>
+            <li>Authenticated and unauthenticated testing</li>
+            <li>Risk-rated report with remediation guidance</li>
+          </ul>
+        </div>
+        <div class="panel">
+          <h3 style="margin:0 0 8px">Network Penetration Test</h3>
+          <ul class="service-list">
+            <li>Internal/external attack surface assessment</li>
+            <li>Credential and password hygiene testing</li>
+            <li>Clear prioritization and mitigation plan</li>
+          </ul>
+        </div>
+        <div class="panel">
+          <h3 style="margin:0 0 8px">Active Directory Assessment</h3>
+          <ul class="service-list">
+            <li>Privilege escalation paths and ACL review</li>
+            <li>Kerberoasting and lateral movement simulation</li>
+            <li>Hardening checklist and detections</li>
+          </ul>
+        </div>
+        <div class="panel">
+          <h3 style="margin:0 0 8px">Red Team Exercise</h3>
+          <ul class="service-list">
+            <li>TTP-driven adversary simulation</li>
+            <li>Detection and response evaluation</li>
+            <li>Executive and technical reporting</li>
+          </ul>
+        </div>
+        <div class="panel">
+          <h3 style="margin:0 0 8px">Cloud & Infrastructure Review</h3>
+          <ul class="service-list">
+            <li>Misconfigurations and least privilege checks</li>
+            <li>Secrets, storage and exposure analysis</li>
+            <li>Guardrails and logging recommendations</li>
+          </ul>
+        </div>
+        <div class="panel">
+          <h3 style="margin:0 0 8px">Retainer & On‑Demand Support</h3>
+          <ul class="service-list">
+            <li>Monthly hours for on-call testing</li>
+            <li>Rapid triage of critical issues</li>
+            <li>Advisory on secure design</li>
+          </ul>
+        </div>
+      </div>
+      <div style="margin-top:14px;display:flex;gap:12px;align-items:center;flex-wrap:wrap">
+        <a class="btn primary" href="mailto:ctxzero.pentest@gmail.com?subject=Engagement%20request%20-%20ctxzero&body=Hi%20ctxzero%2C%0A%0AProject%20scope%3A%20%5Bweb%2Fnetwork%2FAD%5D%0APreferred%20timeline%3A%20%0ABudget%20range%3A%20%0A%0AThanks!">Request a quote</a>
+        <a class="btn" href="#projects"><i class="fa-solid fa-briefcase"></i> See case studies</a>
+      </div>
     </section>
 
     <!-- Skills + Methodology -->
@@ -179,7 +266,7 @@ a:hover{opacity:0.95}
       <h2 style="margin:0 0 12px;font-size:20px">Certifications</h2>
       <div class="certs">
         <div class="cert">
-          <img src="https://miro.medium.com/v2/resize:fit:1358/1*KXRcpcS4sGp4xvLjhByI7A.png" alt="eJPT badge">
+          <img src="https://miro.medium.com/v2/resize:fit:1358/1*KXRcpcS4sGp4xvLjhByI7A.png" alt="eJPT badge" loading="lazy" decoding="async">
           <div>
             <div class="title">iNE eJPT</div>
             <div class="meta">Junior Penetration Tester — Practical, hands-on certification</div>
@@ -187,7 +274,7 @@ a:hover{opacity:0.95}
         </div>
 
         <div class="cert">
-          <img src="https://media.arcx.io/images/products/CTI101.png" alt="CTI101 badge">
+          <img src="https://media.arcx.io/images/products/CTI101.png" alt="Foundation Level Threat Intelligence Analyst badge" loading="lazy" decoding="async">
           <div>
             <div class="title">Foundation Level Threat Intelligence Analyst</div>
             <div class="meta">Foundational CTI knowledge — OSINT, Analysis & Reporting</div>
@@ -250,10 +337,10 @@ a:hover{opacity:0.95}
           <div style="color:var(--muted);margin-top:8px;font-size:13px">For engagements: short intro, scope (web/network/AD), and preferred timeline — I'll get back with a tailored estimate and availability.</div>
         </div>
         <div class="right">
-          <a class="btn" href="https://github.com/ctxzero" target="_blank" rel="noopener"><i class="fab fa-github"></i></a>
-          <a class="btn" href="https://www.linkedin.com/in/luis-schlegel-a38937387/" target="_blank" rel="noopener"><i class="fab fa-linkedin"></i></a>
-          <a class="btn" href="https://tryhackme.com/p/ctxzero" target="_blank" rel="noopener"><i class="fas fa-shield-alt"></i></a>
-          <a class="btn primary" href="mailto:ctxzero.pentest@gmail.com">Contact</a>
+          <a class="btn" href="https://github.com/ctxzero" target="_blank" rel="noopener" aria-label="GitHub profile"><i class="fab fa-github"></i></a>
+          <a class="btn" href="https://www.linkedin.com/in/luis-schlegel-a38937387/" target="_blank" rel="noopener" aria-label="LinkedIn profile"><i class="fab fa-linkedin"></i></a>
+          <a class="btn" href="https://tryhackme.com/p/ctxzero" target="_blank" rel="noopener" aria-label="TryHackMe profile"><i class="fas fa-shield-alt"></i></a>
+          <a class="btn primary" href="mailto:ctxzero.pentest@gmail.com" aria-label="Email ctxzero">Contact</a>
         </div>
       </div>
     </section>
@@ -274,7 +361,8 @@ function type(){
   else{ ci--; el.textContent = cur.slice(0,ci); if(ci===0){ del=false; ti=(ti+1)%texts.length }}
   setTimeout(type, del?40:90);
 }
-type();
+const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+if (prefersReducedMotion) { el.textContent = 'ctxzero'; } else { type(); }
 </script>
 </body>
 </html>
