@@ -1,280 +1,311 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>ctxzero — Penetration Tester & Red Teamer</title>
-<meta name="description" content="ctxzero — Professional Penetration Tester & Red Teamer. Portfolio, Skills, Certifications, Projects & Contact." />
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-Kf1Pq9nxTlyD/jj8A/+6I4f3i6lXnM50s+aTXdh1fprcYbDEg5fF3lpUcoGNiL4R6OyZ9rNR3+5fj3zsfV8o1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-<style>
-:root{
-  /* Farbpalette überarbeitet: etwas wärmeres, professionelles Purple/Teal */
-  --bg:#06060a;
-  --card:#0f1318;
-  --glass:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-  --muted:rgba(255,255,255,0.68);
-  --accent-a:#1fd6d1; /* teal */
-  --accent-b:#8b5cf6; /* purple */
-  --accent-gradient: linear-gradient(90deg,var(--accent-a),var(--accent-b));
-  --radius:14px;
-  --max-w:1200px;
-  font-family: Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
-}
-*{box-sizing:border-box}
-html,body{height:100%;margin:0;background:var(--bg);color:#eef7ff}
-a{color:inherit;text-decoration:none}
-img{max-width:100%;display:block}
-.wrap{max-width:var(--max-w);margin:0 auto;padding:30px 26px;position:relative}
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>ctxzero — Pentest & Red Team</title>
+  <meta name="description" content="ctxzero — Penetration Tester & Red Teamer. WebApp, Network & AD testing. Contact: ctxzero.pentest@gmail.com" />
+  <link rel="icon" type="image/png" href="https://github.com/ctxzero.png">
+  <meta name="theme-color" content="#070708">
 
-/* Header */
-.header{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
-.brand{font-weight:800;letter-spacing:0.6px;font-size:20px;color:#e8f8fb}
-.nav{display:flex;gap:10px;align-items:center}
-.btn{display:inline-flex;align-items:center;gap:10px;padding:10px 14px;border-radius:12px;background:transparent;border:1px solid rgba(255,255,255,0.04);cursor:pointer;font-weight:700}
-.btn.primary{background:linear-gradient(90deg,var(--accent-a),var(--accent-b));color:#061018;border:none}
+  <style>
+    :root {
+      --bg:#070708;
+      --panel:#0b0f14;
+      --glass:linear-gradient(180deg, rgba(0,0,0,0.55), rgba(255,255,255,0.02));
+      --muted:rgba(255,255,255,0.65);
+      --accent-a:#4cc9f0;
+      --accent-b:#7b2ff7;
+      --accent-gradient: linear-gradient(90deg,var(--accent-a),var(--accent-b));
+      --radius:16px;
+      --max-w:1200px;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+    }
 
-/* Hero */
-.hero{display:flex;gap:36px;align-items:center;padding:56px 8px}
-.hero-left{flex:1}
-.hero-right{width:360px}
-.h-title{font-weight:900;font-size:48px;line-height:1.02;margin:0}
-.h-sub{color:var(--muted);margin-top:10px;font-size:18px}
-.h-meta{margin-top:18px;color:var(--muted);font-size:15px}
-.lead-badges{display:flex;gap:8px;margin-top:18px;flex-wrap:wrap}
-.lead-badges .chip{background:rgba(255,255,255,0.03);padding:8px 10px;border-radius:999px;font-weight:700;color:#eaf8ff;border:1px solid rgba(255,255,255,0.02)}
+    html,body {
+      height:100%;
+      margin:0;
+      background:var(--bg);
+      color:#eaf2ff;
+    }
 
-/* Cards */
-.panel{background:var(--card);border-radius:14px;padding:18px;border:1px solid rgba(255,255,255,0.03)}
-.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-.grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
-@media (max-width:960px){.grid-3{grid-template-columns:repeat(2,1fr)}.hero-right{width:300px}}
-@media (max-width:640px){.grid-3{grid-template-columns:1fr}.hero{flex-direction:column}.hero-right{width:100%}}
+    a { color:inherit; text-decoration:none }
+    img { max-width:100%; display:block }
 
-/* Skills */
-.skill{padding:16px;border-radius:10px;background:linear-gradient(180deg,rgba(255,255,255,0.01),transparent);border:1px solid rgba(255,255,255,0.02)}
-.skill h4{margin:0 0 8px}
-.progress{height:8px;border-radius:999px;background:rgba(255,255,255,0.04);overflow:hidden}
-.progress > i{display:block;height:100%;border-radius:999px;background:var(--accent-gradient)}
+    #bg-canvas {
+      position:fixed; inset:0; width:100%; height:100%; z-index:0; pointer-events:none; display:block;
+    }
 
-/* Certificates list */
-.certs{display:flex;flex-direction:column;gap:12px}
-.cert{display:flex;align-items:center;gap:14px;padding:12px;border-radius:12px;background:linear-gradient(180deg,rgba(255,255,255,0.01),transparent);border:1px solid rgba(255,255,255,0.02)}
-.cert img{width:46px;height:46px;object-fit:cover;border-radius:8px}
-.cert .title{font-weight:700}
-.cert .meta{color:var(--muted);font-size:13px}
+    body::before {
+      content:""; position:fixed; inset:0; z-index:1; pointer-events:none;
+      background-image: radial-gradient(30% 20% at 12% 18%, rgba(76,201,240,0.06), transparent 18%),
+                        radial-gradient(28% 18% at 86% 78%, rgba(123,47,247,0.05), transparent 16%),
+                        linear-gradient(180deg, rgba(0,0,0,0.15), rgba(0,0,0,0.2));
+      filter:blur(48px) saturate(1);
+      opacity:0.95;
+    }
 
-/* Projects */
-.project{padding:16px;border-radius:12px;border:1px solid rgba(255,255,255,0.03);background:linear-gradient(180deg,rgba(255,255,255,0.01),transparent)}
-.project h4{margin:0 0 8px}
+    body::after {
+      content:""; position:fixed; inset:0; z-index:2; pointer-events:none;
+      background-image: linear-gradient(transparent 49%, rgba(255,255,255,0.005) 50%, transparent 51%);
+      background-size:100% 6px; mix-blend-mode:overlay; opacity:0.5; transform:translateZ(0);
+    }
 
-/* Contact */
-.contact{display:flex;gap:18px;align-items:center;justify-content:space-between;padding:18px;border-radius:12px;background:linear-gradient(180deg,rgba(255,255,255,0.01),transparent);border:1px solid rgba(255,255,255,0.03)}
-.contact .left{flex:1}
-.contact .right{display:flex;gap:10px;align-items:center}
-.socials{display:flex;gap:10px}
-.socials a{width:44px;height:44px;display:inline-flex;align-items:center;justify-content:center;border-radius:10px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.02)}
+    .grain { position:fixed; inset:0; z-index:6; pointer-events:none; background-image: linear-gradient(transparent, rgba(255,255,255,0.008)); opacity:0.9; }
 
-/* Footer */
-.footer{margin-top:28px;text-align:center;color:var(--muted);font-size:13px}
+    .wrap { max-width:var(--max-w); margin:0 auto; padding:48px 28px; position:relative; z-index:7 }
+    header.site-head { display:flex; align-items:center; justify-content:space-between; gap:12px }
+    .brand { font-size:18px; font-weight:600; color:#cfe9ff; letter-spacing:0.6px }
+    .badges { display:flex; gap:12px; align-items:center }
 
-/* Subtle animated underline */
-.underline{height:8px;border-radius:999px;margin-top:12px;overflow:hidden}
-.underline i{display:block;height:8px;background:linear-gradient(90deg,var(--accent-a),var(--accent-b));animation:glow 3s linear infinite}
-@keyframes glow{0%{transform:translateX(-20%)}50%{transform:translateX(20%)}100%{transform:translateX(-20%)}}
+    .badge {
+      display:inline-flex; align-items:center; gap:8px; padding:10px 12px;
+      border-radius:12px; background:transparent;
+      border:1px solid rgba(255,255,255,0.04); backdrop-filter:blur(6px);
+      cursor:pointer; transition:all .18s ease;
+    }
+    .badge:hover { transform:translateY(-3px); background:rgba(76,201,240,0.04) }
+    .badge span { font-size:14px; color:var(--muted) }
 
-/* micro interactions */
-a:hover{opacity:0.95}
-.panel:hover{transform:translateY(-6px);transition:transform .22s}
+    .hero {
+      display:flex; flex-direction:column; align-items:center; text-align:center; padding:100px 16px 60px;
+    }
+    .hero h1 { font-size:56px; margin:0; line-height:1.03; font-weight:800 }
+    .hero .handle { background:var(--accent-gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent }
+    .hero p.lead { margin:16px 0 8px; color:#dfe9ff; font-weight:600; font-size:22px }
+    .hero p.sub { color:var(--muted); margin:8px 0 0; font-size:18px }
+    .fancy-underline { height:8px; border-radius:999px; margin-top:16px; display:inline-block; padding:2px }
+    .fancy-underline i { display:block; height:8px; border-radius:999px; background:linear-gradient(90deg,var(--accent-a),var(--accent-b)); animation:glow 2.8s linear infinite }
 
-</style>
+    @keyframes glow {
+      0%{filter:blur(0)}50%{filter:blur(6px)}100%{filter:blur(0)}
+    }
+
+    section { margin-top:48px }
+    .section-title { font-size:30px; margin:0 0 18px; text-align:center; font-weight:800 }
+    .section-title .g1{background:var(--accent-gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;display:inline-block}
+    .section-title .g2{color:#fff;display:inline-block;margin-left:8px}
+    .section-sub{max-width:900px;margin:10px auto 0;color:var(--muted);text-align:center;font-size:16px}
+
+    .glass {
+      background:var(--glass); border-radius:var(--radius); padding:30px;
+      border:1px solid rgba(255,255,255,0.04); box-shadow:0 18px 50px rgba(0,0,0,0.7);
+      transition:transform .22s ease,box-shadow .22s ease;
+    }
+    .glass:hover { transform:translateY(-8px); box-shadow:0 28px 80px rgba(30,30,60,0.6) }
+
+    .cols { display:grid; grid-template-columns:1fr 1fr; gap:28px }
+
+    /* Skills */
+    .skills-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
+    .skill-card{padding:26px;border-radius:14px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.03);transition:transform .18s ease,box-shadow .18s ease}
+    .skill-card:hover{transform:translateY(-6px);box-shadow:0 18px 48px rgba(20,30,60,0.6)}
+    .skill-card h4{margin:0 0 12px;font-size:20px;font-weight:800}
+    .skill-meta{color:var(--muted);font-size:15px;line-height:1.5}
+
+    .two-row{display:flex;justify-content:center;gap:24px;margin-top:18px}
+    .two-row .skill-card{width:48%}
+
+    /* Certs */
+    .certs-grid {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin: 0;
+      padding: 0;
+    }
+    .certs-grid li {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,255,255,0.03);
+      border-radius: 10px;
+      padding: 10px 14px;
+      transition: transform .18s ease, box-shadow .18s ease;
+    }
+    .certs-grid li:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 30px rgba(20,30,60,0.5);
+    }
+    .cert-icon {
+      width: 36px;
+      height: 36px;
+      object-fit: contain;
+      border-radius: 6px;
+      background: rgba(255,255,255,0.06);
+      padding: 4px;
+    }
+
+    /* Projects */
+    .projects{display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
+    .proj{padding:22px;border-radius:14px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.03);transition:transform .18s ease}
+    .proj:hover{transform:translateY(-6px);box-shadow:0 18px 48px rgba(20,30,60,0.6)}
+    .proj h4{margin:0 0 10px;font-size:18px;font-weight:800}
+    .proj .meta{color:var(--muted);font-size:15px}
+
+    .contact-box{display:flex;flex-direction:column;align-items:center;gap:10px;padding:26px;border-radius:14px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.03);max-width:640px;margin:0 auto}
+    .contact-box a.email{font-weight:900;color:var(--accent-a);font-size:16px}
+    footer{margin-top:60px;text-align:center;color:var(--muted);font-size:14px}
+
+    @media (max-width:980px){
+      .skills-grid{grid-template-columns:repeat(2,1fr)}
+      .projects{grid-template-columns:1fr}
+      .cols{grid-template-columns:1fr}
+      .wrap{padding:36px 20px}
+      .hero h1{font-size:44px}
+    }
+
+    @media (max-width:560px){
+      .skills-grid{grid-template-columns:1fr}
+      .two-row .skill-card{width:100%}
+      header.site-head{flex-direction:column;align-items:flex-start;gap:16px}
+      .badges{order:2}
+      .brand{order:1}
+    }
+  </style>
 </head>
+
 <body>
-<div class="wrap">
-  <header class="header">
-    <div class="brand">ctxzero <small style="font-weight:600;color:var(--muted);font-size:12px;display:block">Penetration Tester & Red Teamer</small></div>
-    <nav class="nav">
-      <a class="btn" href="#projects">Projects</a>
-      <a class="btn" href="#certs">Certs</a>
-      <a class="btn" href="#contact">Contact</a>
-      <a class="btn primary" href="mailto:ctxzero.pentest@gmail.com">Hire / Contact</a>
-    </nav>
-  </header>
-
-  <main>
-    <section class="hero">
-      <div class="hero-left">
-        <h1 class="h-title">I'm <span id="animated" style="background:var(--accent-gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent">ctxzero</span></h1>
-        <p class="h-sub">Penetration Tester & Red Teamer — WebApp, Network & Active Directory focused. Ich liefere verwertbare Findings und klare Remediation-Pläne.</p>
-        <div class="lead-badges">
-          <span class="chip">Available for freelance</span>
-          <span class="chip">Remote / On-site</span>
-          <span class="chip">Reports in German & English</span>
-        </div>
-
-        <div style="margin-top:20px;display:flex;gap:12px;align-items:center">
-          <a class="btn primary" href="mailto:ctxzero.pentest@gmail.com"><i class="fa-solid fa-envelope"></i> Contact</a>
-          <a class="btn" href="#certs"><i class="fa-regular fa-certificate"></i> Certifications</a>
-          <a class="btn" href="#projects"><i class="fa-solid fa-briefcase"></i> Case Studies</a>
-        </div>
-
-        <div style="margin-top:18px;color:var(--muted);font-size:14px">Quick: <strong style="color:#fff">iNE eJPT</strong> • Foundation CTI • TryHackMe • HTB (CPTS soon)</div>
-        <div class="underline"><i></i></div>
+  <canvas id="bg-canvas" aria-hidden="true"></canvas>
+  <div class="grain"></div>
+  <div class="wrap">
+    <header class="site-head">
+      <div class="brand"><small>ctxzero</small></div>
+      <div class="badges">
+        <a class="badge" href="https://www.linkedin.com/in/luis-schlegel-a38937387/" target="_blank"><span>LinkedIn</span></a>
+        <a class="badge" href="https://tryhackme.com/p/ctxzero" target="_blank"><span>TryHackMe</span></a>
+        <a class="badge" href="https://discord.gg/NqY3w9JHQU" target="_blank"><span>Discord</span></a>
+        <a class="badge" href="https://github.com/ctxzero" target="_blank"><span>GitHub</span></a>
       </div>
+    </header>
 
-      <aside class="hero-right panel">
-        <div style="display:flex;gap:12px;align-items:center">
-          <img src="https://avatars.githubusercontent.com/u/583231?v=4" alt="avatar" style="width:72px;height:72px;border-radius:14px;object-fit:cover;border:1px solid rgba(255,255,255,0.04)">
-          <div>
-            <div style="font-weight:800">ctxzero</div>
-            <div style="color:var(--muted);font-size:13px;margin-top:4px">19, Germany — Pentester & Red Teamer</div>
+    <main>
+      <section class="hero">
+        <h1>I'm <span id="animated-text"></span></h1>
+        <p class="lead">Penetration Tester & <span style="background:var(--accent-gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:900">Red Team Specialist</span></p>
+        <p class="sub">Focused on WebApp, Network & Active Directory Security Assessments</p>
+        <div class="fancy-underline" style="width:300px"><i></i></div>
+        <p style="text-align:center;color:var(--muted);font-size:15px;margin-top:22px">
+          Currently open for freelance or full-time penetration testing engagements.
+        </p>
+      </section>
+
+      <section id="about">
+        <h2 class="section-title"><span class="g1">About</span><span class="g2"> Me</span></h2>
+        <div class="cols">
+          <div class="glass">
+            <h3 style="margin:0 0 8px">Hello! I'm ctxzero</h3>
+            <p style="color:var(--muted);margin:0 0 12px">19 years old — based in Germany</p>
+            <p style="margin:0 0 10px">Focused on Penetration Testing & Red Teaming in WebApp, Network & AD environments. Continuous learner, delivering deep, actionable insights.</p>
+            <p style="color:var(--muted);margin:0"><strong>Approach:</strong> Responsible disclosure, thorough reporting, pragmatic remediation advice.</p>
+          </div>
+          <div class="glass">
+            <h4 style="margin:0 0 12px">Quick Info</h4>
+            <p style="color:var(--muted);margin:6px 0">Languages: English / German</p>
+            <p style="color:var(--muted);margin:6px 0">Availability: Mon–Fri 8am – 10pm UTC+1</p>
+            <p style="color:var(--muted);margin:6px 0">Contact: <a href="mailto:ctxzero.pentest@gmail.com" style="color:var(--accent-a)">ctxzero.pentest@gmail.com</a></p>
+            <div style="margin-top:14px"><a class="badge" href="#contact"><span>Contact</span></a></div>
           </div>
         </div>
+      </section>
 
-        <div style="margin-top:14px">
-          <div style="font-size:13px;color:var(--muted)">Availability</div>
-          <div style="font-weight:800">Mon–Fri 08:00–22:00 (UTC+1)</div>
-        </div>
-
-        <div style="margin-top:12px">
-          <div style="font-size:13px;color:var(--muted)">Quick Skills</div>
-          <div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap">
-            <div style="padding:8px 10px;background:rgba(255,255,255,0.02);border-radius:999px;font-weight:700">WebApp</div>
-            <div style="padding:8px 10px;background:rgba(255,255,255,0.02);border-radius:999px;font-weight:700">Active Directory</div>
-            <div style="padding:8px 10px;background:rgba(255,255,255,0.02);border-radius:999px;font-weight:700">Network</div>
+      <section id="skills">
+        <h2 class="section-title"><span class="g1">My</span><span class="g2"> Skills</span></h2>
+        <p class="section-sub">Core capabilities across offensive security domains — presented with clarity.</p>
+        <div class="skills-grid" style="margin-top:20px">
+          <div class="skill-card">
+            <h4>Penetration Testing</h4>
+            <p class="skill-meta">CTF player • Active learner • From Network, WebApp to Active Directory. Professional penetration tests to ensure your infrastructure is secure and resilient.</p>
+          </div>
+          <div class="skill-card">
+            <h4>Red Teaming</h4>
+            <p class="skill-meta">Simulating real-world adversaries to strengthen defenses, improve detection and validate security controls under pressure.</p>
+          </div>
+          <div class="skill-card">
+            <h4>Scripting</h4>
+            <p class="skill-meta">Bash • Python • Shell scripting for automation, tooling and exploitation helpers.</p>
           </div>
         </div>
-
-        <div style="margin-top:14px;display:flex;gap:10px">
-          <a class="socials" href="https://github.com/ctxzero" target="_blank" rel="noopener"><span class="btn" style="padding:8px 10px"><i class="fab fa-github"></i></span></a>
-          <a class="socials" href="https://www.linkedin.com/in/luis-schlegel-a38937387/" target="_blank" rel="noopener"><span class="btn" style="padding:8px 10px"><i class="fab fa-linkedin"></i></span></a>
-          <a class="socials" href="https://tryhackme.com/p/ctxzero" target="_blank" rel="noopener"><span class="btn" style="padding:8px 10px"><i class="fas fa-shield-heart"></i></span></a>
-        </div>
-
-      </aside>
-    </section>
-
-    <!-- Skills + Methodology -->
-    <section style="margin-top:18px">
-      <div class="grid-3">
-        <div class="panel">
-          <h3 style="margin:0 0 8px">Core Skills</h3>
-          <div class="skill"><h4>Penetration Testing</h4><div class="progress" style="margin-top:8px"><i style="width:86%"></i></div><div style="margin-top:8px;color:var(--muted);font-size:13px">Web, Mobile, Network, AD assessments. From reconnaissance to reporting.</div></div>
-        </div>
-        <div class="panel">
-          <h3 style="margin:0 0 8px">Red Teaming</h3>
-          <div class="skill"><h4>Adversary Simulation</h4><div class="progress" style="margin-top:8px"><i style="width:72%"></i></div><div style="margin-top:8px;color:var(--muted);font-size:13px">Emulation of real-world TTPs; detection & response validation.</div></div>
-        </div>
-        <div class="panel">
-          <h3 style="margin:0 0 8px">Tooling & Scripting</h3>
-          <div class="skill"><h4>Automation & Scripts</h4><div class="progress" style="margin-top:8px"><i style="width:78%"></i></div><div style="margin-top:8px;color:var(--muted);font-size:13px">Bash, Python, PowerShell helpers and tooling for automation.</div></div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Zertifikate -->
-    <section id="certs" style="margin-top:28px">
-      <h2 style="margin:0 0 12px;font-size:20px">Certifications</h2>
-      <div class="certs">
-        <div class="cert">
-          <img src="https://miro.medium.com/v2/resize:fit:1358/1*KXRcpcS4sGp4xvLjhByI7A.png" alt="eJPT badge">
-          <div>
-            <div class="title">iNE eJPT</div>
-            <div class="meta">Junior Penetration Tester — Practical, hands-on certification</div>
+        <div class="two-row">
+          <div class="skill-card">
+            <h4>Professional Methodology</h4>
+            <p class="skill-meta">From reconnaissance to exploitation and lateral movement — delivering verifiable results and actionable remediation.</p>
+          </div>
+          <div class="skill-card">
+            <h4>Tool Skills</h4>
+            <p class="skill-meta">Expertise with major Security & Offensive Tools (Burp, Nmap, BloodHound, Metasploit, etc.).</p>
           </div>
         </div>
+      </section>
 
-        <div class="cert">
-          <img src="https://media.arcx.io/images/products/CTI101.png" alt="CTI101 badge">
-          <div>
-            <div class="title">Foundation Level Threat Intelligence Analyst</div>
-            <div class="meta">Foundational CTI knowledge — OSINT, Analysis & Reporting</div>
+      <section id="certs">
+        <h2 class="section-title"><span class="g1">My</span><span class="g2"> Certifications</span></h2>
+        <div class="certs" style="margin-top:18px">
+          <div class="cert-list glass">
+            <ul class="certs-grid">
+              <li>
+                <img src="https://miro.medium.com/v2/resize:fit:1358/1*KXRcpcS4sGp4xvLjhByI7A.png" alt="eJPT badge" class="cert-icon">
+                <span>iNE eJPT (Junior Penetration Tester)</span>
+              </li>
+              <li>
+                <img src="https://media.arcx.io/images/products/CTI101.png" alt="Foundation Level Threat Intelligence Analyst" class="cert-icon">
+                <span>Foundation Level Threat Intelligence Analyst</span>
+              </li>
+              <li>
+                <img src="https://tryhackme-badges.s3.amazonaws.com/THMlogo.png" alt="TryHackMe" class="cert-icon">
+                <span>Multiple TryHackMe Certifications</span>
+              </li>
+              <li>
+                <img src="https://assets.hackthebox.com/hacker_assets/badges/CPTS.png" alt="HTB CPTS" class="cert-icon">
+                <span>HTB CPTS (soon)</span>
+              </li>
+            </ul>
           </div>
         </div>
+      </section>
 
-        <div class="cert">
-          <div style="width:46px;height:46px;display:flex;align-items:center;justify-content:center;border-radius:8px;background:linear-gradient(90deg,var(--accent-a),var(--accent-b));">
-            <i class="fa-solid fa-shield-halved" style="color:#051018;font-size:18px"></i>
-          </div>
-          <div>
-            <div class="title">Multiple TryHackMe Certifications</div>
-            <div class="meta">Hands-on labs & topic badges across offensive security</div>
-          </div>
+      <section id="projects">
+        <h2 class="section-title"><span class="g1">My</span><span class="g2"> Projects</span></h2>
+        <p class="section-sub">Selected findings and write-ups demonstrating methodology and impact.</p>
+        <div class="projects" style="margin-top:18px">
+          <div class="proj"><h4>SQL Injection — Auth Bypass</h4><p class="meta">Found injectable endpoint allowing login bypass via crafted payloads. Provided PoC and patch recommendations.</p></div>
+          <div class="proj"><h4>Broken Authorization — IDOR</h4><p class="meta">Endpoint permitted resource access by changing numeric IDs; sensitive data exposure. Reported with reproduction steps.</p></div>
         </div>
+      </section>
 
-        <div class="cert">
-          <div style="width:46px;height:46px;display:flex;align-items:center;justify-content:center;border-radius:8px;background:linear-gradient(90deg,var(--accent-b),var(--accent-a));">
-            <i class="fa-solid fa-hourglass-start" style="color:#051018;font-size:18px"></i>
-          </div>
-          <div>
-            <div class="title">HTB CPTS (soon)</div>
-            <div class="meta">Certified Professional — In progress</div>
-          </div>
+      <section id="contact">
+        <h2 class="section-title"><span class="g1">Contact</span><span class="g2"> Me</span></h2>
+        <div class="contact-box">
+          <p>Available for freelance or penetration testing engagements.</p>
+          <a href="mailto:ctxzero.pentest@gmail.com" class="email">ctxzero.pentest@gmail.com</a>
         </div>
-      </div>
-    </section>
+      </section>
+    </main>
 
-    <!-- Projekte -->
-    <section id="projects" style="margin-top:28px">
-      <h2 style="margin:0 0 10px;font-size:20px">Selected Case Studies</h2>
-      <div class="grid-2">
-        <div class="project">
-          <h4>SQL Injection — Auth Bypass</h4>
-          <p style="color:var(--muted);margin:6px 0">Reproduced a login bypass using crafted payloads; provided sanitized PoC and parameterized queries recommendation.</p>
-          <div style="margin-top:8px;color:var(--muted);font-size:13px">Impact: account takeover on low-privilege users</div>
-        </div>
-        <div class="project">
-          <h4>Broken Authorization — IDOR</h4>
-          <p style="color:var(--muted);margin:6px 0">Insecure object references allowed access to other users' data. Added remediation steps and deny-by-default patterns.</p>
-        </div>
-        <div class="project">
-          <h4>AD: Privilege Escalation</h4>
-          <p style="color:var(--muted);margin:6px 0">Misconfigured ACLs enabled Kerberoasting & lateral movement. Included detection & Hardened configuration checklist.</p>
-        </div>
-        <div class="project">
-          <h4>Open S3 Buckets — Data Exposure</h4>
-          <p style="color:var(--muted);margin:6px 0">Found publicly accessible storage with sensitive files. Automated enumeration and suggested S3 policies & monitoring.</p>
-        </div>
-      </div>
-    </section>
+    <footer>
+      <p>© 2025 ctxzero | Built by Luis Schlegel</p>
+    </footer>
+  </div>
 
-    <!-- Kontakt -->
-    <section id="contact" style="margin-top:28px">
-      <h2 style="margin:0 0 10px;font-size:20px">Let's connect</h2>
-      <div class="contact">
-        <div class="left">
-          <div style="font-weight:800">ctxzero — Penetration Tester & Red Teamer</div>
-          <div style="color:var(--muted);margin-top:6px">Email: <a href="mailto:ctxzero.pentest@gmail.com">ctxzero.pentest@gmail.com</a> • Location: Germany</div>
-          <div style="color:var(--muted);margin-top:8px;font-size:13px">For engagements: short intro, scope (web/network/AD), and preferred timeline — I'll get back with a tailored estimate and availability.</div>
-        </div>
-        <div class="right">
-          <a class="btn" href="https://github.com/ctxzero" target="_blank" rel="noopener"><i class="fab fa-github"></i></a>
-          <a class="btn" href="https://www.linkedin.com/in/luis-schlegel-a38937387/" target="_blank" rel="noopener"><i class="fab fa-linkedin"></i></a>
-          <a class="btn" href="https://tryhackme.com/p/ctxzero" target="_blank" rel="noopener"><i class="fas fa-shield-alt"></i></a>
-          <a class="btn primary" href="mailto:ctxzero.pentest@gmail.com">Contact</a>
-        </div>
-      </div>
-    </section>
-
-    <div class="footer">© 2025 ctxzero — Penetration Tester & Red Teamer • Built responsibly</div>
-
-  </main>
-</div>
-
-<script>
-// Einfaches animiertes Type-in für "ctxzero" (leicht modifiziert)
-const texts = ['ctxzero','a Red Teamer','a Pentester','an Ethical Hacker'];
-let ti = 0, ci = 0, del=false;
-const el = document.getElementById('animated');
-function type(){
-  const cur = texts[ti];
-  if(!del){ ci++; el.textContent = cur.slice(0,ci); if(ci===cur.length){ del=true; setTimeout(type,900); return }}
-  else{ ci--; el.textContent = cur.slice(0,ci); if(ci===0){ del=false; ti=(ti+1)%texts.length }}
-  setTimeout(type, del?40:90);
-}
-type();
-</script>
+  <script>
+    const textArray = ["ctxzero","Luis Schlegel"];
+    let index = 0, charIndex = 0, typing = true;
+    const el = document.getElementById("animated-text");
+    function loop() {
+      if (typing) {
+        el.textContent = textArray[index].slice(0, ++charIndex);
+        if (charIndex === textArray[index].length) { typing = false; setTimeout(loop, 1500); return; }
+      } else {
+        el.textContent = textArray[index].slice(0, --charIndex);
+        if (charIndex === 0) { typing = true; index = (index+1)%textArray.length; }
+      }
+      setTimeout(loop, typing ? 100 : 60);
+    }
+    loop();
+  </script>
 </body>
 </html>
