@@ -3,213 +3,246 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ctxzero — Pentester & Red Teamer</title>
+<title>ctxzero — Pentest & Red Team</title>
 <style>
-  /* Grundfarben & Fonts */
-  :root {
-    --bg: #0a0a12;
-    --fg: #e0eaff;
-    --accent-a: #4cc9f0;
-    --accent-b: #7b2ff7;
-    --glass: rgba(255,255,255,0.05);
-    --radius: 16px;
-    --max-w: 1400px;
-    font-family: 'Inter', sans-serif;
-  }
-  html,body{margin:0;padding:0;background:var(--bg);color:var(--fg);}
-  a{text-decoration:none;color:inherit;}
-  *{box-sizing:border-box;}
+  /* ================= Reset & Base ================= */
+  * {margin:0; padding:0; box-sizing:border-box; font-family: 'Inter', sans-serif;}
+  html, body {height:100%; overflow-x:hidden;}
+  body {background:#0b0f14; color:#eaf2ff;}
 
-  /* Hero */
-  .hero{
-    min-height:90vh;
+  a {text-decoration:none; color:inherit;}
+
+  /* ================= Intro Section ================= */
+  #intro {
+    position:relative;
+    height:100vh;
     display:flex;
-    flex-direction:column;
     justify-content:center;
     align-items:center;
-    text-align:center;
-    position:relative;
+    flex-direction:column;
+    background: linear-gradient(135deg, #4cc9f0, #7b2ff7);
     overflow:hidden;
   }
-  .hero h1{
-    font-size:4rem;
-    font-weight:900;
-    line-height:1.1;
-    background: linear-gradient(90deg,var(--accent-a),var(--accent-b));
-    -webkit-background-clip:text;
-    -webkit-text-fill-color:transparent;
-    margin:0;
+  #intro h1 {
+    font-size: 5rem;
+    font-weight: 900;
+    background: linear-gradient(90deg,#4cc9f0,#7b2ff7);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-align:center;
+    animation: glow 2.5s infinite;
   }
-  .hero p{
-    font-size:1.5rem;
-    margin:10px 0 0;
-    color:var(--fg);
+  @keyframes glow {
+    0%,100%{text-shadow: 0 0 10px rgba(76,201,240,0.7), 0 0 20px rgba(123,47,247,0.7);}
+    50%{text-shadow: 0 0 30px rgba(76,201,240,1), 0 0 40px rgba(123,47,247,1);}
   }
-
-  /* Particle Hintergrund */
-  canvas#bg-canvas{position:absolute;inset:0;width:100%;height:100%;z-index:0;}
-
-  /* Sections */
-  section{padding:80px 20px;max-width:var(--max-w);margin:0 auto;position:relative;z-index:1;}
-  h2{font-size:2.5rem;text-align:center;margin-bottom:20px;font-weight:800;}
-  .section-sub{text-align:center;font-size:1.1rem;color:rgba(255,255,255,0.6);margin-bottom:40px;}
-
-  /* Glass Cards */
-  .glass{
-    background: var(--glass);
-    backdrop-filter: blur(12px);
-    border-radius: var(--radius);
-    padding:30px;
-    border:1px solid rgba(255,255,255,0.1);
-    box-shadow:0 20px 60px rgba(0,0,0,0.6);
-    transition: transform .3s, box-shadow .3s;
+  #enter-btn {
+    margin-top:40px;
+    padding:18px 36px;
+    border:none;
+    border-radius:12px;
+    font-size:1.2rem;
+    font-weight:700;
+    color:#0b0f14;
+    background: #4cc9f0;
+    cursor:pointer;
+    transition: all 0.3s ease;
   }
-  .glass:hover{
-    transform: translateY(-10px);
-    box-shadow:0 30px 80px rgba(0,0,0,0.7);
+  #enter-btn:hover {
+    background: #7b2ff7;
+    color:#fff;
+    transform: scale(1.1);
   }
 
-  /* Grid Layout */
-  .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:30px;}
-  .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:30px;}
+  /* ================= Main Portfolio ================= */
+  #main-content {
+    display:none;
+    background:#070708;
+    padding:60px 20px;
+    min-height:100vh;
+  }
+  .wrap {max-width:1200px; margin:0 auto;}
 
-  /* Skills Cards */
-  .skill-card h4{margin-top:0;margin-bottom:12px;font-size:1.3rem;font-weight:700;}
-  .skill-card p{font-size:0.95rem;color:rgba(255,255,255,0.7);}
+  h2 {font-size:2.5rem; margin-bottom:20px; text-align:center;}
+  .section {margin-bottom:60px;}
 
-  /* Certificates */
-  .cert-list ul{list-style:none;padding:0;margin:0;}
-  .cert-list li{
+  /* ================= Badges & Certificates ================= */
+  .certs {display:flex; flex-direction:column; gap:16px; max-width:800px; margin:0 auto;}
+  .cert-item {
+    display:flex; align-items:center; gap:12px;
+    background: rgba(255,255,255,0.02);
+    padding:16px 20px;
+    border-radius:12px;
+    border:1px solid rgba(255,255,255,0.04);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .cert-item:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 18px 48px rgba(20,30,60,0.6);
+  }
+  .cert-item img {width:36px; height:36px;}
+  .cert-item span {font-weight:700; color:#eaf2ff;}
+
+  /* ================= Skills ================= */
+  .skills-grid {display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:24px;}
+  .skill-card {
+    padding:24px; border-radius:14px; background: rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.03);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .skill-card:hover {
+    transform: translateY(-6px);
+    box-shadow:0 18px 48px rgba(20,30,60,0.6);
+  }
+  .skill-card h4 {margin-bottom:12px; font-size:1.4rem;}
+  .skill-card p {color:rgba(255,255,255,0.7); font-size:0.95rem; line-height:1.5;}
+
+  /* ================= Contact ================= */
+  .contact-box {
+    max-width:640px;
+    margin:0 auto;
+    padding:26px;
+    border-radius:14px;
+    background: rgba(255,255,255,0.02);
+    border:1px solid rgba(255,255,255,0.03);
     display:flex;
+    flex-direction:column;
     align-items:center;
-    gap:14px;
-    margin-bottom:16px;
-    font-weight:600;
+    gap:10px;
   }
-  .cert-list li img{width:36px;height:36px;}
+  .contact-box a.email {
+    font-weight:900;
+    color:#4cc9f0;
+    font-size:1.1rem;
+  }
 
-  /* Contact */
-  .contact-box{max-width:600px;margin:0 auto;text-align:center;padding:30px;border-radius:var(--radius);background:var(--glass);border:1px solid rgba(255,255,255,0.1);}
-  .contact-box a{display:inline-block;margin-top:10px;font-weight:700;color:var(--accent-a);font-size:1.1rem;}
-
-  /* Footer */
-  footer{text-align:center;color:rgba(255,255,255,0.5);padding:30px 0;font-size:0.9rem;}
-
-  /* Responsive */
-  @media(max-width:900px){.grid-2{grid-template-columns:1fr;}.grid-3{grid-template-columns:1fr;}}
+  /* ================= Responsive ================= */
+  @media (max-width:768px){
+    #intro h1 {font-size:3.5rem;}
+    #enter-btn {padding:14px 28px;}
+  }
 </style>
 </head>
 <body>
-<canvas id="bg-canvas"></canvas>
 
-<section class="hero">
-  <h1 id="animated-text">Red Teamer</h1>
-  <p>Web, Network & Active Directory Penetration Testing</p>
+<!-- ================= Intro ================= -->
+<section id="intro">
+  <h1 id="animated-text">ctxzero</h1>
+  <button id="enter-btn">Enter Portfolio</button>
 </section>
 
-<section id="about">
-  <h2>About Me</h2>
-  <p class="section-sub">Focused on Penetration Testing & Red Teaming. Continuous learner delivering actionable insights.</p>
-  <div class="grid-2">
-    <div class="glass">
-      <h3>Quick Info</h3>
-      <p>Age: 19 — Germany</p>
-      <p>Languages: English / German</p>
-      <p>Availability: Mon–Fri 8am–10pm UTC+1</p>
-      <p>Contact: <a href="mailto:ctxzero.pentest@gmail.com" style="color:var(--accent-a)">ctxzero.pentest@gmail.com</a></p>
+<!-- ================= Main Portfolio ================= -->
+<section id="main-content">
+  <div class="wrap">
+
+    <!-- About -->
+    <div class="section" id="about">
+      <h2>About Me</h2>
+      <p style="text-align:center; max-width:800px; margin:0 auto; color:rgba(255,255,255,0.8)">
+        19 years old — based in Germany. Focused on Penetration Testing & Red Teaming in WebApp, Network & AD environments. Continuous learner, delivering deep, actionable insights. Responsible disclosure, thorough reporting, pragmatic remediation advice.
+      </p>
     </div>
-    <div class="glass">
-      <h3>Core Skills</h3>
-      <div class="grid-3">
+
+    <!-- Skills -->
+    <div class="section" id="skills">
+      <h2>My Skills</h2>
+      <div class="skills-grid">
         <div class="skill-card">
           <h4>Penetration Testing</h4>
-          <p>Web, Network & AD, professional methodology & reporting.</p>
+          <p>CTF player • Active learner • From Network, WebApp to Active Directory. Professional penetration tests to ensure your infrastructure is secure and resilient.</p>
         </div>
         <div class="skill-card">
           <h4>Red Teaming</h4>
-          <p>Simulating real-world attacks, improving defenses and detection.</p>
+          <p>Simulating real-world adversaries to strengthen defenses, improve detection and response, and validate security controls under pressure.</p>
         </div>
         <div class="skill-card">
           <h4>Scripting</h4>
-          <p>Bash, Python, Shell for automation & custom tools.</p>
+          <p>Bash • Python • Shell scripting for automation, tooling and small exploitation helpers.</p>
+        </div>
+        <div class="skill-card">
+          <h4>Professional Methodology</h4>
+          <p>From reconnaissance and enumeration to exploitation and lateral movement — I provide thorough methodology that yields deep, verifiable results and clear remediation paths.</p>
         </div>
       </div>
     </div>
+
+    <!-- Certifications -->
+    <div class="section" id="certs">
+      <h2>My Certifications</h2>
+      <div class="certs">
+        <div class="cert-item">
+          <img src="https://miro.medium.com/v2/resize:fit:1358/1*KXRcpcS4sGp4xvLjhByI7A.png" alt="eJPT">
+          <span>iNE eJPT (Junior Penetration Tester)</span>
+        </div>
+        <div class="cert-item">
+          <img src="https://media.arcx.io/images/products/CTI101.png" alt="CTI101">
+          <span>Foundation Level Threat Intelligence Analyst</span>
+        </div>
+        <div class="cert-item">
+          <span>Multiple TryHackMe Certifications</span>
+        </div>
+        <div class="cert-item">
+          <span>HTB CPTS (soon)</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Contact -->
+    <div class="section" id="contact">
+      <h2>Contact</h2>
+      <div class="contact-box">
+        <div>Email</div>
+        <a class="email" href="mailto:ctxzero.pentest@gmail.com">ctxzero.pentest@gmail.com</a>
+        <div style="margin-top:8px; color:rgba(255,255,255,0.6); font-size:0.85rem">
+          Reach out via LinkedIn / TryHackMe / Discord
+        </div>
+      </div>
+    </div>
+
   </div>
 </section>
-
-<section id="certs">
-  <h2>Certifications</h2>
-  <p class="section-sub">Verified professional certifications and achievements.</p>
-  <div class="glass cert-list">
-    <ul>
-      <li><img src="https://miro.medium.com/v2/resize:fit:1358/1*KXRcpcS4sGp4xvLjhByI7A.png" alt="eJPT Badge">iNE eJPT (Junior Penetration Tester)</li>
-      <li><img src="https://media.arcx.io/images/products/CTI101.png" alt="CTI101 Badge">Foundation Level Threat Intelligence Analyst</li>
-      <li>Multiple TryHackMe Certifications</li>
-      <li>HTB CPTS (soon)</li>
-    </ul>
-  </div>
-</section>
-
-<section id="contact">
-  <h2>Connect With Me</h2>
-  <p class="section-sub">For engagements, responsible disclosure, or collaboration.</p>
-  <div class="contact-box">
-    <p>Email:</p>
-    <a href="mailto:ctxzero.pentest@gmail.com">ctxzero.pentest@gmail.com</a>
-    <p style="margin-top:10px;color:rgba(255,255,255,0.6)">Reach out via GitHub, TryHackMe, or Discord (links in header)</p>
-  </div>
-</section>
-
-<footer>
-  © 2025 ctxzero — Pentester & Red Teamer
-</footer>
 
 <script>
-/* Hero Text Animation */
-const textEl = document.getElementById('animated-text');
-const texts = ["Red Teamer","Pentester","Ethical Hacker"];
-let index=0, charIndex=0, deleting=false;
-function type(){
-  const current = texts[index];
-  let display='';
-  if(!deleting){
-    charIndex++;
-    display=current.slice(0,charIndex);
-    textEl.innerHTML=display;
-    if(charIndex===current.length){deleting=true;setTimeout(type,1200);return;}
-  } else {
-    charIndex--;
-    display=current.slice(0,charIndex);
-    textEl.innerHTML=display;
-    if(charIndex===0){deleting=false;index=(index+1)%texts.length;}
-  }
-  setTimeout(type,deleting?50:100);
-}
-type();
+  // ================= Animated Intro Text =================
+  const textEl = document.getElementById('animated-text');
+  const texts = ["ctxzero","a Red Teamer","a Pentester","an Ethical Hacker"];
+  let textIndex = 0, charIndex = 0, deleting = false;
 
-/* Particle Background */
-const canvas=document.getElementById('bg-canvas');
-const ctx=canvas.getContext('2d');
-let w,h,particles=[];
-function resize(){w=canvas.width=window.innerWidth;h=canvas.height=window.innerHeight;initParticles();}
-function initParticles(){
-  particles=[];for(let i=0;i<100;i++){particles.push({x:Math.random()*w,y:Math.random()*h,vx:(Math.random()-0.5)*0.3,vy:(Math.random()-0.5)*0.3,r:Math.random()*2+1})}
-}
-function draw(){
-  ctx.clearRect(0,0,w,h);
-  for(let p of particles){
-    p.x+=p.vx;p.y+=p.vy;
-    if(p.x<0)p.x=w;if(p.x>w)p.x=0;if(p.y<0)p.y=h;if(p.y>h)p.y=0;
-    ctx.beginPath();
-    ctx.fillStyle='rgba(76,201,240,0.3)';
-    ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-    ctx.fill();
+  function type(){
+    const currentText = texts[textIndex];
+    let display = '';
+    if(!deleting){
+      charIndex++;
+      display = currentText.slice(0,charIndex);
+      textEl.innerHTML = display;
+      if(charIndex === currentText.length){
+        deleting = true;
+        setTimeout(type,1200);
+        return;
+      }
+    } else {
+      charIndex--;
+      display = currentText.slice(0,charIndex);
+      textEl.innerHTML = display;
+      if(charIndex === 0){
+        deleting = false;
+        textIndex = (textIndex+1) % texts.length;
+      }
+    }
+    setTimeout(type,deleting?50:100);
   }
-  requestAnimationFrame(draw);
-}
-window.addEventListener('resize',resize);
-resize();draw();
+  type();
+
+  // ================= Enter Button =================
+  const enterBtn = document.getElementById('enter-btn');
+  const mainContent = document.getElementById('main-content');
+
+  enterBtn.addEventListener('click', ()=>{
+    mainContent.style.display = 'block';
+    window.scrollTo({top:0, behavior:'smooth'});
+    enterBtn.style.display='none';
+    document.getElementById('intro').style.height='60vh';
+  });
 </script>
+
 </body>
 </html>
