@@ -3,229 +3,191 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ctxzero — Pentest & Red Team</title>
+<title>ctxzero — Portfolio</title>
 <style>
-  /* ===== Reset & Base ===== */
-  * {margin:0; padding:0; box-sizing:border-box; font-family: 'Inter', sans-serif;}
-  html, body {height:100%; overflow-x:hidden; background:#0f0f0f; color:#ffffff;}
-  a {text-decoration:none; color:inherit;}
+@import url('https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@400;700&display=swap');
 
-  /* ===== Intro Section ===== */
-  #intro {
-    position:fixed;
-    inset:0;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    flex-direction:column;
-    background: #0f0f0f;
-    z-index:100;
-    transition: opacity 0.5s ease, visibility 0.5s ease;
-  }
-  #intro.hidden {
-    opacity:0;
-    visibility:hidden;
-  }
-  #intro h1 {
-    font-size:5rem;
-    font-weight:900;
-    color:#ffffff;
-    text-align:center;
-    margin-bottom:40px;
-  }
-  #enter-btn {
-    padding:18px 36px;
-    border:none;
-    border-radius:10px;
-    font-size:1.2rem;
-    font-weight:700;
-    color:#0f0f0f;
-    background: linear-gradient(90deg,#d4af37,#bfa130); /* edles Gold */
-    cursor:pointer;
-    transition: all 0.3s ease;
-  }
-  #enter-btn:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 20px #d4af37;
-  }
+:root {
+  --bg: #0d0d0d;
+  --overlay: rgba(0, 255, 255, 0.05);
+  --primary: #00fff7;
+  --secondary: #ff00f7;
+  --accent: #f0b000;
+  --white: #fff;
+  --radius: 16px;
+  --line: 1px solid var(--secondary);
+}
 
-  /* ===== Main Portfolio ===== */
-  #main-content {
-    padding:60px 20px;
-    max-width:1200px;
-    margin:0 auto;
-  }
-  h2 {font-size:2.5rem; margin-bottom:20px; text-align:center;}
-  .section {margin-bottom:60px;}
-  p {color:rgba(255,255,255,0.8); line-height:1.6;}
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Zilla Slab', serif; }
+body { background: var(--bg); color: var(--white); overflow-x: hidden; }
+button { cursor: pointer; border: none; border-radius: var(--radius); padding: 12px 24px; font-weight: bold; background: var(--accent); color: var(--white); transition: all 0.2s ease; }
+button:hover { transform: scale(1.05); }
 
-  /* ===== Badges & Certifications ===== */
-  .certs {display:flex; flex-direction:column; gap:16px; max-width:800px; margin:0 auto;}
-  .cert-item {
-    display:flex; align-items:center; gap:12px;
-    background: rgba(255,255,255,0.03);
-    padding:16px 20px;
-    border-radius:12px;
-    border:1px solid rgba(255,255,255,0.1);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-  }
-  .cert-item:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 12px 36px rgba(0,0,0,0.6);
-  }
-  .cert-item img {width:36px; height:36px;}
-  .cert-item span {font-weight:700; color:#ffffff;}
+.fullscreen-intro {
+  width: 100vw; height: 100vh; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center;
+  position: relative; background: var(--bg); overflow: hidden;
+}
+.fullscreen-intro::before {
+  content:""; position:absolute; inset:0; background: var(--overlay);
+}
+.fullscreen-intro h1 { font-size: 5rem; color: var(--white); margin-bottom: 20px; }
+.role-text { font-size: 2rem; height: 2.5rem; margin-bottom: 50px; color: var(--primary); }
+.fade-enter { opacity:0; transform: translateY(20px);}
+.fade-enter-active { opacity:1; transform: translateY(0); transition: all 0.8s ease;}
+.fade-exit { opacity:1; transform: translateY(0);}
+.fade-exit-active { opacity:0; transform: translateY(-20px); transition: all 0.5s ease;}
 
-  /* ===== Skills ===== */
-  .skills-grid {display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:24px;}
-  .skill-card {
-    padding:24px; border-radius:14px; background: rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.1);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-  }
-  .skill-card:hover {
-    transform: translateY(-6px);
-    box-shadow:0 18px 48px rgba(0,0,0,0.5);
-  }
-  .skill-card h4 {margin-bottom:12px; font-size:1.4rem;}
-  .skill-card p {color:rgba(255,255,255,0.8); font-size:0.95rem; line-height:1.5;}
+.portfolio-section { display:none; flex-direction:column; padding: 60px 10%; max-width: 1400px; margin: 0 auto; }
 
-  /* ===== Contact ===== */
-  .contact-box {
-    max-width:640px;
-    margin:0 auto;
-    padding:26px;
-    border-radius:14px;
-    background: rgba(255,255,255,0.02);
-    border:1px solid rgba(255,255,255,0.1);
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    gap:10px;
-  }
-  .contact-box a.email {
-    font-weight:900;
-    color:#d4af37; /* edles Gold */
-    font-size:1.1rem;
-  }
+.box { background: rgba(255,255,255,0.03); border-radius: var(--radius); border: var(--line); padding: 30px; margin-bottom: 40px; }
 
-  @media (max-width:768px){
-    #intro h1 {font-size:3.5rem;}
-    #enter-btn {padding:14px 28px;}
-  }
+.box h2 { color: var(--secondary); font-size: 2rem; margin-bottom: 12px; font-weight: bold; }
+.box p { font-size: 1rem; line-height:1.5; color: var(--white); }
+
+.skills-grid { display:grid; grid-template-columns: repeat(auto-fit,minmax(300px,1fr)); gap:30px; }
+.skill-card { border: var(--line); border-radius: var(--radius); padding:20px; background: rgba(255,255,255,0.02);}
+.skill-card h3 { color: var(--secondary); margin-bottom:12px; }
+.skill-bar { width:100%; background: rgba(255,255,255,0.05); height: 12px; border-radius:6px; margin-bottom:12px; overflow:hidden; }
+.skill-bar-inner { height:100%; width:0%; background: var(--primary); border-radius:6px; transition: width 1.5s ease-in-out; }
+.badges { display:flex; flex-wrap:wrap; gap:10px; margin-top:10px; }
+.badges img { height:32px; width:auto; border-radius:8px; background: rgba(255,255,255,0.05); padding:4px; }
+
+.certifications { display:flex; flex-wrap:wrap; gap:20px; }
+.cert { flex:1 1 280px; border: var(--line); border-radius: var(--radius); padding:20px; background: rgba(255,255,255,0.02); text-align:center;}
+.cert img { max-width:100px; margin-top:12px; }
+
+.get-in-touch { display:flex; justify-content:space-between; flex-wrap:wrap; gap:20px; align-items:center; }
+.get-in-touch .links { display:flex; gap:12px; flex-wrap:wrap; }
+.get-in-touch .contact { display:flex; flex-direction:column; gap:8px; }
+
+.hidden-email { color:transparent; text-decoration:underline; cursor:pointer; transition: color 0.3s ease; }
+.hidden-email.show { color: var(--white); }
+
 </style>
 </head>
 <body>
 
-<!-- ===== Intro ===== -->
-<section id="intro">
-  <h1 id="animated-text">ctxzero</h1>
-  <button id="enter-btn">Enter Portfolio</button>
-</section>
+<div class="fullscreen-intro">
+  <h1>ctxzero</h1>
+  <div class="role-text" id="role-text">Penetration Tester</div>
+  <button id="enter-btn">Portfolio</button>
+</div>
 
-<!-- ===== Main Portfolio ===== -->
-<section id="main-content">
-  <!-- About -->
-  <div class="section" id="about">
+<div class="portfolio-section" id="portfolio">
+
+  <div class="box" id="about-me">
     <h2>About Me</h2>
-    <p>
-      19 years old — based in Germany. Focused on Penetration Testing & Red Teaming in WebApp, Network & AD environments. Continuous learner, delivering deep, actionable insights. Responsible disclosure, thorough reporting, pragmatic remediation advice.
-    </p>
+    <p>I'm a Cyber Security enthusiast dedicated to making the internet safer and securing networks before attackers can exploit them. Passionate about penetration testing, Red Teaming, and ethical hacking. Always learning, always exploring, and delivering actionable insights to strengthen security defenses.</p>
   </div>
 
-  <!-- Skills -->
-  <div class="section" id="skills">
-    <h2>My Skills</h2>
-    <div class="skills-grid">
-      <div class="skill-card">
-        <h4>Penetration Testing</h4>
-        <p>CTF player • Active learner • From Network, WebApp to Active Directory. Professional penetration tests to ensure your infrastructure is secure and resilient.</p>
+  <div class="skills-grid">
+    <div class="skill-card">
+      <h3>Web Application Pentesting</h3>
+      <div class="skill-bar"><div class="skill-bar-inner" style="width:75%"></div></div>
+      <div class="badges">
+        <img src="https://via.placeholder.com/32x32?text=Burp" alt="BurpSuite">
+        <img src="https://via.placeholder.com/32x32?text=OWASP" alt="OWASP ZAP">
       </div>
-      <div class="skill-card">
-        <h4>Red Teaming</h4>
-        <p>Simulating real-world adversaries to strengthen defenses, improve detection and response, and validate security controls under pressure.</p>
+    </div>
+    <div class="skill-card">
+      <h3>Network Pentesting</h3>
+      <div class="skill-bar"><div class="skill-bar-inner" style="width:85%"></div></div>
+      <div class="badges">
+        <img src="https://via.placeholder.com/32x32?text=Metasploit" alt="Metasploit">
+        <img src="https://via.placeholder.com/32x32?text=Nikto" alt="Nikto">
+        <img src="https://via.placeholder.com/32x32?text=Gobuster" alt="Gobuster">
       </div>
-      <div class="skill-card">
-        <h4>Scripting</h4>
-        <p>Bash • Python • Shell scripting for automation, tooling and small exploitation helpers.</p>
+    </div>
+    <div class="skill-card">
+      <h3>Active Directory</h3>
+      <div class="skill-bar"><div class="skill-bar-inner" style="width:50%"></div></div>
+      <div class="badges">
+        <img src="https://via.placeholder.com/32x32?text=BloodHound" alt="BloodHound">
       </div>
-      <div class="skill-card">
-        <h4>Professional Methodology</h4>
-        <p>From reconnaissance and enumeration to exploitation and lateral movement — I provide thorough methodology that yields deep, verifiable results and clear remediation paths.</p>
+    </div>
+    <div class="skill-card">
+      <h3>Scripting</h3>
+      <div class="skill-bar"><div class="skill-bar-inner" style="width:60%"></div></div>
+      <div class="badges">
+        <img src="https://via.placeholder.com/32x32?text=Python" alt="Python">
+        <img src="https://via.placeholder.com/32x32?text=Bash" alt="Bash">
+        <img src="https://via.placeholder.com/32x32?text=Shell" alt="Shell">
       </div>
     </div>
   </div>
 
-  <!-- Certifications -->
-  <div class="section" id="certs">
-    <h2>My Certifications</h2>
-    <div class="certs">
-      <div class="cert-item">
-        <img src="https://miro.medium.com/v2/resize:fit:1358/1*KXRcpcS4sGp4xvLjhByI7A.png" alt="eJPT">
-        <span>iNE eJPT (Junior Penetration Tester)</span>
+  <div class="box" style="text-align:center;">
+    <h2>Certifications</h2>
+    <div class="certifications">
+      <div class="cert">
+        <h3>iNE eJPT</h3>
+        <p>Certified by iNE</p>
+        <img src="https://miro.medium.com/v2/resize:fit:1358/1*KXRcpcS4sGp4xvLjhByI7A.png" alt="eJPT badge">
       </div>
-      <div class="cert-item">
-        <img src="https://media.arcx.io/images/products/CTI101.png" alt="CTI101">
-        <span>Foundation Level Threat Intelligence Analyst</span>
+      <div class="cert">
+        <h3>Cyber Threat Intelligence</h3>
+        <p>Certified by ArcX</p>
+        <img src="https://media.arcx.io/images/products/CTI101.png" alt="CTI badge">
       </div>
-      <div class="cert-item">
-        <span>Multiple TryHackMe Certifications</span>
-      </div>
-      <div class="cert-item">
-        <span>HTB CPTS (soon)</span>
+      <div class="cert">
+        <h3>TryHackMe</h3>
+        <p>Multiple Path Completions</p>
+        <img src="https://via.placeholder.com/100x50?text=THM" alt="THM badge">
       </div>
     </div>
   </div>
 
-  <!-- Contact -->
-  <div class="section" id="contact">
-    <h2>Contact</h2>
-    <div class="contact-box">
-      <div>Email</div>
-      <a class="email" href="mailto:ctxzero.pentest@gmail.com">ctxzero.pentest@gmail.com</a>
-      <div style="margin-top:8px; color:rgba(255,255,255,0.6); font-size:0.85rem">
-        Reach out via LinkedIn / TryHackMe / Discord
+  <div class="box" style="text-align:center;">
+    <h2>Get in Touch</h2>
+    <div class="get-in-touch">
+      <div class="links">
+        <button>LinkedIn</button>
+        <button>TryHackMe</button>
+        <button>Github</button>
+      </div>
+      <div class="contact">
+        <span>Discord: ctxzero</span>
+        <span class="hidden-email" id="email">Email: ctxzero.pentest@gmail.com</span>
       </div>
     </div>
   </div>
-</section>
+
+</div>
 
 <script>
-  // ===== Animated Intro Text =====
-  const textEl = document.getElementById('animated-text');
-  const texts = ["ctxzero","a Red Teamer","a Pentester","an Ethical Hacker"];
-  let textIndex = 0, charIndex = 0, deleting = false;
+const roles = ["Penetration Tester","Red Teamer","Ethical Hacker","Bug Bounty Hunter"];
+let roleIndex = 0;
+const roleText = document.getElementById('role-text');
 
-  function type(){
-    const currentText = texts[textIndex];
-    let display = '';
-    if(!deleting){
-      charIndex++;
-      display = currentText.slice(0,charIndex);
-      textEl.innerHTML = display;
-      if(charIndex === currentText.length){
-        deleting = true;
-        setTimeout(type,1200);
-        return;
-      }
-    } else {
-      charIndex--;
-      display = currentText.slice(0,charIndex);
-      textEl.innerHTML = display;
-      if(charIndex === 0){
-        deleting = false;
-        textIndex = (textIndex+1) % texts.length;
-      }
-    }
-    setTimeout(type,deleting?50:100);
-  }
-  type();
+function animateRole(){
+  roleText.style.opacity = 0;
+  setTimeout(()=>{
+    roleText.textContent = roles[roleIndex];
+    roleText.style.opacity = 1;
+    roleIndex = (roleIndex+1)%roles.length;
+  },500);
+}
+setInterval(animateRole, 2500);
 
-  // ===== Enter Button =====
-  const enterBtn = document.getElementById('enter-btn');
-  const intro = document.getElementById('intro');
-  enterBtn.addEventListener('click', ()=>{
-    intro.classList.add('hidden');
-  });
+const enterBtn = document.getElementById('enter-btn');
+const portfolio = document.getElementById('portfolio');
+const intro = document.querySelector('.fullscreen-intro');
+
+enterBtn.addEventListener('click',()=>{
+  intro.style.display = 'none';
+  portfolio.style.display = 'flex';
+});
+
+const emailEl = document.getElementById('email');
+emailEl.addEventListener('click', ()=> {
+  emailEl.classList.toggle('show');
+});
+
+document.querySelectorAll('.skill-bar-inner').forEach(el => {
+  setTimeout(() => {
+    el.style.width = el.style.width;
+  }, 300);
+});
 </script>
 
 </body>
