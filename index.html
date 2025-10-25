@@ -1,137 +1,362 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ctxzero Portfolio</title>
-<style>
-  /* Grundsetup */
-  * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
-  html, body { width: 100%; height: 100%; background: #000; color: #fff; overflow: hidden; }
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>ctxzero — Portfolio</title>
+  <!-- NOTE: Replace or add the real 'ZOLO Regular' font file or link here. For now it falls back to system sans. -->
+  <style>
+    :root{
+      --bg:#0b0b0b; /* deep black */
+      --panel:#111213; /* dark grey panel */
+      --neon-a: #00ffdb; /* neon cyan (headings) */
+      --neon-b: #ff3bd6; /* neon magenta (accents) */
+      --muted: #bfc5c8;
+      --glass: rgba(255,255,255,0.04);
+      --radius: 14px;
+      --font-sans: 'ZOLO', Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+    }
 
-  /* Intro Fullscreen */
-  #intro {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background: #000;
-    z-index: 10;
-    transition: opacity 0.6s ease;
-  }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:var(--font-sans);
+      background:linear-gradient(180deg, var(--bg) 0%, #0f0f11 60%);
+      color: #ffffff;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+    }
 
-  #intro h1 {
-    font-size: 6rem;
-    font-weight: 900;
-    color: #fff;
-    margin-bottom: 20px;
-    text-align: center;
-  }
+    /* full-screen intro */
+    .hero{
+      height:100vh;
+      width:100%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      position:relative;
+      overflow:hidden;
+    }
 
-  #intro .roles {
-    font-size: 2rem;
-    font-weight: 600;
-    color: #00f0ff; /* neon-blau */
-    height: 2.5rem;
-    text-align: center;
-    margin-bottom: 50px;
-    overflow: hidden;
-  }
+    .overlay{
+      position:absolute;inset:0;
+      background:linear-gradient(135deg, rgba(0,0,0,0.35), rgba(0,0,0,0.6));
+      pointer-events:none;
+    }
 
-  #portfolio-btn {
-    padding: 14px 40px;
-    font-size: 1.2rem;
-    font-weight: bold;
-    color: #000;
-    background: gold;
-    border: none;
-    border-radius: 12px;
-    cursor: pointer;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-  }
-  #portfolio-btn:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(255,215,0,0.5);
-  }
+    .hero-inner{
+      text-align:center;z-index:2;
+      padding:2rem;max-width:1000px;margin:0 auto;
+    }
 
-  /* Portfolio-Bereich */
-  #portfolio {
-    display: none;
-    width: 100%;
-    min-height: 100vh;
-    padding: 60px 40px;
-    background: #111; /* dunkelgrau */
-    color: #fff;
-  }
-</style>
+    h1.name{
+      font-size:clamp(36px, 8vw, 96px);
+      margin:0 0 10px 0;
+      color:#fff;
+      letter-spacing:1px;
+      font-weight:800;
+      text-transform:none;
+      text-shadow:0 6px 30px rgba(0,0,0,0.8);
+    }
+
+    .roles{
+      height:48px;display:flex;align-items:center;justify-content:center;
+      position:relative;overflow:visible;margin-bottom:28px;
+    }
+
+    .role-item{
+      position:absolute;left:50%;transform:translateX(-50%);
+      opacity:0;white-space:nowrap;font-weight:600;color:var(--muted);
+      font-size:clamp(16px,3vw,22px);
+    }
+
+    /* simple fade-in/out sequence controlled by JS by toggling classes */
+    .role-item.show{
+      animation:roleIn 1s forwards;
+    }
+    .role-item.hide{
+      animation:roleOut 0.9s forwards;
+    }
+    @keyframes roleIn{
+      from{opacity:0;transform:translate(-50%,8px) scale(0.98)}
+      to{opacity:1;transform:translate(-50%,0) scale(1)}
+    }
+    @keyframes roleOut{
+      from{opacity:1;transform:translate(-50%,0) scale(1)}
+      to{opacity:0;transform:translate(-50%,-8px) scale(0.98)}
+    }
+
+    .cta{
+      margin-top:18px;display:flex;justify-content:center;gap:16px;
+    }
+
+    .btn{
+      background:transparent;border:1px solid rgba(255,255,255,0.08);padding:12px 20px;border-radius:12px;
+      color:var(--muted);cursor:pointer;font-weight:700;font-size:15px;backdrop-filter: blur(4px);
+    }
+    .btn.primary{
+      border-color:var(--neon-a);color:var(--neon-a);box-shadow:0 8px 30px rgba(0,255,219,0.06);
+    }
+
+    /* portfolio section */
+    .container{max-width:1200px;margin:40px auto;padding:0 20px 80px;}
+    .panel{
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-radius:var(--radius);
+      border:1px solid rgba(255,255,255,0.03);
+      padding:28px;
+      margin-bottom:28px;
+    }
+    .panel .title{font-size:20px;font-weight:800;margin:0 0 8px;color:var(--neon-a)}
+
+    .about{
+      min-height:60vh;display:flex;align-items:center;justify-content:center;border-radius:18px;border:1px solid rgba(255,255,255,0.03);
+      padding:36px;background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(0,0,0,0.08));
+    }
+
+    .about .box{
+      width:100%;border-radius:12px;padding:28px;border:1px solid var(--neon-b);background:rgba(255,255,255,0.02);
+    }
+
+    .about p{line-height:1.6;color:var(--muted);font-size:16px}
+
+    /* skills grid */
+    .skills-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+    @media (max-width:900px){.skills-grid{grid-template-columns:1fr}}
+
+    .skill-card{border-radius:12px;padding:18px;border:1px solid rgba(255,255,255,0.03);background:linear-gradient(180deg, rgba(255,255,255,0.01), transparent)}
+    .skill-title{font-weight:800;margin-bottom:10px;color:var(--neon-b)}
+    .bar-wrap{height:12px;background:rgba(255,255,255,0.03);border-radius:8px;overflow:hidden}
+    .bar{height:100%;width:0%;border-radius:8px;background:linear-gradient(90deg,var(--neon-a),var(--neon-b));transition:width 1.2s ease}
+
+    .badges{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px}
+    .badge{display:inline-flex;align-items:center;justify-content:center;padding:6px 8px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);min-width:96px;height:40px;background:rgba(255,255,255,0.01);font-size:13px;color:var(--muted)}
+
+    /* certifications */
+    .cert-grid{display:flex;gap:12px;flex-wrap:wrap}
+    .cert-card{flex:1 1 260px;border-radius:10px;padding:18px;border:1px solid var(--neon-b);background:rgba(255,255,255,0.02);text-align:center}
+    .cert-card h4{margin:0 0 6px;color:var(--neon-a)}
+    .cert-issuer{font-size:13px;color:var(--muted);margin-bottom:10px}
+
+    /* contact */
+    .contact-row{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+    .socials{display:flex;gap:12px}
+    .social-btn{padding:10px 14px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:var(--muted);font-weight:700}
+
+    .meta{color:var(--muted);font-size:14px}
+    .email-hidden{cursor:pointer;color:var(--neon-b);font-weight:800}
+
+    footer{padding:40px 0;text-align:center;color:rgba(255,255,255,0.06)}
+
+    /* small utilities */
+    .center{text-align:center}
+
+  </style>
 </head>
 <body>
 
-<!-- Intro -->
-<div id="intro">
-  <h1>ctxzero</h1>
-  <div class="roles" id="animated-roles"></div>
-  <button id="portfolio-btn">Portfolio</button>
-</div>
+  <section class="hero" id="hero">
+    <div class="overlay"></div>
+    <div class="hero-inner">
+      <h1 class="name">ctxzero</h1>
+      <div class="roles" aria-hidden="true">
+        <div class="role-item" data-color="var(--neon-a)">Penetration Tester</div>
+        <div class="role-item" data-color="var(--neon-b)">Red Teamer</div>
+        <div class="role-item" data-color="var(--neon-a)">Ethical Hacker</div>
+        <div class="role-item" data-color="var(--neon-b)">Bug Bounty Hunter</div>
+      </div>
 
-<!-- Portfolio Placeholder -->
-<div id="portfolio">
-  <h2>Portfolio Section</h2>
-  <p>Hier beginnt das eigentliche Portfolio. Alles clean, fullscreen, professionell.</p>
-</div>
+      <div class="cta">
+        <button class="btn primary" id="openPortfolio">Portfolio</button>
+        <button class="btn" id="viewResume" onclick="window.alert('Add resume download later')">Resume</button>
+      </div>
+    </div>
+  </section>
 
-<script>
-const roles = [
-  "Penetration Tester",
-  "Red Teamer",
-  "Ethical Hacker",
-  "Bug Bounty Hunter"
-];
+  <main id="main">
+    <div class="container">
+      <!-- About -->
+      <section class="panel about" id="portfolio">
+        <div class="box">
+          <h2 class="title">About Me</h2>
+          <p>
+            I am a cyber security enthusiast dedicated to making the internet safer. I focus on hardening networks,
+            discovering and responsibly disclosing vulnerabilities before attackers can exploit them, and improving
+            defensive controls. I enjoy web-application and network testing, Active Directory assessments, scripting
+            and building reproducible tooling. My goal is to learn continuously, share knowledge and contribute to
+            secure, resilient systems.
+          </p>
+        </div>
+      </section>
 
-const rolesEl = document.getElementById('animated-roles');
-let index = 0;
-let charIndex = 0;
-let deleting = false;
+      <!-- Skills -->
+      <section class="panel">
+        <h3 class="panel-title center" style="font-weight:900;color:var(--neon-b);">Skills</h3>
+        <div class="skills-grid">
 
-function typeRole() {
-  const currentRole = roles[index];
-  if (!deleting) {
-    charIndex++;
-    rolesEl.textContent = currentRole.slice(0, charIndex);
-    if (charIndex === currentRole.length) {
-      deleting = true;
-      setTimeout(typeRole, 1200);
-      return;
+          <div class="skill-card">
+            <div class="skill-title">Web Application Pentesting</div>
+            <div class="bar-wrap"><div class="bar" data-percent="75"></div></div>
+            <div class="badges">
+              <div class="badge">Burp Suite</div>
+              <div class="badge">OWASP ZAP</div>
+              <div class="badge">SQLi</div>
+              <div class="badge">XSS</div>
+            </div>
+          </div>
+
+          <div class="skill-card">
+            <div class="skill-title">Network Pentesting</div>
+            <div class="bar-wrap"><div class="bar" data-percent="85"></div></div>
+            <div class="badges">
+              <div class="badge">Metasploit</div>
+              <div class="badge">Nmap</div>
+              <div class="badge">Gobuster</div>
+              <div class="badge">Nikto</div>
+            </div>
+          </div>
+
+          <div class="skill-card">
+            <div class="skill-title">Active Directory</div>
+            <div class="bar-wrap"><div class="bar" data-percent="50"></div></div>
+            <div class="badges">
+              <div class="badge">BloodHound</div>
+              <div class="badge">Impacket</div>
+              <div class="badge">CrackMapExec</div>
+            </div>
+          </div>
+
+          <div class="skill-card">
+            <div class="skill-title">Scripting</div>
+            <div class="bar-wrap"><div class="bar" data-percent="60"></div></div>
+            <div class="badges">
+              <div class="badge">Python</div>
+              <div class="badge">Bash</div>
+              <div class="badge">PowerShell</div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- Certifications -->
+      <section class="panel">
+        <h2 class="panel-title center" style="font-weight:900;color:var(--neon-a);">Certifications</h2>
+        <div class="cert-grid" style="margin-top:16px;">
+          <div class="cert-card">
+            <h4>eJPT</h4>
+            <div class="cert-issuer">Certified by iLearnSecurity / INE</div>
+            <div class="badge" style="margin:0 auto;">[eJPT-Badge]</div>
+          </div>
+
+          <div class="cert-card">
+            <h4>Cyber Threat Intelligence</h4>
+            <div class="cert-issuer">Certified by ArcX</div>
+            <div class="badge" style="margin:0 auto;">[ArcX-Badge]</div>
+          </div>
+
+          <div class="cert-card">
+            <h4>TryHackMe</h4>
+            <div class="cert-issuer">Multiple Path Completions</div>
+            <div class="badge" style="margin:0 auto;">[TryHackMe-Badge]</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Contact -->
+      <section class="panel">
+        <h2 class="panel-title center" style="font-weight:900;color:var(--neon-b);">Get in Touch</h2>
+        <div style="height:18px"></div>
+        <div class="contact-row">
+          <div class="socials">
+            <button class="social-btn">LinkedIn</button>
+            <button class="social-btn">TryHackMe</button>
+            <button class="social-btn">GitHub</button>
+          </div>
+
+          <div class="meta">
+            Discord: <span style="font-weight:800;color:var(--neon-a)">ctxzero</span>
+            &nbsp;&nbsp;|&nbsp;&nbsp;
+            Email: <span id="emailToggle" class="email-hidden">(click to reveal)</span>
+          </div>
+        </div>
+      </section>
+
+      <footer>
+        Built for demonstration — badges are placeholders; you can replace them with real images and links later.
+      </footer>
+    </div>
+  </main>
+
+  <script>
+    // Roles cycling
+    (function(){
+      const roles = Array.from(document.querySelectorAll('.role-item'));
+      let idx = 0;
+      const cycle = () => {
+        roles.forEach(r=>{r.classList.remove('show');r.classList.remove('hide');r.style.color='var(--muted)'});
+        const current = roles[idx];
+        const nextIdx = (idx+1)%roles.length;
+        current.classList.add('show');
+        current.style.color = current.dataset.color || 'var(--neon-a)';
+        // after show, wait then hide and go to next
+        setTimeout(()=>{
+          current.classList.remove('show');
+          current.classList.add('hide');
+          setTimeout(()=>{ idx = nextIdx; cycle(); }, 400);
+        }, 1600);
+      };
+      // start after small delay
+      setTimeout(cycle, 300);
+    })();
+
+    // Button behavior: scroll to portfolio + hide hero after click and persist choice
+    document.getElementById('openPortfolio').addEventListener('click', ()=>{
+      document.getElementById('portfolio').scrollIntoView({behavior:'smooth', block:'start'});
+      // animate hero out then hide
+      const hero = document.getElementById('hero');
+      hero.style.transition = 'opacity 0.9s ease, transform 0.9s ease';
+      hero.style.opacity = '0';
+      hero.style.transform = 'translateY(-8px)';
+      setTimeout(()=>{ hero.style.display = 'none'; }, 1000);
+      localStorage.setItem('ctxzero_seen_intro','1');
+      // trigger skill bars animation after a little delay
+      setTimeout(()=>{ document.querySelectorAll('.bar').forEach(fillBar); }, 600);
+    });
+
+    // If the user already clicked earlier, hide hero immediately and trigger bars
+    if(localStorage.getItem('ctxzero_seen_intro') === '1'){
+      const hero = document.getElementById('hero');
+      hero.style.display = 'none';
+      // animate bars on load
+      window.addEventListener('load', ()=>{ setTimeout(()=>{ document.querySelectorAll('.bar').forEach(fillBar); },200); });
     }
-  } else {
-    charIndex--;
-    rolesEl.textContent = currentRole.slice(0, charIndex);
-    if (charIndex === 0) {
-      deleting = false;
-      index = (index + 1) % roles.length;
+
+    function fillBar(el){
+      const p = el.dataset.percent || '0';
+      // small stagger
+      const delay = Math.random()*400;
+      setTimeout(()=>{ el.style.width = p + '%'; }, delay);
     }
-  }
-  setTimeout(typeRole, deleting ? 50 : 100);
-}
 
-typeRole();
+    // email reveal
+    document.getElementById('emailToggle').addEventListener('click', function(){
+      const shown = this.dataset.shown === '1';
+      if(!shown){
+        this.textContent = 'ctxzero.pentest@gmail.com';
+        this.dataset.shown = '1';
+      } else {
+        this.textContent = '(click to reveal)';
+        this.dataset.shown = '0';
+      }
+    });
 
-// Portfolio Button Click
-document.getElementById('portfolio-btn').addEventListener('click', () => {
-  const intro = document.getElementById('intro');
-  intro.style.opacity = '0';
-  setTimeout(() => {
-    intro.style.display = 'none';
-    const portfolio = document.getElementById('portfolio');
-    portfolio.style.display = 'block';
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }, 600);
-});
-</script>
+    // keyboard quick jump: press P to open portfolio
+    document.addEventListener('keydown', (e)=>{
+      if(e.key.toLowerCase() === 'p'){ document.getElementById('openPortfolio').click(); }
+    });
+  </script>
 
 </body>
 </html>
