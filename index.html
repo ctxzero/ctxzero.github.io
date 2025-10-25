@@ -14,139 +14,85 @@
   --radius:16px;
   --gap:28px;
   --font: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
-  --hover-glow: 0 0 20px #ff7f00, 0 0 40px #ff0000;
 }
-*{box-sizing:border-box;}
-html,body{height:100%;margin:0;background:var(--bg);color:var(--white);font-family:var(--font);-webkit-font-smoothing:antialiased;}
-a{color:inherit;text-decoration:none;}
-.container{max-width:1200px;margin:60px auto;padding:0 20px 120px;}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;background:var(--bg);color:var(--white);font-family:var(--font);-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+.container{max-width:1200px;margin:60px auto;padding:0 20px 120px}
 
 /* HERO */
-.hero{height:100vh;display:flex;align-items:center;justify-content:center;position:relative;background:var(--bg);overflow:hidden;}
-.hero-inner{text-align:center;}
-h1.name{
-  font-size:clamp(48px,10vw,110px);
-  margin:0;color:var(--white);font-weight:900;text-shadow:0 8px 40px rgba(0,0,0,0.7);
-  transform:translateY(8px);opacity:0;animation:slideUp .6s ease forwards .1s;
-}
+.hero{position:relative;height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden;background:var(--bg);}
+canvas#hero-bg{position:absolute;top:0;left:0;width:100%;height:100%;z-index:1;}
+.hero-inner{position:relative;z-index:2;}
+h1.name{color:white;font-size:clamp(48px,10vw,110px);font-weight:900;margin:0 0 20px 0;text-shadow:0 8px 40px rgba(0,0,0,0.7);}
 
 /* role cube area */
-.role-wrap{height:72px;position:relative;margin-top:14px;perspective:900px;display:flex;align-items:center;justify-content:center;}
-.role-cube{width:min(720px,80%);height:56px;display:flex;align-items:center;justify-content:center;position:relative;}
-.role-item{
-  position:absolute;left:50%;top:50%;transform-origin:center;
-  transform:translate(-50%,-50%) rotateX(90deg) translateY(8px) scale(.98);
-  opacity:0;
-  font-weight:800;
-  font-size:clamp(18px,3.5vw,26px);
-  background:var(--fire-gradient);
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-  will-change:transform,opacity;
-}
-.role-item.in{animation:roleIn .6s cubic-bezier(.2,.9,.2,1) forwards;}
-.role-item.out{animation:roleOut .45s cubic-bezier(.2,.9,.2,1) forwards;}
-@keyframes roleIn{
-  0%{opacity:0;transform:translate(-50%,-50%) rotateX(90deg) translateY(18px) scale(.98);}
-  60%{opacity:1;transform:translate(-50%,-50%) rotateX(-12deg) translateY(-6px) scale(1.02);}
-  100%{opacity:1;transform:translate(-50%,-50%) rotateX(0deg) translateY(0) scale(1);}
-}
-@keyframes roleOut{
-  0%{opacity:1;transform:translate(-50%,-50%) rotateX(0deg) translateY(0) scale(1);}
-  100%{opacity:0;transform:translate(-50%,-50%) rotateX(-90deg) translateY(-18px) scale(.98);}
-}
+.role-wrap{height:56px;display:flex;align-items:center;justify-content:center;perspective:900px;margin-top:10px}
+.role-cube{width:min(720px,80%);height:56px;display:flex;align-items:center;justify-content:center;position:relative}
+.role-item{position:absolute;left:50%;top:50%;transform-origin:center;transform:translate(-50%,-50%) rotateX(90deg) translateY(8px) scale(.98);opacity:0;font-weight:800;font-size:clamp(18px,3.5vw,26px);background:var(--fire-gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;will-change:transform,opacity;}
+.role-item.in{animation:roleIn .6s cubic-bezier(.2,.9,.2,1) forwards}
+.role-item.out{animation:roleOut .45s cubic-bezier(.2,.9,.2,1) forwards}
+@keyframes roleIn{0%{opacity:0;transform:translate(-50%,-50%) rotateX(90deg) translateY(18px) scale(.98)}60%{opacity:1;transform:translate(-50%,-50%) rotateX(-12deg) translateY(-6px) scale(1.02)}100%{opacity:1;transform:translate(-50%,-50%) rotateX(0deg) translateY(0) scale(1)}}
+@keyframes roleOut{0%{opacity:1;transform:translate(-50%,-50%) rotateX(0deg) translateY(0) scale(1)}100%{opacity:0;transform:translate(-50%,-50%) rotateX(-90deg) translateY(-18px) scale(.98)}}
 
-/* SECTION HEADINGS */
-.section{margin-bottom:80px;}
-.section-heading{
-  text-align:center;
-  font-weight:900;
-  font-size:clamp(30px,5.5vw,56px);
-  margin:0 0 14px 0;
-  color:var(--white);
-  background:var(--fire-gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent;
-  opacity:0; transform:translateY(18px);
-  transition:opacity .6s ease, transform .6s cubic-bezier(.2,.9,.2,1);
-}
-.section-heading.revealed{opacity:1;transform:translateY(0);}
+/* SECTION HEADINGS (above boxes) */
+.section{margin-bottom:80px}
+.section-heading{text-align:center;font-weight:900;font-size:clamp(30px,5.5vw,56px);margin:0 0 14px 0;color:var(--white);background:var(--fire-gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;opacity:0;transform:translateY(18px);transition:opacity .6s ease, transform .6s cubic-bezier(.2,.9,.2,1);}
+.section-heading.revealed{opacity:1;transform:translateY(0)}
 
-/* PANEL (glass) */
-.panel{
-  border-radius:var(--radius);
-  padding:30px;
-  border:1px solid var(--border);
-  background:var(--glass);
-  backdrop-filter: blur(4px);
-  max-width:1100px;margin:0 auto;
-  opacity:0;transform:translateY(18px);
-  transition:opacity .6s ease, transform .6s cubic-bezier(.2,.9,.2,1), box-shadow .3s ease;
-}
+/* panel (glass) */
+.panel{border-radius:var(--radius);padding:30px;border:1px solid var(--border);background:var(--glass);backdrop-filter: blur(4px);max-width:1100px;margin:0 auto;opacity:0;transform:translateY(18px);transition:opacity .6s ease, transform .6s cubic-bezier(.2,.9,.2,1);}
 .panel.revealed{opacity:1;transform:translateY(0);}
-.panel:hover{box-shadow:var(--hover-glow);}
+.panel:hover{box-shadow:0 0 30px rgba(255,127,0,0.6),0 0 50px rgba(255,0,0,0.4);}
 
-/* About text */
-.about p{color:var(--white);line-height:1.9;font-size:18px;margin:0 0 12px 0;}
-.about ul{margin:12px 0 0 18px;color:var(--white);line-height:1.9;}
+/* About text - longer and structured */
+.about p{color:var(--white);line-height:1.9;font-size:18px;margin:0}
+.about ul{margin:12px 0 0 18px;color:var(--white);line-height:1.9}
 
 /* SKILLS grid */
-.skills-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--gap);margin-top:10px;}
-@media (max-width:920px){.skills-grid{grid-template-columns:1fr;}}
-.skill-block{display:flex;flex-direction:column;align-items:center;gap:10px;}
-.skill-title{font-weight:900;color:var(--white);font-size:18px;margin-bottom:6px;text-align:center;}
+.skills-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--gap);margin-top:10px}
+@media (max-width:920px){.skills-grid{grid-template-columns:1fr}}
+.skill-block{display:flex;flex-direction:column;align-items:center;gap:10px}
+.skill-title{font-weight:900;color:var(--white);font-size:18px;margin-bottom:6px;text-align:center;opacity:0;transform:translateY(18px);transition:opacity .6s ease, transform .6s cubic-bezier(.2,.9,.2,1);}
+.skill-title.revealed{opacity:1;transform:translateY(0);}
 
-/* skill card deeper + hover glow */
-.skill-card{
-  width:100%;
-  min-height:200px;
-  padding:18px;border-radius:12px;border:1px solid var(--border);
-  background:rgba(255,255,255,0.015);display:flex;flex-direction:column;gap:12px;
-  transition:box-shadow .3s ease;
-}
-.skill-card:hover{box-shadow:var(--hover-glow);}
+/* skill card deeper */
+.skill-card{width:100%;min-height:180px;padding:18px;border-radius:12px;border:1px solid var(--border);background:rgba(255,255,255,0.015);display:flex;flex-direction:column;gap:12px;transition:box-shadow .3s ease;}
+.skill-card:hover{box-shadow:0 0 20px rgba(255,127,0,0.5),0 0 35px rgba(255,0,0,0.3);}
 
 /* bar */
-.bar-wrap{height:18px;background:rgba(255,255,255,0.02);border-radius:12px;overflow:hidden;}
-.bar{
-  height:100%;
-  width:0%;
-  border-radius:12px;
-  background:linear-gradient(90deg,#ff0000,#ff7f00,#ffff00);
-  background-size:200% 100%;
-  animation:flow 3s linear infinite;
-  transition:width 1.2s cubic-bezier(.2,.9,.2,1);
-}
-@keyframes flow{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%;}}
+.bar-wrap{height:18px;background:rgba(255,255,255,0.02);border-radius:12px;overflow:hidden}
+.bar{height:100%;width:0%;border-radius:12px;background:linear-gradient(90deg,#ff0000,#ff7f00,#ffff00);background-size:200% 100%;animation:flow 3s linear infinite;transition:width 1.2s cubic-bezier(.2,.9,.2,1);}
+@keyframes flow{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
 
 /* description text under bar */
 .skill-desc{font-size:15px;color:rgba(255,255,255,0.95);line-height:1.6;text-align:center;}
 
 /* badges area */
-.badge-row{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-top:auto;justify-content:center;}
-.badge-row img{height:56px;width:auto;border-radius:8px;border:0;background:transparent;}
+.badge-row{display:flex;gap:12px;align-items:center;flex-wrap:wrap;justify-content:center;margin-top:auto}
+.badge-row img{height:56px;width:auto;border-radius:8px;border:none;background:transparent;}
 
 /* CERTS */
-.cert-grid{display:flex;gap:20px;flex-wrap:wrap;justify-content:center;margin-top:10px;}
-.cert-card{flex:1 1 300px;min-height:220px;padding:16px;border-radius:12px;border:1px solid var(--border);background:rgba(255,255,255,0.015);display:flex;flex-direction:column;align-items:center;gap:12px;transition:box-shadow .3s ease;}
-.cert-card:hover{box-shadow:var(--hover-glow);}
-.cert-card h4{margin:8px 0 0 0;font-size:18px;color:var(--white);text-align:center;}
-.cert-card .issuer{font-size:13px;color:rgba(255,255,255,0.9);text-align:center;}
-.cert-badge{width:120px;height:120px;display:flex;align-items:center;justify-content:center;border-radius:12px;background:transparent;overflow:hidden;}
+.cert-grid{display:flex;gap:20px;flex-wrap:wrap;justify-content:center;margin-top:10px}
+.cert-card{flex:1 1 300px;min-height:200px;padding:16px;border-radius:12px;border:1px solid var(--border);background:rgba(255,255,255,0.015);display:flex;flex-direction:column;align-items:center;gap:12px;transition:box-shadow .3s ease;}
+.cert-card:hover{box-shadow:0 0 20px rgba(255,127,0,0.5),0 0 35px rgba(255,0,0,0.3);}
+.cert-card h4{margin:8px 0 0 0;font-size:18px;color:var(--white);text-align:center}
+.cert-card .issuer{font-size:13px;color:rgba(255,255,255,0.9);text-align:center}
+.cert-badge{width:120px;height:120px;display:flex;align-items:center;justify-content:center;border-radius:12px;background:rgba(255,255,255,0.01);overflow:hidden}
 .cert-badge img{max-width:100%;max-height:100%;display:block;}
 
 /* CONTACT */
-.contact-row{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;}
-.contact-row .meta{font-size:15px;}
-.socials{display:flex;gap:12px;align-items:center;}
-.btn{
-  display:inline-flex;align-items:center;gap:10px;padding:10px 14px;border-radius:12px;border:2px solid var(--fire-gradient);
-  background:transparent;color:var(--white);font-weight:800;cursor:pointer;transition:transform .12s ease;
-}
-.btn:hover{transform:translateY(-4px);box-shadow:var(--hover-glow);}
-.icon{width:20px;height:20px;display:inline-block;}
+.contact-row{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.contact-row .meta{font-size:15px}
+.socials{display:flex;gap:12px;align-items:center}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:10px 14px;border-radius:12px;border:2px solid var(--fire-gradient);background:transparent;color:var(--white);font-weight:800;cursor:pointer;transition:transform .12s ease;}
+.btn:hover{transform:translateY(-4px)}
+.icon{width:20px;height:20px;display:inline-block}
 
 /* reveal utility for cards */
-.revealed-card{opacity:1;transform:translateY(0);transition:opacity .6s ease, transform .6s cubic-bezier(.2,.9,.2,1);}
+.revealed-card{opacity:1;transform:translateY(0);transition:opacity .6s ease, transform .6s cubic-bezier(.2,.9,.2,1)}
 
-/* responsive */
+/* small responsive tweaks */
 @media (max-width:520px){
   h1.name{font-size:44px}
   .cert-grid{flex-direction:column}
@@ -155,6 +101,7 @@ h1.name{
 </head>
 <body>
   <section class="hero" id="hero">
+    <canvas id="hero-bg"></canvas>
     <div class="hero-inner">
       <h1 class="name">ctxzero</h1>
       <div class="role-wrap">
@@ -169,16 +116,15 @@ h1.name{
   </section>
 
   <main class="container" id="main">
-
     <!-- ABOUT -->
     <section class="section" id="about">
       <h2 class="section-heading">About Me</h2>
       <div class="panel about">
-        <p>I am a cybersecurity enthusiast constantly learning and improving to make systems resilient and hardened against attackers.</p>
+        <p>I am a cybersecurity enthusiast, constantly learning and improving my skills to make systems resilient and hardened against attackers.</p>
         <ul>
           <li>Manual testing combined with tooling for reliable, repeatable findings.</li>
           <li>Web application & network assessments, Active Directory focus, and scripting for automation.</li>
-          <li>Responsible disclosure, reproducible tooling, and continuous learning.</li>
+          <li>Responsible disclosure, reproducible tooling, and continuous learning to stay ahead.</li>
         </ul>
       </div>
     </section>
@@ -189,6 +135,7 @@ h1.name{
       <div class="panel">
         <div class="skills-grid">
 
+          <!-- Web App -->
           <div class="skill-block">
             <div class="skill-title">Web Application Pentesting</div>
             <div class="skill-card">
@@ -200,17 +147,7 @@ h1.name{
             </div>
           </div>
 
-          <div class="skill-block">
-            <div class="skill-title">Red Teaming</div>
-            <div class="skill-card">
-              <div class="bar-wrap"><div class="bar" data-percent="80"></div></div>
-              <div class="skill-desc">Good red teaming techniques and practical experience in attack simulations.</div>
-              <div class="badge-row">
-                <img src="https://tryhackme-images.s3.amazonaws.com/room-icons/66704dd0e54a1f39bff7b1a1-1735574311415" alt="Red Team badge">
-              </div>
-            </div>
-          </div>
-
+          <!-- Network -->
           <div class="skill-block">
             <div class="skill-title">Network Pentesting</div>
             <div class="skill-card">
@@ -222,13 +159,24 @@ h1.name{
             </div>
           </div>
 
+          <!-- Active Directory -->
+          <div class="skill-block">
+            <div class="skill-title">Active Directory</div>
+            <div class="skill-card">
+              <div class="bar-wrap"><div class="bar" data-percent="50"></div></div>
+              <div class="skill-desc">Understanding of AD enumeration, attack paths and privilege escalation techniques.</div>
+              <div class="badge-row"></div>
+            </div>
+          </div>
+
+          <!-- Scripting -->
           <div class="skill-block">
             <div class="skill-title">Scripting</div>
             <div class="skill-card">
               <div class="bar-wrap"><div class="bar" data-percent="60"></div></div>
-              <div class="skill-desc">Python, Bash, and Shell scripting for automation and tooling.</div>
+              <div class="skill-desc">Python, Bash and Shell scripting for automation, tooling and exploit proof‑of‑concepts.</div>
               <div class="badge-row">
-                <img src="https://www.pngmart.com/files/23/Python-Logo-PNG-Image.png" alt="Python badge">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg" alt="Python badge">
               </div>
             </div>
           </div>
@@ -239,7 +187,7 @@ h1.name{
 
     <!-- CERTIFICATIONS -->
     <section class="section" id="certs">
-      <h2 class="section-heading">Certifications</h2>
+      <h2 class="section-heading">My Certifications</h2>
       <div class="panel">
         <div class="cert-grid">
           <div class="cert-card">
@@ -251,7 +199,7 @@ h1.name{
           <div class="cert-card">
             <h4>Cyber Threat Intelligence</h4>
             <div class="issuer">Certified by ArcX</div>
-            <div class="cert-badge"><img src="https://th.bing.com/th/id/R.febdc68253c32b74a0e62d1175f84b73?riu=http%3a%2f%2fmedia.arcx.io%2fimages%2fproducts%2fCTI101.png" alt="CTI badge"></div>
+            <div class="cert-badge"><img src="https://media.arcx.io/images/products/CTI101.png" alt="CTI badge"></div>
           </div>
 
           <div class="cert-card">
@@ -270,25 +218,33 @@ h1.name{
         <div class="contact-row">
           <div class="socials">
             <a class="btn" href="#" target="_blank" rel="noopener">
-              <span class="icon">🐙</span> GitHub
+              <span class="icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" width="20" height="20" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M12 .5C5.65.5.75 5.4.75 11.75c0 4.84 3.14 8.95 7.5 10.4.55.1.75-.24.75-.53 0-.26-.01-1.12-.01-2.03-3.05.66-3.69-.74-3.92-1.42-.13-.36-.7-1.42-1.2-1.71-.41-.23-1-.8-.01-.82.93-.02 1.59.86 1.81 1.22 1.06 1.82 2.75 1.3 3.43.99.11-.78.41-1.3.74-1.6-2.73-.31-5.6-1.37-5.6-6.09 0-1.35.48-2.45 1.26-3.32-.13-.31-.55-1.56.12-3.25 0 0 1.02-.33 3.34 1.26  .97-.27 2.01-.4 3.04-.4 1.03 0 2.07.13 3.04.4 2.32-1.6 3.34-1.26 3.34-1.26.67 1.69.25 2.94.12 3.25.78.87 1.26 1.97 1.26 3.32 0 4.73-2.88 5.77-5.62 6.08.42.36.8 1.08.8 2.18 0 1.57-.01 2.84-.01 3.23 0 .29.2.64.76.53 4.36-1.45 7.5-5.56 7.5-10.4C23.25 5.4 18.35.5 12 .5z"/></svg>
+              </span>
+              GitHub
             </a>
             <a class="btn" href="#" target="_blank" rel="noopener">
-              <span class="icon">🔗</span> LinkedIn
+              <span class="icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" width="20" height="20" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M20.45 20.45h-3.555v-5.569c0-1.328-.027-3.036-1.85-3.036-1.852 0-2.135 1.447-2.135 2.943v5.662H9.354V9.75h3.415v1.498h.049c.476-.9 1.635-1.85 3.366-1.85 3.6 0 4.265 2.369 4.265 5.449v6.603zM5.337 8.299a2.062 2.062 0 1 1 0-4.125 2.062 2.062 0 0 1 0 4.125zM6.96 20.45H3.714V9.75H6.96v10.7z"/></svg>
+              </span>
+              LinkedIn
             </a>
             <a class="btn" href="#" target="_blank" rel="noopener">
-              <span class="icon">💀</span> TryHackMe
+              <span class="icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M12 2L3 7v6c0 5 3.8 9.7 9 9.9 5.2-.2 9-4.9 9-9.9V7l-9-5z"/></svg>
+              </span>
+              TryHackMe
             </a>
           </div>
           <div class="meta">Discord: <strong>ctxzero</strong> | Email: <span id="emailToggle" style="cursor:pointer;font-weight:800">(click to reveal)</span></div>
         </div>
       </div>
     </section>
-
     <footer style="text-align:center;color:rgba(255,255,255,0.06);margin-top:30px">Demo build — replace any placeholder links & images with your production assets.</footer>
   </main>
 
 <script>
-// HERO role cube cycling
+// HERO role cube cycling (in/out)
 (function(){
   const items = Array.from(document.querySelectorAll('.role-item'));
   let idx = 0;
@@ -300,24 +256,26 @@ h1.name{
     setTimeout(()=>{ cur.classList.remove('in'); cur.classList.add('out') }, 1400);
   };
   show(0);
-  setInterval(()=>{
-    idx = (idx + 1) % items.length;
-    show(idx);
-  }, 1800);
+  setInterval(()=>{ idx=(idx+1)%items.length; show(idx); }, 1800);
 })();
 
-// IntersectionObserver for fade-in & bar animations
+// IntersectionObserver to reveal headings & panels and animate bars
 const io = new IntersectionObserver((entries, obs) => {
   entries.forEach(e => {
     if(e.isIntersecting){
       const sec = e.target;
-      const h = sec.querySelector('.section-heading'); if(h) h.classList.add('revealed');
-      const p = sec.querySelector('.panel'); if(p) p.classList.add('revealed');
-      sec.querySelectorAll('.skill-card, .cert-card').forEach((c, idx) => setTimeout(()=> c.classList.add('revealed-card'), 120 + idx*80));
+      const h = sec.querySelector('.section-heading');
+      if(h) h.classList.add('revealed');
+      const p = sec.querySelector('.panel');
+      if(p) p.classList.add('revealed');
+      sec.querySelectorAll('.skill-card, .cert-card').forEach((c, idx) => {
+        setTimeout(()=> c.classList.add('revealed-card'), 120 + idx*80);
+      });
+      sec.querySelectorAll('.skill-title').forEach((t,i)=>{ setTimeout(()=>t.classList.add('revealed'), i*80); });
       if(sec.id === 'skills'){
-        sec.querySelectorAll('.bar').forEach((bar,i)=>{
+        document.querySelectorAll('.bar').forEach((bar, i) => {
           const pct = parseInt(bar.dataset.percent||0,10);
-          setTimeout(()=>{ bar.style.width = pct + '%'; }, 200+i*140);
+          setTimeout(()=>{ bar.style.width = pct + '%'; }, 200 + i*140);
         });
       }
       obs.unobserve(sec);
@@ -331,6 +289,31 @@ document.getElementById('emailToggle').addEventListener('click', function(){
   if(this.dataset.shown === '1'){ this.textContent='(click to reveal)'; this.dataset.shown='0'; }
   else{ this.textContent='ctxzero.pentest@gmail.com'; this.dataset.shown='1'; }
 });
+
+// Animated particle background
+const canvas = document.getElementById('hero-bg');
+const ctx = canvas.getContext('2d');
+canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+let particles = [];
+for(let i=0;i<120;i++){
+  particles.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:Math.random()*2+1,vx:(Math.random()-0.5)*0.5,vy:(Math.random()-0.5)*0.5});
+}
+function animate(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  particles.forEach(p=>{
+    p.x+=p.vx; p.y+=p.vy;
+    if(p.x<0)p.x=canvas.width;if(p.x>canvas.width)p.x=0;
+    if(p.y<0)p.y=canvas.height;if(p.y>canvas.height)p.y=0;
+    const grd = ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,p.r*4);
+    grd.addColorStop(0,'rgba(255,255,0,0.9)');
+    grd.addColorStop(0.5,'rgba(255,127,0,0.6)');
+    grd.addColorStop(1,'rgba(255,0,0,0.2)');
+    ctx.fillStyle = grd; ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2); ctx.fill();
+  });
+  requestAnimationFrame(animate);
+}
+animate();
+window.addEventListener('resize',()=>{canvas.width=window.innerWidth;canvas.height=window.innerHeight;});
 </script>
 </body>
 </html>
