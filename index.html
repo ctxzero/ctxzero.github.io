@@ -3,190 +3,133 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ctxzero — Portfolio</title>
+<title>ctxzero Portfolio</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@400;700&display=swap');
+  /* Grundsetup */
+  * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+  html, body { width: 100%; height: 100%; background: #000; color: #fff; overflow: hidden; }
 
-:root {
-  --bg: #0d0d0d;
-  --overlay: rgba(0, 255, 255, 0.05);
-  --primary: #00fff7;
-  --secondary: #ff00f7;
-  --accent: #f0b000;
-  --white: #fff;
-  --radius: 16px;
-  --line: 1px solid var(--secondary);
-}
+  /* Intro Fullscreen */
+  #intro {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: #000;
+    z-index: 10;
+    transition: opacity 0.6s ease;
+  }
 
-* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Zilla Slab', serif; }
-body { background: var(--bg); color: var(--white); overflow-x: hidden; }
-button { cursor: pointer; border: none; border-radius: var(--radius); padding: 12px 24px; font-weight: bold; background: var(--accent); color: var(--white); transition: all 0.2s ease; }
-button:hover { transform: scale(1.05); }
+  #intro h1 {
+    font-size: 6rem;
+    font-weight: 900;
+    color: #fff;
+    margin-bottom: 20px;
+    text-align: center;
+  }
 
-.fullscreen-intro {
-  width: 100vw; height: 100vh; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center;
-  position: relative; background: var(--bg); overflow: hidden;
-}
-.fullscreen-intro::before {
-  content:""; position:absolute; inset:0; background: var(--overlay);
-}
-.fullscreen-intro h1 { font-size: 5rem; color: var(--white); margin-bottom: 20px; }
-.role-text { font-size: 2rem; height: 2.5rem; margin-bottom: 50px; color: var(--primary); }
-.fade-enter { opacity:0; transform: translateY(20px);}
-.fade-enter-active { opacity:1; transform: translateY(0); transition: all 0.8s ease;}
-.fade-exit { opacity:1; transform: translateY(0);}
-.fade-exit-active { opacity:0; transform: translateY(-20px); transition: all 0.5s ease;}
+  #intro .roles {
+    font-size: 2rem;
+    font-weight: 600;
+    color: #00f0ff; /* neon-blau */
+    height: 2.5rem;
+    text-align: center;
+    margin-bottom: 50px;
+    overflow: hidden;
+  }
 
-.portfolio-section { display:none; flex-direction:column; padding: 60px 10%; max-width: 1400px; margin: 0 auto; }
+  #portfolio-btn {
+    padding: 14px 40px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #000;
+    background: gold;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  #portfolio-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(255,215,0,0.5);
+  }
 
-.box { background: rgba(255,255,255,0.03); border-radius: var(--radius); border: var(--line); padding: 30px; margin-bottom: 40px; }
-
-.box h2 { color: var(--secondary); font-size: 2rem; margin-bottom: 12px; font-weight: bold; }
-.box p { font-size: 1rem; line-height:1.5; color: var(--white); }
-
-.skills-grid { display:grid; grid-template-columns: repeat(auto-fit,minmax(300px,1fr)); gap:30px; }
-.skill-card { border: var(--line); border-radius: var(--radius); padding:20px; background: rgba(255,255,255,0.02);}
-.skill-card h3 { color: var(--secondary); margin-bottom:12px; }
-.skill-bar { width:100%; background: rgba(255,255,255,0.05); height: 12px; border-radius:6px; margin-bottom:12px; overflow:hidden; }
-.skill-bar-inner { height:100%; width:0%; background: var(--primary); border-radius:6px; transition: width 1.5s ease-in-out; }
-.badges { display:flex; flex-wrap:wrap; gap:10px; margin-top:10px; }
-.badges img { height:32px; width:auto; border-radius:8px; background: rgba(255,255,255,0.05); padding:4px; }
-
-.certifications { display:flex; flex-wrap:wrap; gap:20px; }
-.cert { flex:1 1 280px; border: var(--line); border-radius: var(--radius); padding:20px; background: rgba(255,255,255,0.02); text-align:center;}
-.cert img { max-width:100px; margin-top:12px; }
-
-.get-in-touch { display:flex; justify-content:space-between; flex-wrap:wrap; gap:20px; align-items:center; }
-.get-in-touch .links { display:flex; gap:12px; flex-wrap:wrap; }
-.get-in-touch .contact { display:flex; flex-direction:column; gap:8px; }
-
-.hidden-email { color:transparent; text-decoration:underline; cursor:pointer; transition: color 0.3s ease; }
-.hidden-email.show { color: var(--white); }
-
+  /* Portfolio-Bereich */
+  #portfolio {
+    display: none;
+    width: 100%;
+    min-height: 100vh;
+    padding: 60px 40px;
+    background: #111; /* dunkelgrau */
+    color: #fff;
+  }
 </style>
 </head>
 <body>
 
-<div class="fullscreen-intro">
+<!-- Intro -->
+<div id="intro">
   <h1>ctxzero</h1>
-  <div class="role-text" id="role-text">Penetration Tester</div>
-  <button id="enter-btn">Portfolio</button>
+  <div class="roles" id="animated-roles"></div>
+  <button id="portfolio-btn">Portfolio</button>
 </div>
 
-<div class="portfolio-section" id="portfolio">
-
-  <div class="box" id="about-me">
-    <h2>About Me</h2>
-    <p>I'm a Cyber Security enthusiast dedicated to making the internet safer and securing networks before attackers can exploit them. Passionate about penetration testing, Red Teaming, and ethical hacking. Always learning, always exploring, and delivering actionable insights to strengthen security defenses.</p>
-  </div>
-
-  <div class="skills-grid">
-    <div class="skill-card">
-      <h3>Web Application Pentesting</h3>
-      <div class="skill-bar"><div class="skill-bar-inner" style="width:75%"></div></div>
-      <div class="badges">
-        <img src="https://via.placeholder.com/32x32?text=Burp" alt="BurpSuite">
-        <img src="https://via.placeholder.com/32x32?text=OWASP" alt="OWASP ZAP">
-      </div>
-    </div>
-    <div class="skill-card">
-      <h3>Network Pentesting</h3>
-      <div class="skill-bar"><div class="skill-bar-inner" style="width:85%"></div></div>
-      <div class="badges">
-        <img src="https://via.placeholder.com/32x32?text=Metasploit" alt="Metasploit">
-        <img src="https://via.placeholder.com/32x32?text=Nikto" alt="Nikto">
-        <img src="https://via.placeholder.com/32x32?text=Gobuster" alt="Gobuster">
-      </div>
-    </div>
-    <div class="skill-card">
-      <h3>Active Directory</h3>
-      <div class="skill-bar"><div class="skill-bar-inner" style="width:50%"></div></div>
-      <div class="badges">
-        <img src="https://via.placeholder.com/32x32?text=BloodHound" alt="BloodHound">
-      </div>
-    </div>
-    <div class="skill-card">
-      <h3>Scripting</h3>
-      <div class="skill-bar"><div class="skill-bar-inner" style="width:60%"></div></div>
-      <div class="badges">
-        <img src="https://via.placeholder.com/32x32?text=Python" alt="Python">
-        <img src="https://via.placeholder.com/32x32?text=Bash" alt="Bash">
-        <img src="https://via.placeholder.com/32x32?text=Shell" alt="Shell">
-      </div>
-    </div>
-  </div>
-
-  <div class="box" style="text-align:center;">
-    <h2>Certifications</h2>
-    <div class="certifications">
-      <div class="cert">
-        <h3>iNE eJPT</h3>
-        <p>Certified by iNE</p>
-        <img src="https://miro.medium.com/v2/resize:fit:1358/1*KXRcpcS4sGp4xvLjhByI7A.png" alt="eJPT badge">
-      </div>
-      <div class="cert">
-        <h3>Cyber Threat Intelligence</h3>
-        <p>Certified by ArcX</p>
-        <img src="https://media.arcx.io/images/products/CTI101.png" alt="CTI badge">
-      </div>
-      <div class="cert">
-        <h3>TryHackMe</h3>
-        <p>Multiple Path Completions</p>
-        <img src="https://via.placeholder.com/100x50?text=THM" alt="THM badge">
-      </div>
-    </div>
-  </div>
-
-  <div class="box" style="text-align:center;">
-    <h2>Get in Touch</h2>
-    <div class="get-in-touch">
-      <div class="links">
-        <button>LinkedIn</button>
-        <button>TryHackMe</button>
-        <button>Github</button>
-      </div>
-      <div class="contact">
-        <span>Discord: ctxzero</span>
-        <span class="hidden-email" id="email">Email: ctxzero.pentest@gmail.com</span>
-      </div>
-    </div>
-  </div>
-
+<!-- Portfolio Placeholder -->
+<div id="portfolio">
+  <h2>Portfolio Section</h2>
+  <p>Hier beginnt das eigentliche Portfolio. Alles clean, fullscreen, professionell.</p>
 </div>
 
 <script>
-const roles = ["Penetration Tester","Red Teamer","Ethical Hacker","Bug Bounty Hunter"];
-let roleIndex = 0;
-const roleText = document.getElementById('role-text');
+const roles = [
+  "Penetration Tester",
+  "Red Teamer",
+  "Ethical Hacker",
+  "Bug Bounty Hunter"
+];
 
-function animateRole(){
-  roleText.style.opacity = 0;
-  setTimeout(()=>{
-    roleText.textContent = roles[roleIndex];
-    roleText.style.opacity = 1;
-    roleIndex = (roleIndex+1)%roles.length;
-  },500);
+const rolesEl = document.getElementById('animated-roles');
+let index = 0;
+let charIndex = 0;
+let deleting = false;
+
+function typeRole() {
+  const currentRole = roles[index];
+  if (!deleting) {
+    charIndex++;
+    rolesEl.textContent = currentRole.slice(0, charIndex);
+    if (charIndex === currentRole.length) {
+      deleting = true;
+      setTimeout(typeRole, 1200);
+      return;
+    }
+  } else {
+    charIndex--;
+    rolesEl.textContent = currentRole.slice(0, charIndex);
+    if (charIndex === 0) {
+      deleting = false;
+      index = (index + 1) % roles.length;
+    }
+  }
+  setTimeout(typeRole, deleting ? 50 : 100);
 }
-setInterval(animateRole, 2500);
 
-const enterBtn = document.getElementById('enter-btn');
-const portfolio = document.getElementById('portfolio');
-const intro = document.querySelector('.fullscreen-intro');
+typeRole();
 
-enterBtn.addEventListener('click',()=>{
-  intro.style.display = 'none';
-  portfolio.style.display = 'flex';
-});
-
-const emailEl = document.getElementById('email');
-emailEl.addEventListener('click', ()=> {
-  emailEl.classList.toggle('show');
-});
-
-document.querySelectorAll('.skill-bar-inner').forEach(el => {
+// Portfolio Button Click
+document.getElementById('portfolio-btn').addEventListener('click', () => {
+  const intro = document.getElementById('intro');
+  intro.style.opacity = '0';
   setTimeout(() => {
-    el.style.width = el.style.width;
-  }, 300);
+    intro.style.display = 'none';
+    const portfolio = document.getElementById('portfolio');
+    portfolio.style.display = 'block';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, 600);
 });
 </script>
 
