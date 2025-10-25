@@ -149,7 +149,53 @@ h2.roles{
       </ul>
     </div>
   </section>
-  <!-- SKILLS, CERTS, CONTACT hier weiter… (wie vorher) -->
+
+  <!-- SKILLS -->
+  <section class="section" id="skills">
+    <h2 class="section-heading">My Skills</h2>
+    <div class="panel">
+      <div class="skills-grid">
+        <div class="skill-block">
+          <div class="skill-title">Web Application Pentesting</div>
+          <div class="skill-card">
+            <div class="bar-wrap"><div class="bar" data-percent="75"></div></div>
+            <div class="skill-desc">Strong manual testing skills combined with professional tools to find and verify vulnerabilities.</div>
+            <div class="badge-row"><img src="https://it.tarah.in/img/services/7405d204-db67-46ac-987c-4a31403f86a9.png" alt="Burp badge"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CERTIFICATIONS -->
+  <section class="section" id="certs">
+    <h2 class="section-heading">Certifications</h2>
+    <div class="panel">
+      <div class="cert-grid">
+        <div class="cert-card">
+          <h4>eJPT</h4>
+          <div class="issuer">Certified by iLearnSecurity / INE</div>
+          <div class="cert-badge"><img src="https://miro.medium.com/v2/resize:fit:1358/1*KXRcpcS4sGp4xvLjhByI7A.png" alt="eJPT badge"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="section" id="contact">
+    <h2 class="section-heading">Get in Touch</h2>
+    <div class="panel">
+      <div class="contact-row">
+        <div class="socials">
+          <a class="btn" href="#" target="_blank">GitHub</a>
+          <a class="btn" href="#" target="_blank">LinkedIn</a>
+          <a class="btn" href="#" target="_blank">TryHackMe</a>
+        </div>
+        <div class="meta">Discord: <strong>ctxzero</strong> | Email: <span id="emailToggle" style="cursor:pointer;font-weight:800">(click to reveal)</span></div>
+      </div>
+    </div>
+  </section>
+
 </main>
 
 <script>
@@ -161,7 +207,7 @@ function typeRoles(){
   let txt=roles[roleIdx];
   if(forward){charIdx++;elRoles.textContent=txt.substring(0,charIdx);if(charIdx===txt.length) forward=false;}
   else{charIdx--;elRoles.textContent=txt.substring(0,charIdx);if(charIdx===0){forward=true;roleIdx=(roleIdx+1)%roles.length;}}
-  setTimeout(typeRoles,70);
+  setTimeout(typeRoles,120); // slower typing
 }
 typeRoles();
 
@@ -188,7 +234,7 @@ document.getElementById('emailToggle')?.addEventListener('click',function(){
   else{this.textContent='ctxzero.pentest@gmail.com';this.dataset.shown='1';}
 });
 
-// Hacker background animation (Matrix style)
+// Hacker background animation (slower)
 const canvas=document.getElementById("bgCanvas");
 const ctx=canvas.getContext("2d");
 canvas.width=window.innerWidth;
@@ -198,16 +244,15 @@ const drops=Array(cols).fill(1);
 function drawMatrix(){
   ctx.fillStyle="rgba(0,0,0,0.2)";
   ctx.fillRect(0,0,canvas.width,canvas.height);
-  ctx.fillStyle="hsl(30,100%,50%)";
   ctx.font="18px monospace";
   for(let i=0;i<drops.length;i++){
     const text=String.fromCharCode(33+Math.random()*94);
     ctx.fillStyle=`hsl(${Math.random()*30+0},100%,50%)`;
     ctx.fillText(text,i*20,drops[i]*20);
-    if(drops[i]*20>canvas.height||Math.random()>0.975) drops[i]=0;
+    if(drops[i]*20>canvas.height||Math.random()>0.98) drops[i]=0;
     drops[i]++;
   }
-  requestAnimationFrame(drawMatrix);
+  setTimeout(drawMatrix,80); // slower animation
 }
 drawMatrix();
 window.addEventListener('resize',()=>{canvas.width=window.innerWidth;canvas.height=window.innerHeight;});
