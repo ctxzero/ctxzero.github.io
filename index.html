@@ -1,193 +1,319 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>ctxzero — Portfolio</title>
-  <style>
-    :root{
-      --bg:#0b0b0b;
-      --panel:rgba(11,11,11,0.8);
-      --fire-gradient: linear-gradient(90deg, #ff0000, #ff7f00, #ffff00);
-      --fire-accent: #ff4500;
-      --muted: #bfc5c8;
-      --glass: rgba(255,255,255,0.04);
-      --radius: 14px;
-      --font-sans: 'ZOLO', Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
-    }
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>ctxzero — Portfolio</title>
+<style>
+:root{
+  --bg:#0b0b0b;
+  --fire-gradient: linear-gradient(90deg, #ff0000, #ff7f00, #ffff00);
+  --accent:#ff4500;
+  --muted:#ffffff;
+  --radius:14px;
+  --font-sans:'ZOLO', Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;font-family:var(--font-sans);background:var(--bg);color:#fff;overflow-x:hidden;}
 
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0;
-      font-family:var(--font-sans);
-      background:var(--bg);
-      color: #ffffff;
-      overflow-x:hidden;
-    }
+.hero{
+  height:100vh;width:100%;display:flex;align-items:center;justify-content:center;position:relative;
+}
+.hero-inner{text-align:center;z-index:2;padding:2rem;max-width:1000px;margin:0 auto;}
+h1.name{
+  font-size:clamp(48px,10vw,120px);
+  margin:0 0 10px 0;
+  color:#fff;
+  letter-spacing:1px;
+  font-weight:800;
+  text-shadow:0 6px 30px rgba(0,0,0,0.8);
+  animation:fadeInUp 1s ease forwards;
+}
 
-    .hero{
-      height:100vh;
-      width:100%;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      position:relative;
-      overflow:hidden;
-    }
+.roles{height:60px;display:flex;align-items:center;justify-content:center;position:relative;overflow:visible;margin-bottom:40px;}
+.role-item{position:absolute;left:50%;transform:translateX(-50%);opacity:0;white-space:nowrap;font-weight:700;font-size:clamp(20px,4vw,26px);background: var(--fire-gradient);-webkit-background-clip: text;-webkit-text-fill-color: transparent;}
+.role-item.show{animation:roleIn 1s forwards;}
+.role-item.hide{animation:roleOut 0.9s forwards;}
+@keyframes roleIn{from{opacity:0;transform:translate(-50%,10px) scale(0.98)}to{opacity:1;transform:translate(-50%,0) scale(1)}}
+@keyframes roleOut{from{opacity:1;transform:translate(-50%,0) scale(1)}to{opacity:0;transform:translate(-50%,-10px) scale(0.98)}}
 
-    .overlay{
-      position:absolute;inset:0;
-      background:linear-gradient(135deg, rgba(0,0,0,0.35), rgba(0,0,0,0.6));
-      pointer-events:none;
-    }
+@keyframes fadeInUp{0%{opacity:0;transform:translateY(20px)}100%{opacity:1;transform:translateY(0)}}
 
-    .hero-inner{
-      text-align:center;z-index:2;padding:2rem;max-width:1000px;margin:0 auto;
-    }
+.container{max-width:1400px;margin:60px auto;padding:0 20px 100px;}
 
-    h1.name{
-      font-size:clamp(48px, 10vw, 120px);
-      margin:0 0 10px 0;
-      color:#fff;
-      letter-spacing:1px;
-      font-weight:800;
-      text-shadow:0 6px 30px rgba(0,0,0,0.8);
-    }
+.panel{
+  background:rgba(255,255,255,0.03);
+  border-radius:var(--radius);
+  border:1px solid rgba(255,255,255,0.1);
+  padding:48px;
+  margin-bottom:80px;
+  opacity:0;
+  transform:translateY(30px);
+  animation:fadeInUp 1s ease forwards;
+}
+.panel-title{
+  font-weight:900;
+  text-align:center;
+  font-size:clamp(36px,6vw,64px);
+  background:var(--fire-gradient);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  margin-bottom:32px;
+  animation:fadeInUp 1s ease forwards;
+}
 
-    .roles{
-      height:60px;display:flex;align-items:center;justify-content:center;
-      position:relative;overflow:visible;margin-bottom:40px;
-    }
+.about p{
+  line-height:1.9;
+  font-size:20px;
+  color:#fff;
+}
 
-    .role-item{
-      position:absolute;left:50%;transform:translateX(-50%);
-      opacity:0;white-space:nowrap;font-weight:700;
-      font-size:clamp(20px,4vw,26px);
-      background: linear-gradient(90deg, #ff0000, #ff7f00, #ffff00);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
+.skills-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:40px;
+  margin-top:40px;
+}
+@media (max-width:900px){.skills-grid{grid-template-columns:1fr}}
 
-    .role-item.show{animation:roleIn 1s forwards;}
-    .role-item.hide{animation:roleOut 0.9s forwards;}
-    @keyframes roleIn{
-      from{opacity:0;transform:translate(-50%,10px) scale(0.98)}
-      to{opacity:1;transform:translate(-50%,0) scale(1)}
-    }
-    @keyframes roleOut{
-      from{opacity:1;transform:translate(-50%,0) scale(1)}
-      to{opacity:0;transform:translate(-50%,-10px) scale(0.98)}
-    }
+.skill-card{
+  border-radius:20px;
+  padding:30px;
+  background:rgba(255,255,255,0.03);
+  border:2px solid rgba(255,255,255,0.1);
+}
 
-    .cta{margin-top:18px;display:flex;justify-content:center;}
-    .btn{
-      background:transparent;border:2px solid #ffffff;padding:18px 32px;border-radius:18px;
-      font-size:20px;font-weight:800;color:var(--fire-accent);cursor:pointer;
-      background-clip: text;
-    }
+.skill-title{
+  font-weight:900;
+  font-size:22px;
+  color:#fff;
+  margin-bottom:18px;
+}
 
-    .container{max-width:1400px;margin:40px auto;padding:0 20px 80px;}
-    .panel{
-      background:var(--bg);
-      border-radius:var(--radius);
-      border:1px solid rgba(255,255,255,0.03);
-      padding:48px;
-      margin-bottom:48px;
-    }
+.bar-wrap{
+  height:20px;
+  background:rgba(255,255,255,0.02);
+  border-radius:14px;
+  overflow:hidden;
+  margin-bottom:20px;
+}
 
-    .about .box{
-      width:100%;border-radius:18px;padding:48px;border:2px solid var(--fire-gradient);background:rgba(255,255,255,0.03);
-    }
+.bar{
+  height:100%;
+  width:0%;
+  border-radius:14px;
+  background:linear-gradient(90deg,#ff0000,#ff7f00,#ffff00);
+  transition:width 1.4s ease;
+}
 
-    .about h2{font-size:clamp(36px,6vw,64px);font-weight:900;text-align:center;margin-bottom:32px;color:#ffffff;}
+.badges{
+  display:flex;
+  flex-wrap:wrap;
+  gap:14px;
+  margin-top:10px;
+  min-height:50px; /* Platz für später */
+}
 
-    .about p{line-height:1.9;color:var(--muted);font-size:20px}
+.badge{
+  padding:10px 12px;
+  border-radius:14px;
+  border:1px solid rgba(255,255,255,0.1);
+  background:rgba(255,255,255,0.01);
+  font-size:15px;
+  color:#fff;
+}
 
-    .skills-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:30px}
-    @media (max-width:900px){.skills-grid{grid-template-columns:1fr}}
-    .skill-card{border-radius:20px;padding:30px;border:2px solid var(--fire-gradient);background:rgba(255,255,255,0.03);}
-    .skill-title{font-weight:900;margin-bottom:18px;background:var(--fire-gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-size:22px;}
-    .bar-wrap{height:20px;background:rgba(255,255,255,0.02);border-radius:14px;overflow:hidden}
-    .bar{height:100%;width:0%;border-radius:14px;background:linear-gradient(90deg,#ff0000,#ff7f00,#ffff00);transition:width 1.4s ease}
-    .badges{display:flex;flex-wrap:wrap;gap:14px;margin-top:18px}
-    .badge{padding:10px 12px;border-radius:14px;border:1px solid rgba(255,255,255,0.04);background:rgba(255,255,255,0.01);font-size:15px;color:var(--muted)}
+.cert-grid{
+  display:flex;
+  flex-wrap:wrap;
+  gap:30px;
+  margin-top:40px;
+}
+.cert-card{
+  flex:1 1 280px;
+  border-radius:16px;
+  padding:28px;
+  border:2px solid rgba(255,255,255,0.1);
+  background:rgba(255,255,255,0.03);
+  text-align:center;
+}
+.cert-card h4{
+  margin:0 0 12px;
+  font-size:22px;
+  color:#fff;
+}
+.cert-issuer{
+  font-size:15px;
+  color:#fff;
+  margin-bottom:14px;
+}
 
-    .cert-grid{display:flex;gap:20px;flex-wrap:wrap}
-    .cert-card{flex:1 1 280px;border-radius:16px;padding:28px;border:2px solid var(--fire-gradient);background:rgba(255,255,255,0.03);text-align:center}
-    .cert-card h4{margin:0 0 12px;font-size:22px;background:var(--fire-gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-    .cert-issuer{font-size:15px;color:var(--muted);margin-bottom:14px}
+.contact-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:14px;
+  margin-top:30px;
+}
+.socials{display:flex;gap:18px}
+.social-btn{
+  padding:14px 20px;
+  border-radius:16px;
+  border:2px solid var(--fire-gradient);
+  background:transparent;
+  color:#fff;
+  font-weight:800;
+}
 
-    .contact-row{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px}
-    .socials{display:flex;gap:18px}
-    .social-btn{padding:14px 20px;border-radius:16px;border:2px solid var(--fire-gradient);background:transparent;color:var(--fire-accent);font-weight:800}
-    .meta{color:var(--muted);font-size:17px}
-    .email-hidden{cursor:pointer;color:var(--fire-accent);font-weight:800}
+.meta{color:#fff;font-size:17px}
+.email-hidden{cursor:pointer;color:#fff;font-weight:800}
 
-    footer{padding:50px 0;text-align:center;color:rgba(255,255,255,0.06)}
-  </style>
+footer{padding:50px 0;text-align:center;color:rgba(255,255,255,0.06)}
+
+</style>
 </head>
 <body>
 
-  <section class="hero" id="hero">
-    <div class="overlay"></div>
-    <div class="hero-inner">
-      <h1 class="name">ctxzero</h1>
-      <div class="roles" aria-hidden="true">
-        <div class="role-item">Penetration Tester</div>
-        <div class="role-item">Red Teamer</div>
-        <div class="role-item">Ethical Hacker</div>
-        <div class="role-item">Bug Bounty Hunter</div>
+<section class="hero" id="hero">
+  <div class="hero-inner">
+    <h1 class="name">ctxzero</h1>
+    <div class="roles" aria-hidden="true">
+      <div class="role-item">Penetration Tester</div>
+      <div class="role-item">Red Teamer</div>
+      <div class="role-item">Ethical Hacker</div>
+      <div class="role-item">Bug Bounty Hunter</div>
+    </div>
+  </div>
+</section>
+
+<main id="main">
+<div class="container">
+  
+  <!-- About Me -->
+  <section class="panel about">
+    <h2 class="panel-title">About Me</h2>
+    <div class="box">
+      <p>• Cyber security enthusiast dedicated to making the internet safer.<br>
+         • Focused on hardening networks and responsibly disclosing vulnerabilities.<br>
+         • Web-application & network testing, Active Directory assessments, scripting.<br>
+         • Continuous learning, sharing knowledge, and contributing to secure systems.
+      </p>
+    </div>
+  </section>
+
+  <!-- Skills -->
+  <section class="panel">
+    <h2 class="panel-title">Skills</h2>
+    <div class="skills-grid">
+      <div>
+        <div class="skill-title">Web Application Pentesting</div>
+        <div class="skill-card">
+          <div class="bar-wrap"><div class="bar" data-percent="75"></div></div>
+          <div class="badges"></div>
+        </div>
       </div>
-      <div class="cta">
-        <button class="btn primary" id="openPortfolio">Portfolio</button>
+      <div>
+        <div class="skill-title">Network Pentesting</div>
+        <div class="skill-card">
+          <div class="bar-wrap"><div class="bar" data-percent="85"></div></div>
+          <div class="badges"></div>
+        </div>
+      </div>
+      <div>
+        <div class="skill-title">Active Directory</div>
+        <div class="skill-card">
+          <div class="bar-wrap"><div class="bar" data-percent="50"></div></div>
+          <div class="badges"></div>
+        </div>
+      </div>
+      <div>
+        <div class="skill-title">Scripting</div>
+        <div class="skill-card">
+          <div class="bar-wrap"><div class="bar" data-percent="60"></div></div>
+          <div class="badges"></div>
+        </div>
       </div>
     </div>
   </section>
 
-  <main id="main">
-    <div class="container">
-      <section class="panel about" id="portfolio">
-        <h2>About Me</h2>
-        <div class="box">
-          <p>I am a cyber security enthusiast dedicated to making the internet safer. I focus on hardening networks, discovering and responsibly disclosing vulnerabilities before attackers can exploit them, and improving defensive controls. I enjoy web-application and network testing, Active Directory assessments, scripting, and building reproducible tooling. My goal is to learn continuously, share knowledge and contribute to secure, resilient systems.</p>
+  <!-- Certifications -->
+  <section class="panel">
+    <h2 class="panel-title">Certifications</h2>
+    <div class="cert-grid">
+      <div>
+        <div class="cert-card">
+          <h4>eJPT</h4>
+          <div class="cert-issuer">Certified by iLearnSecurity / INE</div>
+          <div class="badge"></div>
         </div>
-      </section>
-
-      <!-- Skills, Certifications, and Contact remain unchanged, just background and borders use the new fire-gradient and transparency -->
-
+      </div>
+      <div>
+        <div class="cert-card">
+          <h4>Cyber Threat Intelligence</h4>
+          <div class="cert-issuer">Certified by ArcX</div>
+          <div class="badge"></div>
+        </div>
+      </div>
+      <div>
+        <div class="cert-card">
+          <h4>TryHackMe</h4>
+          <div class="cert-issuer">Multiple Path Completions</div>
+          <div class="badge"></div>
+        </div>
+      </div>
     </div>
-  </main>
+  </section>
 
-  <script>
-    (function(){
-      const roles = Array.from(document.querySelectorAll('.role-item'));
-      let idx = 0;
-      const cycle = () => {
-        roles.forEach(r=>{r.classList.remove('show');r.classList.remove('hide')});
-        const current = roles[idx];
-        const nextIdx = (idx+1)%roles.length;
-        current.classList.add('show');
-        setTimeout(()=>{current.classList.remove('show');current.classList.add('hide');setTimeout(()=>{idx=nextIdx;cycle()},400)},1600);
-      };
-      setTimeout(cycle,300);
-    })();
+  <!-- Get in Touch -->
+  <section class="panel">
+    <h2 class="panel-title">Get in Touch</h2>
+    <div class="contact-row">
+      <div class="socials">
+        <button class="social-btn">LinkedIn</button>
+        <button class="social-btn">TryHackMe</button>
+        <button class="social-btn">GitHub</button>
+      </div>
+      <div class="meta">Discord: <span style="font-weight:800;color:#ffffff">ctxzero</span> | Email: <span id="emailToggle" class="email-hidden">(click to reveal)</span></div>
+    </div>
+  </section>
 
-    document.getElementById('openPortfolio').addEventListener('click', ()=>{
-      document.getElementById('portfolio').scrollIntoView({behavior:'smooth', block:'start'});
-      const hero = document.getElementById('hero');
-      hero.style.transition = 'opacity 0.9s ease, transform 0.9s ease';
-      hero.style.opacity = '0';
-      hero.style.transform = 'translateY(-8px)';
-      setTimeout(()=>{ hero.style.display = 'none'; },1000);
-      setTimeout(()=>{ document.querySelectorAll('.bar').forEach(fillBar); },600);
-    });
+  <footer>Built for demonstration — badges are placeholders; replace with real images and links later.</footer>
+</div>
+</main>
 
-    function fillBar(el){const p=el.dataset.percent||'0';setTimeout(()=>{el.style.width=p+'%'},Math.random()*400)}
+<script>
+// Role cycling
+(function(){
+  const roles=Array.from(document.querySelectorAll('.role-item'));
+  let idx=0;
+  const cycle=()=>{
+    roles.forEach(r=>{r.classList.remove('show');r.classList.remove('hide')});
+    const current=roles[idx];
+    const nextIdx=(idx+1)%roles.length;
+    current.classList.add('show');
+    setTimeout(()=>{
+      current.classList.remove('show');
+      current.classList.add('hide');
+      setTimeout(()=>{idx=nextIdx;cycle()},400)
+    },1600)
+  };
+  setTimeout(cycle,300)
+})();
 
-    document.getElementById('emailToggle').addEventListener('click',function(){
-      if(this.dataset.shown==='1'){this.textContent='(click to reveal)';this.dataset.shown='0'}else{this.textContent='ctxzero.pentest@gmail.com';this.dataset.shown='1'}
-    });
-  </script>
+// Animate skill bars
+document.querySelectorAll('.bar').forEach(el=>{
+  const p=el.dataset.percent||'0';
+  setTimeout(()=>{el.style.width=p+'%'},Math.random()*400)
+});
+
+// Reveal email
+document.getElementById('emailToggle').addEventListener('click',function(){
+  if(this.dataset.shown==='1'){this.textContent='(click to reveal)';this.dataset.shown='0'}
+  else{this.textContent='ctxzero.pentest@gmail.com';this.dataset.shown='1'}
+});
+</script>
+
 </body>
 </html>
