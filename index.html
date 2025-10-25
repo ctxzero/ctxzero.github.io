@@ -1,319 +1,313 @@
 <!doctype html>
-<html lang="en">
+<html lang="de">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>ctxzero — Portfolio</title>
 <style>
 :root{
-  --bg:#0b0b0b;
+  --bg:#000000; /* komplett schwarz */
   --fire-gradient: linear-gradient(90deg, #ff0000, #ff7f00, #ffff00);
   --accent:#ff4500;
   --muted:#ffffff;
   --radius:14px;
-  --font-sans:'ZOLO', Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+  --font-sans: 'ZOLO', Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, Arial;
 }
+
+/* Reset / basics */
 *{box-sizing:border-box}
-html,body{height:100%}
-body{margin:0;font-family:var(--font-sans);background:var(--bg);color:#fff;overflow-x:hidden;}
+html,body{height:100%;background:var(--bg);color:var(--muted);margin:0;padding:0}
+body{font-family:var(--font-sans);-webkit-font-smoothing:antialiased;overflow-x:hidden}
 
-.hero{
-  height:100vh;width:100%;display:flex;align-items:center;justify-content:center;position:relative;
-}
-.hero-inner{text-align:center;z-index:2;padding:2rem;max-width:1000px;margin:0 auto;}
+/* helpers */
+.container{max-width:1200px;margin:72px auto;padding:0 20px 120px}
+.center{text-align:center}
+
+/* HERO */
+.hero{height:100vh;display:flex;align-items:center;justify-content:center;position:relative;background:var(--bg)}
+.hero-inner{max-width:1000px;padding:2rem;text-align:center}
 h1.name{
-  font-size:clamp(48px,10vw,120px);
-  margin:0 0 10px 0;
-  color:#fff;
-  letter-spacing:1px;
-  font-weight:800;
-  text-shadow:0 6px 30px rgba(0,0,0,0.8);
-  animation:fadeInUp 1s ease forwards;
-}
-
-.roles{height:60px;display:flex;align-items:center;justify-content:center;position:relative;overflow:visible;margin-bottom:40px;}
-.role-item{position:absolute;left:50%;transform:translateX(-50%);opacity:0;white-space:nowrap;font-weight:700;font-size:clamp(20px,4vw,26px);background: var(--fire-gradient);-webkit-background-clip: text;-webkit-text-fill-color: transparent;}
-.role-item.show{animation:roleIn 1s forwards;}
-.role-item.hide{animation:roleOut 0.9s forwards;}
-@keyframes roleIn{from{opacity:0;transform:translate(-50%,10px) scale(0.98)}to{opacity:1;transform:translate(-50%,0) scale(1)}}
-@keyframes roleOut{from{opacity:1;transform:translate(-50%,0) scale(1)}to{opacity:0;transform:translate(-50%,-10px) scale(0.98)}}
-
-@keyframes fadeInUp{0%{opacity:0;transform:translateY(20px)}100%{opacity:1;transform:translateY(0)}}
-
-.container{max-width:1400px;margin:60px auto;padding:0 20px 100px;}
-
-.panel{
-  background:rgba(255,255,255,0.03);
-  border-radius:var(--radius);
-  border:1px solid rgba(255,255,255,0.1);
-  padding:48px;
-  margin-bottom:80px;
-  opacity:0;
-  transform:translateY(30px);
-  animation:fadeInUp 1s ease forwards;
-}
-.panel-title{
+  font-size:clamp(48px,10vw,110px);
+  margin:0 0 6px 0;
   font-weight:900;
+  color:#fff;
+  text-shadow:0 8px 40px rgba(0,0,0,0.8);
+  transform:translateY(8px);
+  opacity:0;
+  animation:slideUp 700ms ease forwards 120ms;
+}
+.roles{height:56px;display:flex;align-items:center;justify-content:center;gap:12px;margin-top:10px;position:relative}
+.role-pill{font-weight:700;font-size:clamp(16px,3.2vw,22px);background:var(--fire-gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;opacity:0;transform:translateY(6px);animation:fadeIn 700ms ease forwards 600ms}
+
+/* PANEL / SECTIONS */
+.section{
+  margin-bottom:100px;
+  position:relative;
+  padding-top:8px;
+}
+
+/* big animated section heading (above the box) */
+.section-heading{
+  display:block;
   text-align:center;
-  font-size:clamp(36px,6vw,64px);
+  font-weight:900;
+  font-size:clamp(32px,5.5vw,56px);
+  margin:0 0 18px 0;
+  color:#fff; /* fallback white for small screens */
   background:var(--fire-gradient);
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
-  margin-bottom:32px;
-  animation:fadeInUp 1s ease forwards;
+  opacity:0;
+  transform:translateY(18px);
 }
 
+/* the content box under the heading (transparent, slim) */
+.panel{
+  border-radius:18px;
+  padding:28px;
+  border:1px solid rgba(255,255,255,0.06);
+  background:rgba(255,255,255,0.02); /* very subtle */
+  backdrop-filter: blur(4px); /* softens background slightly */
+  box-shadow: 0 6px 30px rgba(0,0,0,0.6);
+  max-width:1100px;
+  margin:12px auto 0 auto;
+  opacity:0;
+  transform:translateY(18px);
+}
+
+/* About text styling */
 .about p{
-  line-height:1.9;
-  font-size:20px;
-  color:#fff;
+  color: #FFFFFF;
+  line-height:1.8;
+  font-size:18.5px;
+  margin:0;
 }
 
+/* SKILLS grid and cards */
 .skills-grid{
   display:grid;
   grid-template-columns:repeat(2,1fr);
-  gap:40px;
-  margin-top:40px;
+  gap:28px;
+  margin-top:6px;
 }
 @media (max-width:900px){.skills-grid{grid-template-columns:1fr}}
 
-.skill-card{
-  border-radius:20px;
-  padding:30px;
-  background:rgba(255,255,255,0.03);
-  border:2px solid rgba(255,255,255,0.1);
-}
-
+.skill-block{display:flex;flex-direction:column;gap:12px}
 .skill-title{
-  font-weight:900;
-  font-size:22px;
-  color:#fff;
-  margin-bottom:18px;
+  font-size:18px;font-weight:800;color:#fff;margin:0; /* title OUTSIDE the card */
+}
+.skill-card{
+  border-radius:14px;padding:18px;border:1px solid rgba(255,255,255,0.06);
+  background:rgba(255,255,255,0.015);
 }
 
-.bar-wrap{
-  height:20px;
-  background:rgba(255,255,255,0.02);
-  border-radius:14px;
-  overflow:hidden;
-  margin-bottom:20px;
-}
-
+/* bar wrap */
+.bar-wrap{height:16px;border-radius:12px;background:rgba(255,255,255,0.02);overflow:hidden}
 .bar{
   height:100%;
   width:0%;
-  border-radius:14px;
+  border-radius:12px;
   background:linear-gradient(90deg,#ff0000,#ff7f00,#ffff00);
-  transition:width 1.4s ease;
+  background-size:200% 100%;
+  animation:flowGradient 3s linear infinite;
+  transition:width 1.2s cubic-bezier(.2,.9,.2,1);
 }
 
-.badges{
-  display:flex;
-  flex-wrap:wrap;
-  gap:14px;
-  margin-top:10px;
-  min-height:50px; /* Platz für später */
-}
+/* gradient movement */
+@keyframes flowGradient{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
 
-.badge{
-  padding:10px 12px;
-  border-radius:14px;
-  border:1px solid rgba(255,255,255,0.1);
-  background:rgba(255,255,255,0.01);
-  font-size:15px;
-  color:#fff;
-}
+/* badges placeholder area */
+.badges{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px;min-height:56px}
 
-.cert-grid{
-  display:flex;
-  flex-wrap:wrap;
-  gap:30px;
-  margin-top:40px;
-}
-.cert-card{
-  flex:1 1 280px;
-  border-radius:16px;
-  padding:28px;
-  border:2px solid rgba(255,255,255,0.1);
-  background:rgba(255,255,255,0.03);
-  text-align:center;
-}
-.cert-card h4{
-  margin:0 0 12px;
-  font-size:22px;
-  color:#fff;
-}
-.cert-issuer{
-  font-size:15px;
-  color:#fff;
-  margin-bottom:14px;
-}
+/* cert grid */
+.cert-grid{display:flex;flex-wrap:wrap;gap:22px;margin-top:12px}
+.cert-card{flex:1 1 300px;padding:18px;border-radius:12px;border:1px solid rgba(255,255,255,0.06);background:rgba(255,255,255,0.015);text-align:left}
+.cert-card h4{font-size:18px;margin:0 0 6px 0;color:#fff}
+.cert-card .issuer{font-size:13px;color:rgba(255,255,255,0.9);margin-bottom:12px}
+.cert-badge{width:100%;height:64px;background:rgba(255,255,255,0.01);border-radius:8px;border:1px dashed rgba(255,255,255,0.04);display:flex;align-items:center;justify-content:center;color:#fff}
 
-.contact-row{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  flex-wrap:wrap;
-  gap:14px;
-  margin-top:30px;
-}
-.socials{display:flex;gap:18px}
-.social-btn{
-  padding:14px 20px;
-  border-radius:16px;
-  border:2px solid var(--fire-gradient);
-  background:transparent;
-  color:#fff;
-  font-weight:800;
-}
+/* contact */
+.contact-row{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.social-btn{padding:12px 18px;border-radius:12px;border:2px solid var(--fire-gradient);background:transparent;color:#fff;font-weight:800}
+.meta{color:#fff;font-size:16px}
 
-.meta{color:#fff;font-size:17px}
-.email-hidden{cursor:pointer;color:#fff;font-weight:800}
+/* subtle reveal animations */
+.revealed{opacity:1;transform:translateY(0);transition:opacity 600ms ease, transform 600ms cubic-bezier(.2,.9,.2,1)}
+.section-heading.revealed{transition-delay:120ms}
+.panel.revealed{transition-delay:220ms}
+.skill-card.revealed,.cert-card.revealed{transition-delay:260ms}
 
-footer{padding:50px 0;text-align:center;color:rgba(255,255,255,0.06)}
+/* small utilities */
+.spacer{height:32px}
 
+/* keyframes used */
+@keyframes slideUp{0%{opacity:0;transform:translateY(18px)}100%{opacity:1;transform:translateY(0)}}
+@keyframes fadeIn{0%{opacity:0;transform:translateY(6px)}100%{opacity:1;transform:translateY(0)}}
+
+/* make sure everything stays black behind transparency */
+html,body,#main{background:var(--bg)}
 </style>
 </head>
 <body>
-
-<section class="hero" id="hero">
-  <div class="hero-inner">
-    <h1 class="name">ctxzero</h1>
-    <div class="roles" aria-hidden="true">
-      <div class="role-item">Penetration Tester</div>
-      <div class="role-item">Red Teamer</div>
-      <div class="role-item">Ethical Hacker</div>
-      <div class="role-item">Bug Bounty Hunter</div>
-    </div>
-  </div>
-</section>
-
-<main id="main">
-<div class="container">
-  
-  <!-- About Me -->
-  <section class="panel about">
-    <h2 class="panel-title">About Me</h2>
-    <div class="box">
-      <p>• Cyber security enthusiast dedicated to making the internet safer.<br>
-         • Focused on hardening networks and responsibly disclosing vulnerabilities.<br>
-         • Web-application & network testing, Active Directory assessments, scripting.<br>
-         • Continuous learning, sharing knowledge, and contributing to secure systems.
-      </p>
-    </div>
-  </section>
-
-  <!-- Skills -->
-  <section class="panel">
-    <h2 class="panel-title">Skills</h2>
-    <div class="skills-grid">
-      <div>
-        <div class="skill-title">Web Application Pentesting</div>
-        <div class="skill-card">
-          <div class="bar-wrap"><div class="bar" data-percent="75"></div></div>
-          <div class="badges"></div>
-        </div>
-      </div>
-      <div>
-        <div class="skill-title">Network Pentesting</div>
-        <div class="skill-card">
-          <div class="bar-wrap"><div class="bar" data-percent="85"></div></div>
-          <div class="badges"></div>
-        </div>
-      </div>
-      <div>
-        <div class="skill-title">Active Directory</div>
-        <div class="skill-card">
-          <div class="bar-wrap"><div class="bar" data-percent="50"></div></div>
-          <div class="badges"></div>
-        </div>
-      </div>
-      <div>
-        <div class="skill-title">Scripting</div>
-        <div class="skill-card">
-          <div class="bar-wrap"><div class="bar" data-percent="60"></div></div>
-          <div class="badges"></div>
-        </div>
+  <section class="hero" id="hero">
+    <div class="hero-inner">
+      <h1 class="name">ctxzero</h1>
+      <div class="roles" aria-hidden="true">
+        <div class="role-pill">Penetration Tester</div>
+        <div class="role-pill">Red Teamer</div>
+        <div class="role-pill">Ethical Hacker</div>
       </div>
     </div>
   </section>
 
-  <!-- Certifications -->
-  <section class="panel">
-    <h2 class="panel-title">Certifications</h2>
-    <div class="cert-grid">
-      <div>
-        <div class="cert-card">
-          <h4>eJPT</h4>
-          <div class="cert-issuer">Certified by iLearnSecurity / INE</div>
-          <div class="badge"></div>
-        </div>
-      </div>
-      <div>
-        <div class="cert-card">
-          <h4>Cyber Threat Intelligence</h4>
-          <div class="cert-issuer">Certified by ArcX</div>
-          <div class="badge"></div>
-        </div>
-      </div>
-      <div>
-        <div class="cert-card">
-          <h4>TryHackMe</h4>
-          <div class="cert-issuer">Multiple Path Completions</div>
-          <div class="badge"></div>
-        </div>
-      </div>
-    </div>
-  </section>
+  <main id="main" class="container">
 
-  <!-- Get in Touch -->
-  <section class="panel">
-    <h2 class="panel-title">Get in Touch</h2>
-    <div class="contact-row">
-      <div class="socials">
-        <button class="social-btn">LinkedIn</button>
-        <button class="social-btn">TryHackMe</button>
-        <button class="social-btn">GitHub</button>
+    <!-- ABOUT -->
+    <section class="section" id="about">
+      <h2 class="section-heading center">About Me</h2>
+      <div class="panel about">
+        <p>
+          • Cyber security enthusiast dedicated to making the internet safer.<br>
+          • Hardening networks, responsibly disclosing vulnerabilities.<br>
+          • Web-app & network testing, Active Directory assessments, scripting.<br>
+          • Continuous learner — share knowledge & build reproducible tooling.
+        </p>
       </div>
-      <div class="meta">Discord: <span style="font-weight:800;color:#ffffff">ctxzero</span> | Email: <span id="emailToggle" class="email-hidden">(click to reveal)</span></div>
-    </div>
-  </section>
+    </section>
 
-  <footer>Built for demonstration — badges are placeholders; replace with real images and links later.</footer>
-</div>
-</main>
+    <!-- SKILLS -->
+    <section class="section" id="skills">
+      <h2 class="section-heading center">Skills</h2>
+      <div class="panel">
+        <div class="skills-grid">
+          <div class="skill-block">
+            <div class="skill-title">Web Application Pentesting</div>
+            <div class="skill-card">
+              <div class="bar-wrap"><div class="bar" data-percent="75"></div></div>
+              <div class="badges" aria-hidden="true">
+                <!-- Platz für Badges / kleine Images -->
+              </div>
+            </div>
+          </div>
+
+          <div class="skill-block">
+            <div class="skill-title">Network Pentesting</div>
+            <div class="skill-card">
+              <div class="bar-wrap"><div class="bar" data-percent="85"></div></div>
+              <div class="badges"></div>
+            </div>
+          </div>
+
+          <div class="skill-block">
+            <div class="skill-title">Active Directory</div>
+            <div class="skill-card">
+              <div class="bar-wrap"><div class="bar" data-percent="50"></div></div>
+              <div class="badges"></div>
+            </div>
+          </div>
+
+          <div class="skill-block">
+            <div class="skill-title">Scripting</div>
+            <div class="skill-card">
+              <div class="bar-wrap"><div class="bar" data-percent="60"></div></div>
+              <div class="badges"></div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- CERTIFICATIONS -->
+    <section class="section" id="certs">
+      <h2 class="section-heading center">Certifications</h2>
+      <div class="panel">
+        <div class="cert-grid">
+          <div class="cert-card">
+            <h4>eJPT</h4>
+            <div class="issuer">Certified by iLearnSecurity / INE</div>
+            <div class="cert-badge">Badge placeholder</div>
+          </div>
+
+          <div class="cert-card">
+            <h4>Cyber Threat Intelligence</h4>
+            <div class="issuer">Certified by ArcX</div>
+            <div class="cert-badge">Badge placeholder</div>
+          </div>
+
+          <div class="cert-card">
+            <h4>TryHackMe</h4>
+            <div class="issuer">Multiple Path Completions</div>
+            <div class="cert-badge">Badge placeholder</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="section" id="contact">
+      <h2 class="section-heading center">Get in Touch</h2>
+      <div class="panel">
+        <div class="contact-row">
+          <div class="socials">
+            <button class="social-btn">LinkedIn</button>
+            <button class="social-btn">TryHackMe</button>
+            <button class="social-btn">GitHub</button>
+          </div>
+          <div class="meta">Discord: <strong>ctxzero</strong> | Email: <span id="emailToggle" style="cursor:pointer;font-weight:800">(click to reveal)</span></div>
+        </div>
+      </div>
+    </section>
+
+    <footer style="text-align:center;color:rgba(255,255,255,0.06);margin-top:40px">Built for demonstration — replace placeholders with real badges & links.</footer>
+  </main>
 
 <script>
-// Role cycling
+/* Role cycling (simple) */
 (function(){
-  const roles=Array.from(document.querySelectorAll('.role-item'));
-  let idx=0;
-  const cycle=()=>{
-    roles.forEach(r=>{r.classList.remove('show');r.classList.remove('hide')});
-    const current=roles[idx];
-    const nextIdx=(idx+1)%roles.length;
-    current.classList.add('show');
-    setTimeout(()=>{
-      current.classList.remove('show');
-      current.classList.add('hide');
-      setTimeout(()=>{idx=nextIdx;cycle()},400)
-    },1600)
-  };
-  setTimeout(cycle,300)
+  const roles = Array.from(document.querySelectorAll('.role-pill'));
+  let i=0;
+  setInterval(()=>{
+    roles.forEach(r=>r.style.opacity=0);
+    roles[i].style.opacity=1;
+    i=(i+1)%roles.length;
+  },1600);
 })();
 
-// Animate skill bars
-document.querySelectorAll('.bar').forEach(el=>{
-  const p=el.dataset.percent||'0';
-  setTimeout(()=>{el.style.width=p+'%'},Math.random()*400)
+/* Skill bars: animate width when visible */
+function animateBars() {
+  document.querySelectorAll('.bar').forEach(el=>{
+    const p = parseInt(el.dataset.percent||0,10);
+    // small timeout for nicer stagger
+    setTimeout(()=>{ el.style.width = p + '%'; }, Math.random()*500 + 120);
+  });
+}
+
+/* IntersectionObserver to reveal sections */
+const io = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.querySelectorAll('.section-heading, .panel, .skill-card, .cert-card').forEach(node=>{
+        if(node) node.classList.add('revealed');
+      });
+      // animate bars when skills section visible
+      if(e.target.id === 'skills') animateBars();
+      // stop observing after reveal
+      io.unobserve(e.target);
+    }
+  });
+},{threshold:0.16});
+
+document.querySelectorAll('.section').forEach(sec => io.observe(sec));
+
+/* email reveal */
+document.getElementById('emailToggle').addEventListener('click', function(){
+  if(this.dataset.shown==='1'){ this.textContent='(click to reveal)'; this.dataset.shown='0'; }
+  else { this.textContent='ctxzero.pentest@gmail.com'; this.dataset.shown='1'; }
 });
 
-// Reveal email
-document.getElementById('emailToggle').addEventListener('click',function(){
-  if(this.dataset.shown==='1'){this.textContent='(click to reveal)';this.dataset.shown='0'}
-  else{this.textContent='ctxzero.pentest@gmail.com';this.dataset.shown='1'}
-});
+/* ensure initial hero role visible */
+document.querySelectorAll('.role-pill').forEach((r, idx)=>{ if(idx===0) r.style.opacity=1; else r.style.opacity=0; });
 </script>
-
 </body>
 </html>
