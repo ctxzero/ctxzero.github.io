@@ -21,9 +21,27 @@ html,body{height:100%;margin:0;background:var(--bg);color:var(--white);font-fami
 a{color:inherit;text-decoration:none}
 .container{max-width:1200px;margin:60px auto;padding:0 20px 120px}
 
+/* OVERLAY */
+.bg-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    45deg,
+    rgba(255,255,255,0.02) 0,
+    rgba(255,255,255,0.02) 1px,
+    transparent 1px,
+    transparent 8px
+  );
+  mix-blend-mode: overlay;
+  z-index:1;
+}
+
 /* HERO */
 .hero{position:relative;height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden;background:var(--bg);}
-canvas#hero-bg{position:absolute;top:0;left:0;width:100%;height:100%;z-index:1;}
 .hero-inner{position:relative;z-index:2;}
 
 /* NAME */
@@ -172,11 +190,11 @@ h1.name{color:white;font-size:clamp(48px,10vw,110px);font-weight:900;margin:0 0 
 </style>
 </head>
 <body>
+<div class="bg-overlay"></div>
+
 <section class="hero" id="hero">
-  <canvas id="hero-bg"></canvas>
   <div class="hero-inner">
     <h1 class="name">ctxzero</h1>
-
     <div class="role-wrap" aria-hidden="true">
       <!-- single element for typing -->
       <div id="roleText" class="role-line" aria-live="polite"></div>
@@ -277,161 +295,59 @@ h1.name{color:white;font-size:clamp(48px,10vw,110px);font-weight:900;margin:0 0 
           <a class="btn" href="#" target="_blank" rel="noopener">
             <span class="icon" aria-hidden="true">
               <!-- github icon -->
-              <svg viewBox="0 0 24 24" fill="none" width="20" height="20" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M12 .5C5.65.5.75 5.4.75 11.75c0 4.84 3.14 8.95 7.5 10.4.55.1.75-.24.75-.53 0-.26-.01-1.12-.01-2.03-3.05.66-3.69-.74-3.92-1.42-.13-.36-.7-1.42-1.2-1.71-.41-.23-1-.8-.01-.82.93-.02 1.59.86 1.81 1.22 1.06 1.82 2.75 1.3 3.43.99.11-.78.41-1.3.74-1.6-2.73-.31-5.6-1.37-5.6-6.09 0-1.35.48-2.45 1.26-3.32-.13-.31-.55-1.56.12-3.25 0 0 1.02-.33 3.34 1.26 .97-.27 2.01-.4 3.04-.4 1.03 0 2.07.13 3.04.4 2.32-1.6 3.34-1.26 3.34-1.26.67 1.69.25 2.94.12 3.25.78.87 1.26 1.97 1.26 3.32 0 4.73-2.88 5.77-5.62 6.08.42.36.8 1.08.8 2.18 0 1.57-.01 2.84-.01 3.23 0 .29.2.64.76.53 4.36-1.45 7.5-5.56 7.5-10.4C23.25 5.4 18.35.5 12 .5z"/></svg>
-            </span> GitHub
+              <svg viewBox="0 0 24 24" fill="none" width="20" height="20" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M12 .5C5.65.5.75 5.4.75 11.75c0 4.84 3.14 8.95 7.5 10.4.55.1.75-.24.75-.53 0-.26-.01-1.12-.01-2.03-3.05.66-3.69-.74-3.92-1.42-.13-.36-.7-1.42-1.2-1.71-.41-.23-1-.8-.01-.82.93-.02 1.59.86 1.81 1.22 1.06 1.82 2.75 1.3 3.43.99.11-.78.41-1.3.74-1.6-2.72-.31-5.57-1.36-5.57-6.06 0-1.34.48-2.44 1.27-3.3-.13-.31-.55-1.55.12-3.23 0 0 1.04-.33 3.42 1.25a11.7 11.7 0 0 1 3.12-.42c1.06 0 2.12.14 3.12.42 2.37-1.58 3.41-1.25 3.41-1.25.67 1.68.25 2.92.12 3.23.79.86 1.27 1.96 1.27 3.3 0 4.71-2.85 5.75-5.58 6.05.42.36.78 1.07.78 2.15 0 1.55-.01 2.8-.01 3.18 0 .3.2.64.76.53a11.25 11.25 0 0 0 7.5-10.4C23.25 5.4 18.35.5 12 .5z"/></svg>
+            </span>
+            GitHub
           </a>
-
           <a class="btn" href="#" target="_blank" rel="noopener">
-            <span class="icon" aria-hidden="true">
-              <!-- linkedin icon -->
-              <svg viewBox="0 0 24 24" fill="none" width="20" height="20" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M20.45 20.45h-3.555v-5.569c0-1.328-.027-3.036-1.85-3.036-1.852 0-2.135 1.447-2.135 2.943v5.662H9.354V9.75h3.415v1.498h.049c.476-.9 1.635-1.85 3.366-1.85 3.6 0 4.265 2.369 4.265 5.449v6.603zM5.337 8.299a2.062 2.062 0 1 1 0-4.125 2.062 2.062 0 0 1 0 4.125zM6.96 20.45H3.714V9.75H6.96v10.7z"/></svg>
-            </span> LinkedIn
-          </a>
-
-          <a class="btn" href="#" target="_blank" rel="noopener">
-            <span class="icon" aria-hidden="true">
-              <!-- shield icon for THM -->
-              <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M12 2L3 7v6c0 5 3.8 9.7 9 9.9 5.2-.2 9-4.9 9-9.9V7l-9-5z"/></svg>
-            </span> TryHackMe
+            <span class="icon" aria-hidden="true">🐦</span>
+            Twitter
           </a>
         </div>
-
-        <div class="contact-meta" aria-label="contact meta">
-          <div>Discord: <strong>ctxzero</strong></div>
-          <div>Email: <span id="emailToggle" style="cursor:pointer;font-weight:800">(click to reveal)</span></div>
+        <div class="contact-meta">
+          <div class="contact-quote">“Let’s make the web safer, together.”</div>
         </div>
       </div>
-
-      <div class="contact-quote">"The nicest thing about standards is that there are so many of them." — (a hacker's humble wink)</div>
     </div>
   </section>
-
-  <footer style="text-align:center;color:rgba(255,255,255,0.06);margin-top:30px">Demo build — replace any placeholder links & images with your production assets.</footer>
 </main>
 
 <script>
-/* ======================
-  ROLE: Typewriter that cycles phrases
-   - animated gradient is via CSS on the role-line element
-====================== */
-(function(){
-  const el = document.getElementById('roleText');
-  const phrases = [
-    'Penetration Tester',
-    'Red Teamer',
-    'Ethical Hacker',
-    'Bug Bounty Hunter'
-  ];
-  const TYPING_SPEED = 40;   // ms per char
-  const ERASE_SPEED = 30;
-  const PAUSE = 900;        // hold full text
-  let pi = 0, ci = 0;
-
-  function typeNext(){
-    const text = phrases[pi];
-    if(ci < text.length){
-      el.textContent = text.slice(0, ci+1);
-      ci++;
-      setTimeout(typeNext, TYPING_SPEED);
-    } else {
-      // pause then erase
-      setTimeout(() => erase(), PAUSE);
-    }
+// Typing effect for role line
+const roles = ["Penetration Tester","Red Teamer","Ethical Hacker"];
+let i=0,j=0;
+const el = document.getElementById('roleText');
+function typeRole(){
+  if(i>=roles.length){i=0;}
+  if(j<=roles[i].length){
+    el.textContent=roles[i].substring(0,j);
+    j++;
+    setTimeout(typeRole,80);
+  }else{
+    setTimeout(()=>{j=0;i++;typeRole();},1200);
   }
-  function erase(){
-    if(ci > 0){
-      el.textContent = el.textContent.slice(0, -1);
-      ci--;
-      setTimeout(erase, ERASE_SPEED);
-    } else {
-      pi = (pi + 1) % phrases.length;
-      setTimeout(typeNext, 180);
-    }
-  }
-
-  // animate gradient on the role element by toggling a class that has background animation:
-  // we already have static gradient; make it move by applying background-size/animation
-  el.style.backgroundSize = '200% 100%';
-  el.style.animation = 'gradMove 3s linear infinite';
-  typeNext();
-})();
-
-/* ======================
- IntersectionObserver for reveals (headings, panels, bars)
-====================== */
-const io = new IntersectionObserver((entries, obs) => {
-  entries.forEach(e => {
-    if(e.isIntersecting){
-      const sec = e.target;
-      const h = sec.querySelector('.section-heading');
-      if(h) h.classList.add('revealed');
-      const p = sec.querySelector('.panel');
-      if(p) p.classList.add('revealed');
-      sec.querySelectorAll('.skill-card, .cert-card').forEach((c, idx) => {
-        setTimeout(()=> c.classList.add('revealed-card'), 120 + idx*80);
-      });
-      sec.querySelectorAll('.skill-title').forEach((t,i)=>{
-        setTimeout(()=>t.classList.add('revealed'), i*80);
-      });
-      if(sec.id === 'skills'){
-        document.querySelectorAll('.bar').forEach((bar, i) => {
-          const pct = parseInt(bar.dataset.percent||0,10);
-          setTimeout(()=>{ bar.style.width = pct + '%'; }, 200 + i*140);
-        });
-      }
-      obs.unobserve(sec);
-    }
-  });
-},{threshold:0.14});
-document.querySelectorAll('.section').forEach(s => io.observe(s));
-
-/* email reveal */
-document.getElementById('emailToggle').addEventListener('click', function(){
-  if(this.dataset.shown === '1'){
-    this.textContent='(click to reveal)'; this.dataset.shown='0';
-  } else {
-    this.textContent='ctxzero.pentest@gmail.com'; this.dataset.shown='1';
-  }
-});
-
-/* particle background (kept from original, slight perf-friendly tweak) */
-const canvas = document.getElementById('hero-bg');
-const ctx = canvas.getContext('2d');
-function resizeCanvas(){ canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
-resizeCanvas();
-let particles = [];
-const PCOUNT = Math.max(40, Math.min(180, Math.floor(window.innerWidth/10)));
-for(let i=0;i<PCOUNT;i++){
-  particles.push({
-    x:Math.random()*canvas.width,
-    y:Math.random()*canvas.height,
-    r:Math.random()*2+1,
-    vx:(Math.random()-0.5)*0.6,
-    vy:(Math.random()-0.5)*0.6
-  });
 }
-function animate(){
-  ctx.clearRect(0,0,canvas.width,canvas.height);
-  particles.forEach(p=>{
-    p.x += p.vx; p.y += p.vy;
-    if(p.x < -10) p.x = canvas.width+10;
-    if(p.x > canvas.width+10) p.x = -10;
-    if(p.y < -10) p.y = canvas.height+10;
-    if(p.y > canvas.height+10) p.y = -10;
-    const grd = ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,p.r*4);
-    grd.addColorStop(0,'rgba(255,255,0,0.9)');
-    grd.addColorStop(0.5,'rgba(255,127,0,0.55)');
-    grd.addColorStop(1,'rgba(255,0,0,0.12)');
-    ctx.fillStyle = grd;
-    ctx.beginPath();
-    ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-    ctx.fill();
-  });
-  requestAnimationFrame(animate);
-}
-animate();
-window.addEventListener('resize', ()=>{ resizeCanvas(); });
+typeRole();
 
+// Reveal animations for sections
+function revealOnScroll(){
+  const reveals = document.querySelectorAll('.section-heading, .panel, .skill-title');
+  for(const r of reveals){
+    const top = r.getBoundingClientRect().top;
+    if(top < window.innerHeight - 100){
+      r.classList.add('revealed');
+    }
+  }
+  // skill bars
+  const bars = document.querySelectorAll('.bar');
+  for(const b of bars){
+    if(b.getBoundingClientRect().top < window.innerHeight - 100){
+      b.style.width=b.dataset.percent+'%';
+    }
+  }
+}
+window.addEventListener('scroll',revealOnScroll);
+window.addEventListener('load',revealOnScroll);
 </script>
 </body>
 </html>
