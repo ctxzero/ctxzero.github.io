@@ -17,13 +17,32 @@
 }
 /* basic */
 *{box-sizing:border-box}
-html,body{height:100%;margin:0;background:var(--bg);color:var(--white);font-family:var(--font);-webkit-font-smoothing:antialiased}
+html,body{height:100%;margin:0;background:var(--bg);color:var(--white);font-family:var(--font);-webkit-font-smoothing:antialiased;position:relative;overflow-x:hidden;}
 a{color:inherit;text-decoration:none}
-.container{max-width:1200px;margin:60px auto;padding:0 20px 120px}
+.container{max-width:1200px;margin:60px auto;padding:0 20px 120px;position:relative;z-index:2;}
+
+/* OVERLAY */
+body::before {
+  content: "";
+  position: fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background: linear-gradient(135deg, rgba(255,0,0,0.15), rgba(255,127,0,0.15), rgba(255,255,0,0.15));
+  background-size: 300% 300%;
+  z-index:0;
+  pointer-events:none;
+  animation: overlayMove 15s linear infinite;
+}
+@keyframes overlayMove {
+  0% {background-position:0% 50%;}
+  50% {background-position:100% 50%;}
+  100% {background-position:0% 50%;}
+}
 
 /* HERO */
 .hero{position:relative;height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden;background:var(--bg);}
-canvas#hero-bg{position:absolute;top:0;left:0;width:100%;height:100%;z-index:1;}
 .hero-inner{position:relative;z-index:2;}
 
 /* NAME */
@@ -173,7 +192,6 @@ h1.name{color:white;font-size:clamp(48px,10vw,110px);font-weight:900;margin:0 0 
 </head>
 <body>
 <section class="hero" id="hero">
-  <canvas id="hero-bg"></canvas>
   <div class="hero-inner">
     <h1 class="name">ctxzero</h1>
 
@@ -393,45 +411,6 @@ document.getElementById('emailToggle').addEventListener('click', function(){
     this.textContent='ctxzero.pentest@gmail.com'; this.dataset.shown='1';
   }
 });
-
-/* particle background (kept from original, slight perf-friendly tweak) */
-const canvas = document.getElementById('hero-bg');
-const ctx = canvas.getContext('2d');
-function resizeCanvas(){ canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
-resizeCanvas();
-let particles = [];
-const PCOUNT = Math.max(40, Math.min(180, Math.floor(window.innerWidth/10)));
-for(let i=0;i<PCOUNT;i++){
-  particles.push({
-    x:Math.random()*canvas.width,
-    y:Math.random()*canvas.height,
-    r:Math.random()*2+1,
-    vx:(Math.random()-0.5)*0.6,
-    vy:(Math.random()-0.5)*0.6
-  });
-}
-function animate(){
-  ctx.clearRect(0,0,canvas.width,canvas.height);
-  particles.forEach(p=>{
-    p.x += p.vx; p.y += p.vy;
-    if(p.x < -10) p.x = canvas.width+10;
-    if(p.x > canvas.width+10) p.x = -10;
-    if(p.y < -10) p.y = canvas.height+10;
-    if(p.y > canvas.height+10) p.y = -10;
-    const grd = ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,p.r*4);
-    grd.addColorStop(0,'rgba(255,255,0,0.9)');
-    grd.addColorStop(0.5,'rgba(255,127,0,0.55)');
-    grd.addColorStop(1,'rgba(255,0,0,0.12)');
-    ctx.fillStyle = grd;
-    ctx.beginPath();
-    ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-    ctx.fill();
-  });
-  requestAnimationFrame(animate);
-}
-animate();
-window.addEventListener('resize', ()=>{ resizeCanvas(); });
-
 </script>
 </body>
 </html>
