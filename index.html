@@ -15,75 +15,16 @@
   --font: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
   --grad: linear-gradient(90deg,#ff0000,#ff7f00,#ffff00);
 }
-
 /* basic */
 *{box-sizing:border-box}
-html,body{height:100%;margin:0;background:var(--bg);color:var(--white);font-family:var(--font);-webkit-font-smoothing:antialiased;}
-
-/* --- GLOBAL OVERLAY (covers entire viewport but sits under content) --- */
-/* overlay uses two repeating linear gradients (angled lines) + subtle gradient color layer */
-:root{
-  --overlay-line-alpha: 0.09; /* opacity of grid lines, lower = more subtle */
-  --overlay-color-alpha: 0.14; /* opacity of the color wash */
-}
-
-/* we use a fixed pseudo element on the body to span whole page */
-body::before{
-  content:"";
-  position:fixed;
-  inset:0;
-  z-index:1; /* under main content which will be z-index:2 */
-  pointer-events:none;
-  background:
-    repeating-linear-gradient(120deg,
-      rgba(255,64,64,var(--overlay-line-alpha)) 0px,
-      rgba(255,64,64,var(--overlay-line-alpha)) 1px,
-      transparent 1px,
-      transparent 56px),
-    repeating-linear-gradient(60deg,
-      rgba(255,200,0,var(--overlay-line-alpha)) 0px,
-      rgba(255,200,0,var(--overlay-line-alpha)) 1px,
-      transparent 1px,
-      transparent 56px);
-  background-blend-mode:screen;
-  filter: blur(0.4px);
-  animation:overlayMove 20s linear infinite;
-}
-
-/* color wash on top of lines for gradient */
-body::after{
-  content:"";
-  position:fixed;
-  inset:0;
-  z-index:1;
-  pointer-events:none;
-  background: linear-gradient(90deg, rgba(255,0,0,var(--overlay-color-alpha)), rgba(255,127,0,var(--overlay-color-alpha)), rgba(255,255,0,var(--overlay-color-alpha)));
-  mix-blend-mode:screen;
-  background-size:300% 100%;
-  animation:overlayShift 12s linear infinite;
-}
-
-@keyframes overlayMove{
-  from{background-position:0 0, 0 0;}
-  to{background-position:360px 360px, -360px -360px;}
-}
-@keyframes overlayShift{
-  0%{background-position:0% 50%;}
-  50%{background-position:100% 50%;}
-  100%{background-position:0% 50%;}
-}
-
-/* ensure page content sits above overlay layers */
-.hero, main, .container, .panel, .section-heading, h1.name, .role-line, canvas#hero-bg {
-  position:relative;
-  z-index:2;
-}
+html,body{height:100%;margin:0;background:var(--bg);color:var(--white);font-family:var(--font);-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+.container{max-width:1200px;margin:60px auto;padding:0 20px 120px}
 
 /* HERO */
 .hero{position:relative;height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden;background:var(--bg);}
-/* keep original canvas but above overlay (z-index 2) so particles show over overlay if desired */
-canvas#hero-bg{position:absolute;top:0;left:0;width:100%;height:100%;z-index:2;}
-.hero-inner{position:relative;z-index:3;}
+canvas#hero-bg{position:absolute;top:0;left:0;width:100%;height:100%;z-index:1;}
+.hero-inner{position:relative;z-index:2;}
 
 /* NAME */
 h1.name{color:white;font-size:clamp(48px,10vw,110px);font-weight:900;margin:0 0 12px 0;text-shadow:0 8px 40px rgba(0,0,0,0.7);}
@@ -103,7 +44,6 @@ h1.name{color:white;font-size:clamp(48px,10vw,110px);font-weight:900;margin:0 0 
   position:relative;
   padding-right:10px;
   will-change:opacity,transform;
-  z-index:3;
 }
 /* caret */
 .role-line::after{
@@ -162,7 +102,7 @@ h1.name{color:white;font-size:clamp(48px,10vw,110px);font-weight:900;margin:0 0 
 @keyframes gradMove{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
 
 /* panel (glass) */
-.panel{border-radius:var(--radius);padding:30px;border:1px solid var(--border);background:var(--glass);backdrop-filter: blur(4px);max-width:1100px;margin:0 auto;opacity:0;transform:translateY(18px);transition:opacity .6s ease, transform .6s cubic-bezier(.2,.9,.2,1);z-index:3;}
+.panel{border-radius:var(--radius);padding:30px;border:1px solid var(--border);background:var(--glass);backdrop-filter: blur(4px);max-width:1100px;margin:0 auto;opacity:0;transform:translateY(18px);transition:opacity .6s ease, transform .6s cubic-bezier(.2,.9,.2,1);}
 .panel.revealed{opacity:1;transform:translateY(0);}
 .panel:hover{box-shadow:0 0 30px rgba(255,127,0,0.06),0 0 50px rgba(255,0,0,0.04);}
 
