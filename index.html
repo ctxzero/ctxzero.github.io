@@ -22,11 +22,26 @@ a{color:inherit;text-decoration:none}
 .container{max-width:1200px;margin:60px auto;padding:0 20px 120px}
 
 /* HERO */
-.hero{position:relative;height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden;background:var(--bg);}
+.hero{
+  position:relative;
+  height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  overflow:hidden;
+  background: radial-gradient(circle at center, #1a1a1a 0%, #000 80%);
+}
 .hero-inner{position:relative;z-index:2;}
 
 /* NAME */
-h1.name{color:white;font-size:clamp(48px,10vw,110px);font-weight:900;margin:0 0 12px 0;text-shadow:0 8px 40px rgba(0,0,0,0.7);}
+h1.name{
+  color:white;
+  font-size:clamp(48px,10vw,110px);
+  font-weight:900;
+  margin:0 0 12px 0;
+  text-shadow:0 8px 40px rgba(0,0,0,0.7);
+}
 
 /* ROLE / typewriter */
 .role-wrap{height:64px;display:flex;align-items:center;justify-content:center;margin-top:6px;position:relative}
@@ -76,14 +91,12 @@ h1.name{color:white;font-size:clamp(48px,10vw,110px);font-weight:900;margin:0 0 
   display:inline-block;
   padding-bottom:6px;
 }
-/* animated gradient when revealed */
 .section-heading.revealed{
   opacity:1;
   transform:translateY(0);
   background-size:200% 100%;
   animation:gradMove 3s linear infinite;
 }
-/* underline */
 .section-heading.revealed::after{
   content:"";
   position:absolute;
@@ -96,42 +109,43 @@ h1.name{color:white;font-size:clamp(48px,10vw,110px);font-weight:900;margin:0 0 
   background:linear-gradient(90deg,#ff0000,#ff7f00,#ffff00);
   box-shadow:0 6px 20px rgba(255,127,0,0.12);
   opacity:0.95;
-  transition:width .4s ease;
 }
 @keyframes gradMove{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
 
 /* panel (glass) */
-.panel{border-radius:var(--radius);padding:30px;border:1px solid var(--border);background:var(--glass);backdrop-filter: blur(4px);max-width:1100px;margin:0 auto;opacity:0;transform:translateY(18px);transition:opacity .6s ease, transform .6s cubic-bezier(.2,.9,.2,1);}
+.panel{
+  border-radius:var(--radius);
+  padding:30px;
+  border:1px solid var(--border);
+  background:var(--glass);
+  backdrop-filter: blur(4px);
+  max-width:1100px;
+  margin:0 auto;
+  opacity:0;
+  transform:translateY(18px);
+  transition:opacity .6s ease, transform .6s cubic-bezier(.2,.9,.2,1);
+}
 .panel.revealed{opacity:1;transform:translateY(0);}
 .panel:hover{box-shadow:0 0 30px rgba(255,127,0,0.06),0 0 50px rgba(255,0,0,0.04);}
 
 /* About */
 .about p{color:var(--white);line-height:1.9;font-size:18px;margin:0 0 12px 0}
-.about ul{margin:12px 0 0 18px;color:var(--white);line-height:1.9}
 .about-meta{display:flex;align-items:center;gap:10px;margin-top:16px;justify-content:flex-start}
 .flag{font-size:20px;line-height:1;display:inline-block}
 .based{font-size:13px;color:rgba(255,255,255,0.9);font-weight:700}
 
-/* SKILLS grid */
+/* SKILLS */
 .skills-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--gap);margin-top:10px}
 @media (max-width:920px){.skills-grid{grid-template-columns:1fr}}
 .skill-block{display:flex;flex-direction:column;align-items:center;gap:10px}
 .skill-title{font-weight:900;color:var(--white);font-size:18px;margin-bottom:6px;text-align:center;opacity:0;transform:translateY(18px);transition:opacity .6s ease, transform .6s cubic-bezier(.2,.9,.2,1);}
 .skill-title.revealed{opacity:1;transform:translateY(0);}
-
-/* skill card deeper */
 .skill-card{width:100%;min-height:180px;padding:18px;border-radius:12px;border:1px solid var(--border);background:rgba(255,255,255,0.015);display:flex;flex-direction:column;gap:12px;transition:box-shadow .3s ease;}
 .skill-card:hover{box-shadow:0 0 20px rgba(255,127,0,0.05),0 0 35px rgba(255,0,0,0.03);}
-
-/* bar */
 .bar-wrap{height:18px;background:rgba(255,255,255,0.02);border-radius:12px;overflow:hidden}
 .bar{height:100%;width:0%;border-radius:12px;background:linear-gradient(90deg,#ff0000,#ff7f00,#ffff00);background-size:200% 100%;animation:flow 3s linear infinite;transition:width 1.2s cubic-bezier(.2,.9,.2,1);}
 @keyframes flow{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
-
-/* description text under bar */
 .skill-desc{font-size:15px;color:rgba(255,255,255,0.95);line-height:1.6;text-align:center;}
-
-/* badges area */
 .badge-row{display:flex;gap:12px;align-items:center;flex-wrap:wrap;justify-content:center;margin-top:auto}
 .badge-row img{height:56px;width:auto;border-radius:8px;border:none;background:transparent;}
 
@@ -154,107 +168,156 @@ h1.name{color:white;font-size:clamp(48px,10vw,110px);font-weight:900;margin:0 0 
   .contact-meta{align-items:center}
   .contact-links .btn{width:100%}
 }
-
-/* button */
 .btn{display:inline-flex;align-items:center;gap:10px;padding:10px 14px;border-radius:12px;border:2px solid transparent;background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));color:var(--white);font-weight:800;cursor:pointer;transition:transform .12s ease, border-color .12s ease, box-shadow .12s ease;}
 .btn:hover{transform:translateY(-4px);box-shadow:0 8px 30px rgba(255,127,0,0.06)}
 .icon{width:20px;height:20px;display:inline-block}
-
-/* quote */
 .contact-quote{margin-top:18px;text-align:center;font-style:italic;color:rgba(255,255,255,0.85);font-size:14px}
-
-/* reveal utility */
 .revealed-card{opacity:1;transform:translateY(0);transition:opacity .6s ease, transform .6s cubic-bezier(.2,.9,.2,1)}
-
 @media (max-width:520px){ h1.name{font-size:44px} .cert-grid{flex-direction:column} }
 </style>
 </head>
 <body>
+
 <section class="hero" id="hero">
   <div class="hero-inner">
     <h1 class="name">ctxzero</h1>
-    <div class="role-wrap" aria-hidden="true">
-      <div id="roleText" class="role-line" aria-live="polite"></div>
-    </div>
+    <div class="role-wrap"><div id="roleText" class="role-line"></div></div>
   </div>
 </section>
 
 <main class="container" id="main">
-  <!-- (alle anderen Sektionen bleiben unverändert) -->
-  <!-- ... -->
+
+  <!-- ABOUT -->
+  <section class="section" id="about">
+    <h2 class="section-heading">About Me</h2>
+    <div class="panel about">
+      <p><strong>Hi, I'm ctxzero,</strong> a cybersecurity enthusiast, constantly learning and improving my skills to make systems resilient and hardened against threat actors.</p>
+      <p>Manual testing combined with tooling for reliable, repeatable findings. Web application & network assessments, Active Directory focus, and scripting for automation. Responsible disclosure, reproducible tooling, and continuous learning to stay ahead.</p>
+      <div class="about-meta">
+        <span class="flag">🇪🇺</span><span class="based">based in Europe</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section class="section" id="skills">
+    <h2 class="section-heading">My Skills</h2>
+    <div class="panel">
+      <div class="skills-grid">
+        <div class="skill-block">
+          <div class="skill-title">Web Application Pentesting</div>
+          <div class="skill-card">
+            <div class="bar-wrap"><div class="bar" data-percent="75"></div></div>
+            <div class="skill-desc">Strong manual testing skills combined with professional tools to find and verify vulnerabilities.</div>
+            <div class="badge-row"><img src="https://it.tarah.in/img/services/7405d204-db67-46ac-987c-4a31403f86a9.png"></div>
+          </div>
+        </div>
+        <div class="skill-block">
+          <div class="skill-title">Network Pentesting</div>
+          <div class="skill-card">
+            <div class="bar-wrap"><div class="bar" data-percent="85"></div></div>
+            <div class="skill-desc">Excellent methodology and hands-on knowledge in scanning, exploitation and post-exploitation.</div>
+            <div class="badge-row"><img src="https://th.bing.com/th/id/R.6a86904c53c519c0a1c19028e9cbebcd?rik=5GAjdGGum0j1eQ&pid=ImgRaw"></div>
+          </div>
+        </div>
+        <div class="skill-block">
+          <div class="skill-title">Active Directory</div>
+          <div class="skill-card">
+            <div class="bar-wrap"><div class="bar" data-percent="50"></div></div>
+            <div class="skill-desc">Understanding of AD enumeration, attack paths and privilege escalation techniques.</div>
+          </div>
+        </div>
+        <div class="skill-block">
+          <div class="skill-title">Scripting</div>
+          <div class="skill-card">
+            <div class="bar-wrap"><div class="bar" data-percent="60"></div></div>
+            <div class="skill-desc">Python, Bash and Shell scripting for automation, tooling and exploit proof-of-concepts.</div>
+            <div class="badge-row"><img src="https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CERTS -->
+  <section class="section" id="certs">
+    <h2 class="section-heading">My Certifications</h2>
+    <div class="panel">
+      <div class="cert-grid">
+        <div class="cert-card">
+          <h4>eJPT</h4>
+          <div class="issuer">Certified by iLearnSecurity / INE</div>
+          <div class="cert-badge"><img src="https://miro.medium.com/v2/resize:fit:1358/1*KXRcpcS4sGp4xvLjhByI7A.png"></div>
+        </div>
+        <div class="cert-card">
+          <h4>Cyber Threat Intelligence</h4>
+          <div class="issuer">Certified by ArcX</div>
+          <div class="cert-badge"><img src="https://media.arcx.io/images/products/CTI101.png"></div>
+        </div>
+        <div class="cert-card">
+          <h4>TryHackMe</h4>
+          <div class="issuer">Multiple Path Completions</div>
+          <div class="cert-badge"><img src="https://tryhackme-images.s3.amazonaws.com/room-icons/66704dd0e54a1f39bff7b1a1-1735574311415"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="section" id="contact">
+    <h2 class="section-heading">Get in Touch</h2>
+    <div class="panel" style="padding-bottom:38px;min-height:200px;">
+      <div class="contact-row">
+        <div class="contact-links">
+          <a class="btn" href="#"><span class="icon">🐙</span>GitHub</a>
+          <a class="btn" href="#"><span class="icon">💼</span>LinkedIn</a>
+          <a class="btn" href="#"><span class="icon">🛡️</span>TryHackMe</a>
+        </div>
+        <div class="contact-meta">
+          <div>Discord: <strong>ctxzero</strong></div>
+          <div>Email: <span id="emailToggle" style="cursor:pointer;font-weight:800">(click to reveal)</span></div>
+        </div>
+      </div>
+      <div class="contact-quote">"The nicest thing about standards is that there are so many of them."</div>
+    </div>
+  </section>
+
+  <footer style="text-align:center;color:rgba(255,255,255,0.06);margin-top:30px">
+    Demo build — replace placeholder links & images.
+  </footer>
 </main>
 
 <script>
 /* TYPEWRITER */
 (function(){
   const el = document.getElementById('roleText');
-  const phrases = [
-    'Penetration Tester',
-    'Red Teamer',
-    'Ethical Hacker',
-    'Bug Bounty Hunter'
-  ];
-  const TYPING_SPEED = 40;
-  const ERASE_SPEED = 30;
-  const PAUSE = 900;
-  let pi = 0, ci = 0;
-  function typeNext(){
-    const text = phrases[pi];
-    if(ci < text.length){
-      el.textContent = text.slice(0, ci+1);
-      ci++;
-      setTimeout(typeNext, TYPING_SPEED);
-    } else setTimeout(erase, PAUSE);
-  }
-  function erase(){
-    if(ci > 0){
-      el.textContent = el.textContent.slice(0, -1);
-      ci--;
-      setTimeout(erase, ERASE_SPEED);
-    } else {
-      pi = (pi + 1) % phrases.length;
-      setTimeout(typeNext, 180);
-    }
-  }
-  el.style.backgroundSize = '200% 100%';
-  el.style.animation = 'gradMove 3s linear infinite';
-  typeNext();
+  const phrases = ['Penetration Tester','Red Teamer','Ethical Hacker','Bug Bounty Hunter'];
+  const T=40,E=30,P=900;let p=0,c=0;
+  function type(){const t=phrases[p];if(c<t.length){el.textContent=t.slice(0,++c);setTimeout(type,T);}else setTimeout(erase,P);}
+  function erase(){if(c>0){el.textContent=el.textContent.slice(0,-1);c--;setTimeout(erase,E);}else{p=(p+1)%phrases.length;setTimeout(type,180);}}
+  el.style.backgroundSize='200% 100%';el.style.animation='gradMove 3s linear infinite';type();
 })();
 
-/* INTERSECTION OBSERVER (reveals) */
-const io = new IntersectionObserver((entries, obs) => {
-  entries.forEach(e => {
+/* REVEAL */
+const io=new IntersectionObserver((entries,obs)=>{
+  entries.forEach(e=>{
     if(e.isIntersecting){
-      const sec = e.target;
-      const h = sec.querySelector('.section-heading');
-      if(h) h.classList.add('revealed');
-      const p = sec.querySelector('.panel');
-      if(p) p.classList.add('revealed');
-      sec.querySelectorAll('.skill-card, .cert-card').forEach((c, idx) => {
-        setTimeout(()=> c.classList.add('revealed-card'), 120 + idx*80);
-      });
-      sec.querySelectorAll('.skill-title').forEach((t,i)=>{
-        setTimeout(()=>t.classList.add('revealed'), i*80);
-      });
-      if(sec.id === 'skills'){
-        document.querySelectorAll('.bar').forEach((bar, i) => {
-          const pct = parseInt(bar.dataset.percent||0,10);
-          setTimeout(()=>{ bar.style.width = pct + '%'; }, 200 + i*140);
-        });
-      }
-      obs.unobserve(sec);
+      const t=e.target;
+      t.classList.add('revealed');
+      if(t.classList.contains('panel'))t.classList.add('revealed-card');
+      if(t.querySelectorAll('.bar').length>0)t.querySelectorAll('.bar').forEach(b=>{b.style.width=b.dataset.percent+'%'});
+      if(t.querySelectorAll('.skill-title').length>0)t.querySelectorAll('.skill-title').forEach(s=>s.classList.add('revealed'));
+      obs.unobserve(t);
     }
   });
-},{threshold:0.14});
-document.querySelectorAll('.section').forEach(s => io.observe(s));
+},{threshold:.2});
+document.querySelectorAll('.section-heading, .panel').forEach(e=>io.observe(e));
 
-/* EMAIL reveal */
-document.getElementById('emailToggle').addEventListener('click', function(){
-  if(this.dataset.shown === '1'){
-    this.textContent='(click to reveal)'; this.dataset.shown='0';
-  } else {
-    this.textContent='ctxzero.pentest@gmail.com'; this.dataset.shown='1';
-  }
+/* EMAIL REVEAL */
+document.getElementById('emailToggle').addEventListener('click',()=>{
+  const el=document.getElementById('emailToggle');
+  el.textContent='ctxzero[at]proton.me';
+  el.style.cursor='default';
 });
 </script>
 </body>
