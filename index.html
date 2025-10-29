@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="de">
+<html lang="en">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
@@ -20,64 +20,51 @@
 html,body{ height:100%; margin:0; background: radial-gradient(circle at center, #1a1a1a 0%, #000 80%); color:var(--white); font-family:var(--font); -webkit-font-smoothing:antialiased; }
 a{color:inherit;text-decoration:none}
 .container{max-width:1200px;margin:60px auto;padding:0 20px 120px}
-
 /* HERO */
 .hero{ position:relative; height:100vh; display:flex; align-items:center; justify-content:center; text-align:center; overflow:hidden; }
 .hero-inner{position:relative;z-index:2;}
-
 /* NAME */
 h1.name{ color:white; font-size:clamp(48px,10vw,110px); font-weight:900; margin:0 0 12px 0; text-shadow:0 8px 40px rgba(0,0,0,0.7); }
-
 /* ROLE / typewriter */
 .role-wrap{height:64px;display:flex;align-items:center;justify-content:center;margin-top:6px;position:relative}
 .role-line{ font-weight:800; font-size:clamp(18px,3.5vw,26px); letter-spacing:0.6px; background:linear-gradient(90deg,#ff0000,#ff7f00,#ffff00); -webkit-background-clip:text; -webkit-text-fill-color:transparent; display:inline-block; white-space:nowrap; overflow:hidden; position:relative; padding-right:10px; will-change:opacity,transform; }
-
 /* caret */
 .role-line::after{ content: ""; width:2px; height:1.06em; background:var(--white); display:inline-block; margin-left:6px; vertical-align:middle; opacity:0.95; animation:blink 1s steps(2, start) infinite; }
 @keyframes blink{50%{opacity:0}100%{opacity:1}}
-
 /* section headings */
 .section{margin-bottom:80px}
 .section-heading{ text-align:center; font-weight:900; font-size:clamp(30px,5.5vw,56px); margin:0 0 14px 0; color:var(--white); background:var(--grad); -webkit-background-clip:text; -webkit-text-fill-color:transparent; opacity:0; transform:translateY(18px); transition:opacity .6s ease, transform .6s cubic-bezier(.2,.9,.2,1); position:relative; display:inline-block; padding-bottom:6px; }
 .section-heading.revealed{ opacity:1; transform:translateY(0); background-size:200% 100%; animation:gradMove 3s linear infinite; }
 .section-heading.revealed::after{ content:""; position:absolute; left:50%; transform:translateX(-50%); bottom:0; height:4px; width:60%; border-radius:4px; background:linear-gradient(90deg,#ff0000,#ff7f00,#ffff00); box-shadow:0 6px 20px rgba(255,127,0,0.12); opacity:0.95; }
 @keyframes gradMove{ 0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%} }
-
 /* panel (glass) */
 .panel{ border-radius:var(--radius); padding:30px; border:1px solid var(--border); background:var(--glass); backdrop-filter: blur(4px); max-width:1100px; margin:0 auto; opacity:0; transform:translateY(18px); transition:opacity .6s ease, transform .6s cubic-bezier(.2,.9,.2,1); }
 .panel.revealed{opacity:1;transform:translateY(0);}
 .panel:hover{box-shadow:0 0 30px rgba(255,127,0,0.06),0 0 50px rgba(255,0,0,0.04);}
-
 /* About */
 .about p{color:var(--white);line-height:1.9;font-size:18px;margin:0 0 12px 0}
 .about ul{margin:12px 0 0 18px;color:var(--white);line-height:1.9}
 .about-meta{display:flex;align-items:center;gap:10px;margin-top:16px;justify-content:flex-start}
 .flag{font-size:20px;line-height:1;display:inline-block}
 .based{font-size:13px;color:rgba(255,255,255,0.9);font-weight:700}
-
 /* SKILLS grid */
 .skills-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--gap);margin-top:10px}
 @media (max-width:920px){.skills-grid{grid-template-columns:1fr}}
 .skill-block{display:flex;flex-direction:column;align-items:center;gap:10px}
 .skill-title{font-weight:900;color:var(--white);font-size:18px;margin-bottom:6px;text-align:center;opacity:0;transform:translateY(18px);transition:opacity .6s ease, transform .6s cubic-bezier(.2,.9,.2,1);}
 .skill-title.revealed{opacity:1;transform:translateY(0);}
-
 /* skill card deeper */
 .skill-card{width:100%;min-height:180px;padding:18px;border-radius:12px;border:1px solid var(--border);background:rgba(255,255,255,0.015);display:flex;flex-direction:column;gap:12px;transition:box-shadow .3s ease;}
 .skill-card:hover{box-shadow:0 0 20px rgba(255,127,0,0.05),0 0 35px rgba(255,0,0,0.03);}
-
 /* bar */
 .bar-wrap{height:18px;background:rgba(255,255,255,0.02);border-radius:12px;overflow:hidden}
 .bar{height:100%;width:0%;border-radius:12px;background:linear-gradient(90deg,#ff0000,#ff7f00,#ffff00);background-size:200% 100%;animation:flow 3s linear infinite;transition:width 1.2s cubic-bezier(.2,.9,.2,1);}
 @keyframes flow{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
-
 /* description text under bar */
 .skill-desc{font-size:15px;color:rgba(255,255,255,0.95);line-height:1.6;text-align:center;}
-
 /* badges area */
 .badge-row{display:flex;gap:12px;align-items:center;flex-wrap:wrap;justify-content:center;margin-top:auto}
 .badge-row img, .social-badge{height:56px;width:auto;border-radius:8px;border:none;background:transparent;display:inline-flex;align-items:center;justify-content:center;padding:6px}
-
 /* CERTS */
 .cert-grid{display:flex;gap:20px;flex-wrap:wrap;justify-content:center;margin-top:10px}
 .cert-card{flex:1 1 300px;min-height:200px;padding:16px;border-radius:12px;border:1px solid var(--border);background:rgba(255,255,255,0.015);display:flex;flex-direction:column;align-items:center;gap:12px;transition:box-shadow .3s ease;}
@@ -86,35 +73,41 @@ h1.name{ color:white; font-size:clamp(48px,10vw,110px); font-weight:900; margin:
 .cert-card .issuer{font-size:13px;color:rgba(255,255,255,0.9);text-align:center}
 .cert-badge{Width:120px;height:120px;display:flex;align-items:center;justify-content:center;border-radius:12px;background:rgba(255,255,255,0.01);overflow:hidden}
 .cert-badge img{max-width:100%;max-height:100%;display:block;}
-
 /* CONTACT */
 .contact-row{display:flex;justify-content:space-between;align-items:flex-start;gap:24px;flex-wrap:wrap}
 .contact-links{display:flex;flex-direction:column;gap:12px;align-items:flex-start}
-.contact-links .btn{width:220px;justify-content:flex-start}
-.contact-meta{display:flex;flex-direction:column;gap:8px;align-items:flex-end}
+.contact-meta{display:flex;flex-direction:column;gap:12px;align-items:flex-end}
 @media (max-width:760px){ .contact-row{flex-direction:column;align-items:center} .contact-meta{align-items:center} .contact-links .btn{width:100%} }
-
 /* button */
 .btn{display:inline-flex;align-items:center;gap:10px;padding:10px 14px;border-radius:12px;border:2px solid transparent;background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));color:var(--white);font-weight:800;cursor:pointer;transition:transform .12s ease, border-color .12s ease, box-shadow .12s ease;}
 .btn:hover{transform:translateY(-4px);box-shadow:0 8px 30px rgba(255,127,0,0.06)}
 .icon{width:20px;height:20px;display:inline-block}
-
 /* social badges row */
 .social-row{display:flex;gap:12px;align-items:center}
 .social-badge{height:56px;padding:8px;border-radius:10px;background:rgba(255,255,255,0.02);cursor:pointer;transition:transform .12s ease, box-shadow .12s ease;display:inline-flex;align-items:center;gap:10px}
 .social-badge:hover{transform:translateY(-4px);box-shadow:0 8px 30px rgba(255,127,0,0.04)}
-
 /* overlay tooltip */
 .copied-tooltip{position:fixed;left:50%;transform:translateX(-50%);bottom:40px;background:rgba(0,0,0,0.8);color:#fff;padding:8px 12px;border-radius:8px;font-weight:700;box-shadow:0 6px 30px rgba(0,0,0,0.6);opacity:0;pointer-events:none;transition:opacity .18s ease;z-index:9999}
-
 /* quote */
 .contact-quote{margin-top:18px;text-align:center;font-style:italic;color:rgba(255,255,255,0.85);font-size:14px}
-
 /* reveal utility */
 .revealed-card{opacity:1;transform:translateY(0);transition:opacity .6s ease, transform .6s cubic-bezier(.2,.9,.2,1)}
-
 /* responsive */
 @media (max-width:520px){ h1.name{font-size:44px} .cert-grid{flex-direction:column} }
+
+/* small EU flag tweak so it looks neat */
+.eu-flag {
+  width:18px;
+  height:12px;
+  display:inline-block;
+  vertical-align:middle;
+  margin-right:6px;
+  border-radius:2px;
+  overflow:hidden;
+  flex-shrink:0;
+  box-shadow:0 1px 0 rgba(0,0,0,0.35) inset;
+}
+.eu-flag svg{width:100%;height:100%;display:block}
 </style>
 </head>
 <body>
@@ -134,7 +127,31 @@ h1.name{ color:white; font-size:clamp(48px,10vw,110px); font-weight:900; margin:
       <p><strong>Hi, I'm ctxzero,</strong> a cybersecurity enthusiast, constantly learning and improving my skills to make systems resilient and hardened against threat actors.</p>
       <p>Manual testing combined with tooling for reliable, repeatable findings. Web application & network assessments, Active Directory focus, and scripting for automation. Responsible disclosure, reproducible tooling, and continuous learning to stay ahead.</p>
       <div class="about-meta" aria-hidden="true">
-        <span class="flag" title="Based in Europe">🇪🇺</span>
+        <!-- Small, clean EU flag SVG instead of emoji -->
+        <span class="eu-flag" title="Based in Europe" aria-hidden="true">
+          <svg viewBox="0 0 640 480" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+            <rect width="640" height="480" fill="#003399"/>
+            <!-- 12 stars arranged in a circle centered -->
+            <g fill="#ffcc00" transform="translate(320,240) scale(0.8)">
+              <!-- create 12 stars around circle -->
+              <g id="star">
+                <path d="M0 -40 L11 -12 38 -12 17 4 24 36 0 18 -24 36 -17 4 -38 -12 -11 -12 Z"/>
+              </g>
+              <use href="#star" transform="rotate(0) translate(0,-120)"/>
+              <use href="#star" transform="rotate(30) translate(0,-120)"/>
+              <use href="#star" transform="rotate(60) translate(0,-120)"/>
+              <use href="#star" transform="rotate(90) translate(0,-120)"/>
+              <use href="#star" transform="rotate(120) translate(0,-120)"/>
+              <use href="#star" transform="rotate(150) translate(0,-120)"/>
+              <use href="#star" transform="rotate(180) translate(0,-120)"/>
+              <use href="#star" transform="rotate(210) translate(0,-120)"/>
+              <use href="#star" transform="rotate(240) translate(0,-120)"/>
+              <use href="#star" transform="rotate(270) translate(0,-120)"/>
+              <use href="#star" transform="rotate(300) translate(0,-120)"/>
+              <use href="#star" transform="rotate(330) translate(0,-120)"/>
+            </g>
+          </svg>
+        </span>
         <span class="based">based in Europe</span>
       </div>
     </div>
@@ -152,7 +169,6 @@ h1.name{ color:white; font-size:clamp(48px,10vw,110px); font-weight:900; margin:
             <div class="badge-row"><img src="https://it.tarah.in/img/services/7405d204-db67-46ac-987c-4a31403f86a9.png" alt="Burp badge"></div>
           </div>
         </div>
-
         <div class="skill-block">
           <div class="skill-title">Network Pentesting</div>
           <div class="skill-card">
@@ -161,7 +177,6 @@ h1.name{ color:white; font-size:clamp(48px,10vw,110px); font-weight:900; margin:
             <div class="badge-row"><img src="https://th.bing.com/th/id/R.6a86904c53c519c0a1c19028e9cbebcd?rik=5GAjdGGum0j1eQ&pid=ImgRaw" alt="Metasploit badge"></div>
           </div>
         </div>
-
         <div class="skill-block">
           <div class="skill-title">Active Directory</div>
           <div class="skill-card">
@@ -170,7 +185,6 @@ h1.name{ color:white; font-size:clamp(48px,10vw,110px); font-weight:900; margin:
             <div class="badge-row"></div>
           </div>
         </div>
-
         <div class="skill-block">
           <div class="skill-title">Scripting</div>
           <div class="skill-card">
@@ -192,13 +206,11 @@ h1.name{ color:white; font-size:clamp(48px,10vw,110px); font-weight:900; margin:
           <div class="issuer">Certified by iLearnSecurity / INE</div>
           <div class="cert-badge"><img src="https://miro.medium.com/v2/resize:fit:1358/1*KXRcpcS4sGp4xvLjhByI7A.png" alt="eJPT badge"></div>
         </div>
-
         <div class="cert-card">
           <h4>Cyber Threat Intelligence</h4>
           <div class="issuer">Certified by ArcX</div>
           <div class="cert-badge"><img src="https://media.arcx.io/images/products/CTI101.png" alt="CTI badge"></div>
         </div>
-
         <div class="cert-card">
           <h4>TryHackMe</h4>
           <div class="issuer">Multiple Path Completions</div>
@@ -212,51 +224,50 @@ h1.name{ color:white; font-size:clamp(48px,10vw,110px); font-weight:900; margin:
     <h2 class="section-heading">Get in Touch</h2>
     <div class="panel" style="padding-bottom:38px;min-height:200px;">
       <div class="contact-row">
+        <!-- LEFT: stacked links (Github, TryHackMe) -->
         <div class="contact-links" aria-label="social links">
-          <!-- GitHub (link to profile) -->
+          <!-- GitHub -->
           <a class="btn" href="https://github.com/ctxzero" target="_blank" rel="noopener">
             <span class="icon" aria-hidden="true">
-              <!-- github icon (same as before) -->
               <svg viewBox="0 0 24 24" fill="none" width="20" height="20" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M12 .5C5.65.5.75 5.4.75 11.75c0 4.84 3.14 8.95 7.5 10.4.55.1.75-.24.75-.53 0-.26-.01-1.12-.01-2.03-3.05.66-3.69-.74-3.92-1.42-.13-.36-.7-1.42-1.2-1.71-.41-.23-1-.8-.01-.82.93-.02 1.59.86 1.81 1.22 1.06 1.82 2.75 1.3 3.43.99.11-.78.41-1.3.74-1.6-2.73-.31-5.6-1.37-5.6-6.09 0-1.35.48-2.45 1.26-3.32-.13-.31-.55-1.56.12-3.25 0 0 1.02-.33 3.34 1.26 .97-.27 2.01-.4 3.04-.4 1.03 0 2.07.13 3.04.4 2.32-1.59 3.34-1.26 3.34-1.26 .67 1.69.25 2.94.12 3.25 .78.87 1.26 1.97 1.26 3.32 0 4.73-2.88 5.77-5.62 6.07.42.36.79 1.06.79 2.13 0 1.54-.01 2.78-.01 3.16 0 .29.2.63.76.52 4.35-1.46 7.49-5.57 7.49-10.4C23.25 5.4 18.35.5 12 .5Z"/></svg>
-            </span> GitHub
+            </span>
+            GitHub
           </a>
 
-          <!-- TryHackMe (link to profile) -->
+          <!-- TryHackMe -->
           <a class="btn" href="https://tryhackme.com/p/ctxzero" target="_blank" rel="noopener">
             <span class="icon" aria-hidden="true">
-              <!-- TryHackMe-ish flame/shield SVG (clean, recognizable flame) -->
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M12 2s-1.2 2.1-1.2 4.1C10.8 8 9.7 8.6 9 9c-.7.4-1.5 1.6-1.5 3.2C7.5 15.9 9.9 18 12 20c2.1-2 4.5-4.1 4.5-7.8 0-1.6-.8-2.8-1.5-3.2-.7-.4-1.8-1-1.8-2.9C13.2 4.1 12 2 12 2z" fill="currentColor"/>
               </svg>
-            </span> TryHackMe
+            </span>
+            TryHackMe
           </a>
-
-          <!-- Discord (copy username to clipboard + visual) -->
-          <div class="social-row" style="margin-top:8px;">
-            <div id="discordBadge" class="social-badge" role="button" tabindex="0" title="Klicke, um Discord-Name in die Zwischenablage zu kopieren">
-              <!-- Discord logo SVG -->
-              <svg width="28" height="28" viewBox="0 0 71 55" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                <path d="M60.7 4.2A58.9 58.9 0 0 0 46.5.5a41.2 41.2 0 0 0-2 .9c-3.1 1.6-5.4 3.1-6.7 4-2.7 1.9-3.3 2-3.3 2s-.6-.1-3.3-2c-1.3-.9-3.6-2.4-6.7-4A58.9 58.9 0 0 0 10.5 4.2C1.4 19.6.2 34.8 2.3 49.6a60.2 60.2 0 0 0 18.2 5.9c1.4-.2 2.3-1 2.3-2.1 0-.1 0-.4.1-.8-7.4-1.7-10.2-5.2-10.2-5.2 1.3.9 2.5 1.6 3.6 2.3 6.4 3.9 11.7 5.1 15 5.3 1.1.1 2 .2 2.9.2.9 0 1.8-.1 2.9-.2 3.3-.2 8.6-1.4 15-5.3 1.1-.7 2.3-1.4 3.6-2.3 0 0-2.8 3.5-10.2 5.2.1.3.2.6.2.9 0 1.1.9 1.9 2.3 2.1A60.2 60.2 0 0 0 68.7 49.6c2.1-14.8.9-30-8-45.4zM23.3 37.2c-3 0-5.5-2.7-5.5-6S20.3 25 23.3 25c3 0 5.5 2.7 5.5 6s-2.5 6.2-5.5 6.2zm24.4 0c-3 0-5.5-2.7-5.5-6s2.5-6 5.5-6 5.5 2.7 5.5 6-2.5 6.2-5.5 6.2z" fill="currentColor"/>
-              </svg>
-              <div style="display:flex;flex-direction:column;">
-                <strong style="font-size:13px;">Discord</strong>
-                <span style="font-size:12px;color:rgba(255,255,255,0.75)">ctxzero (click)</span>
-              </div>
-            </div>
-
-            <!-- Email reveal button -->
-            <button id="emailToggle" class="social-badge" style="margin-left:8px;">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zM4 8l8 5 8-5v2l-8 5-8-5V8z"/></svg>
-              <div style="display:flex;flex-direction:column;align-items:flex-start;">
-                <strong style="font-size:13px;">E‑Mail</strong>
-                <span id="emailHint" style="font-size:12px;color:rgba(255,255,255,0.75)">Klicken, um Adresse zu zeigen</span>
-              </div>
-            </button>
-          </div>
-
         </div>
 
-        <div class="contact-meta" aria-hidden="true">
+        <!-- RIGHT: Contact actions (Discord, Email) -->
+        <div class="contact-meta" aria-label="contact actions">
+          <!-- Discord: copy username -->
+          <div id="discordBadge" class="social-badge" role="button" tabindex="0" title="Click to copy Discord username">
+            <svg width="28" height="28" viewBox="0 0 71 55" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M60.7 4.2A58.9 58.9 0 0 0 46.5.5a41.2 41.2 0 0 0-2 .9c-3.1 1.6-5.4 3.1-6.7 4-2.7 1.9-3.3 2-3.3 2s-.6-.1-3.3-2c-1.3-.9-3.6-2.4-6.7-4A58.9 58.9 0 0 0 10.5 4.2C1.4 19.6.2 34.8 2.3 49.6a60.2 60.2 0 0 0 18.2 5.9c1.4-.2 2.3-1 2.3-2.1 0-.1 0-.4.1-.8-7.4-1.7-10.2-5.2-10.2-5.2 1.3.9 2.5 1.6 3.6 2.3 6.4 3.9 11.7 5.1 15 5.3 1.1.1 2 .2 2.9.2.9 0 1.8-.1 2.9-.2 3.3-.2 8.6-1.4 15-5.3 1.1-.7 2.3-1.4 3.6-2.3 0 0-2.8 3.5-10.2 5.2.1.3.2.6.2.9 0 1.1.9 1.9 2.3 2.1A60.2 60.2 0 0 0 68.7 49.6c2.1-14.8.9-30-8-45.4zM23.3 37.2c-3 0-5.5-2.7-5.5-6S20.3 25 23.3 25c3 0 5.5 2.7 5.5 6s-2.5 6.2-5.5 6.2zm24.4 0c-3 0-5.5-2.7-5.5-6s2.5-6 5.5-6 5.5 2.7 5.5 6-2.5 6.2-5.5 6.2z" fill="currentColor"/>
+            </svg>
+            <div style="display:flex;flex-direction:column;align-items:flex-start;">
+              <strong style="font-size:13px;">Discord</strong>
+              <span style="font-size:12px;color:rgba(255,255,255,0.75)">ctxzero (click)</span>
+            </div>
+          </div>
+
+          <!-- Email: reveal on click -->
+          <button id="emailToggle" class="social-badge" style="min-width:170px;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zM4 8l8 5 8-5v2l-8 5-8-5V8z"/></svg>
+            <div style="display:flex;flex-direction:column;align-items:flex-start;">
+              <strong style="font-size:13px;">E-mail</strong>
+              <span id="emailHint" style="font-size:12px;color:rgba(255,255,255,0.75)">Click to reveal address</span>
+            </div>
+          </button>
+
+          <!-- small quote under the right column -->
           <p class="contact-quote">"Stay curious. Stay secure."</p>
         </div>
       </div>
@@ -265,11 +276,11 @@ h1.name{ color:white; font-size:clamp(48px,10vw,110px); font-weight:900; margin:
 </main>
 
 <!-- small tooltip for clipboard feedback -->
-<div id="copiedTooltip" class="copied-tooltip" role="status" aria-live="polite">Kopiert!</div>
+<div id="copiedTooltip" class="copied-tooltip" role="status" aria-live="polite">Copied!</div>
 
 <script>
 /* TYPEWRITER */
-/* geändert: nur die drei Rollen, Reihenfolge wie gewünscht */
+/* roles as requested */
 const roles = ["Penetration Tester", "Red Teamer", "Ethical Hacker"];
 let r = 0, c = 0, el = document.getElementById("roleText");
 function type() {
@@ -298,7 +309,9 @@ const io = new IntersectionObserver((entries, obs) => {
       let t = e.target;
       t.classList.add('revealed');
       if (t.classList.contains('panel')) t.classList.add('revealed-card');
-      if (t.querySelectorAll('.bar').length > 0) t.querySelectorAll('.bar').forEach(b => { b.style.width = b.dataset.percent + '%' });
+      if (t.querySelectorAll('.bar').length > 0) t.querySelectorAll('.bar').forEach(b => {
+        b.style.width = b.dataset.percent + '%'
+      });
       if (t.querySelectorAll('.skill-title').length > 0) t.querySelectorAll('.skill-title').forEach(s => s.classList.add('revealed'));
       obs.unobserve(t);
     }
@@ -306,32 +319,38 @@ const io = new IntersectionObserver((entries, obs) => {
 }, { threshold: .2 });
 document.querySelectorAll('.section-heading, .panel').forEach(e => io.observe(e));
 
-/* EMAIL REVEAL - zeigt die E-Mail erst nach Klick */
+/* EMAIL REVEAL */
 const emailToggle = document.getElementById('emailToggle');
 const emailHint = document.getElementById('emailHint');
 let emailRevealed = false;
-const emailAddress = 'ctxzero.pentest@gmail.com'; // deine angegebene E-Mail
-
+const emailAddress = 'ctxzero.pentest@gmail.com'; // your provided email
 emailToggle.addEventListener('click', () => {
   if (!emailRevealed) {
-    // ersetzen des Buttons-Inhalts mit der echten Adresse (sichtbar, nicht kopiert automatisch)
     emailHint.textContent = emailAddress;
     emailRevealed = true;
-    // optional: nun kein pointer mehr
     emailToggle.style.cursor = 'default';
+    // make it selectable/copyable on click after reveal:
+    // clicking again will copy the email into clipboard for convenience
+    try {
+      emailToggle.setAttribute('title', 'Click to copy email');
+    } catch(e){}
+  } else {
+    // copy email to clipboard if already revealed
+    copyToClipboard(emailAddress);
   }
 });
 emailToggle.addEventListener('keydown', (e) => {
   if ((e.key === 'Enter' || e.key === ' ') && !emailRevealed) {
     e.preventDefault();
     emailToggle.click();
+  } else if ((e.key === 'Enter' || e.key === ' ') && emailRevealed) {
+    e.preventDefault();
+    copyToClipboard(emailAddress);
   }
 });
 
-/* DISCORD BADGE - kopiert Username in Zwischenablage und zeigt Tooltip */
-/* Hinweis: Discord-Profil-URLs benötigen eine numerische User-ID; mit nur dem sichtbaren Namen kann nicht direkt verlinkt werden.
-   Daher kopieren wir beim Klick den Namen 'ctxzero' in die Zwischenablage und zeigen eine kurze Bestätigung.
-   Wenn du eine direkte Profil-URL (z.B. https://discord.com/users/<ID>) hast, sende sie mir — ich mache das Badge dann zum Link. */
+/* DISCORD BADGE - copy username to clipboard and show tooltip */
+/* Note: Direct profile links need a numeric user ID; with username only we copy the visible name. */
 const discordBadge = document.getElementById('discordBadge');
 const discordName = 'ctxzero';
 const tooltip = document.getElementById('copiedTooltip');
@@ -339,31 +358,28 @@ const tooltip = document.getElementById('copiedTooltip');
 function showTooltip(msg) {
   tooltip.textContent = msg;
   tooltip.style.opacity = '1';
-  setTimeout(()=>{ tooltip.style.opacity = '0'; }, 2000);
+  clearTimeout(window._copiedTimeout);
+  window._copiedTimeout = setTimeout(()=>{ tooltip.style.opacity = '0'; }, 2000);
 }
 
 async function copyToClipboard(text) {
   try {
     await navigator.clipboard.writeText(text);
-    showTooltip('Discord-Name kopiert: ' + text);
+    showTooltip('Copied: ' + text);
   } catch (err) {
-    // Fallback: prompt
-    showTooltip('Bitte kopiere manuell: ' + text);
-    window.prompt('Discord-Name:', text);
+    // fallback: prompt
+    showTooltip('Please copy: ' + text);
+    setTimeout(()=>{ window.prompt('Copy this text:', text); }, 50);
   }
 }
 
-discordBadge.addEventListener('click', () => {
-  copyToClipboard(discordName);
-});
+discordBadge.addEventListener('click', () => { copyToClipboard(discordName); });
 discordBadge.addEventListener('keydown', (e) => {
   if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); discordBadge.click(); }
 });
 
-/* kleine accessibility-verbesserung: Fokusstyle via keyboard */
-document.addEventListener('keydown', (e) => {
-  if (e.key === 'Tab') document.body.classList.add('user-is-tabbing');
-});
+/* small accessibility improvement: focus style via keyboard */
+document.addEventListener('keydown', (e) => { if (e.key === 'Tab') document.body.classList.add('user-is-tabbing'); });
 </script>
 </body>
 </html>
