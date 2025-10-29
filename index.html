@@ -137,7 +137,6 @@ h1.name{
   transition:opacity .6s ease, transform .6s cubic-bezier(.2,.9,.2,1);
 }
 .panel.revealed{opacity:1;transform:translateY(0);}
-.panel:hover{box-shadow:0 0 30px rgba(255,127,0,0.06),0 0 50px rgba(255,0,0,0.04);}
 
 /* About */
 .about p{color:var(--white);line-height:1.9;font-size:18px;margin:0 0 12px 0}
@@ -151,7 +150,6 @@ h1.name{
 @media (max-width:920px){.skills-grid{grid-template-columns:1fr}}
 .skill-block{display:flex;flex-direction:column;align-items:center;gap:10px}
 .skill-title{font-weight:900;color:var(--white);font-size:18px;margin-bottom:6px;text-align:center;opacity:0;transform:translateY(18px);transition:opacity .6s ease, transform .6s cubic-bezier(.2,.9,.2,1);}
-.skill-title.revealed{opacity:1;transform:translateY(0);}
 
 /* skill card deeper */
 .skill-card{width:100%;min-height:180px;padding:18px;border-radius:12px;border:1px solid var(--border);background:rgba(255,255,255,0.015);display:flex;flex-direction:column;gap:12px;transition:box-shadow .3s ease;}
@@ -160,10 +158,6 @@ h1.name{
 /* bar */
 .bar-wrap{height:18px;background:rgba(255,255,255,0.02);border-radius:12px;overflow:hidden}
 .bar{height:100%;width:0%;border-radius:12px;background:linear-gradient(90deg,#ff0000,#ff7f00,#ffff00);background-size:200% 100%;animation:flow 3s linear infinite;transition:width 1.2s cubic-bezier(.2,.9,.2,1);}
-@keyframes flow{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
-
-/* description text under bar */
-.skill-desc{font-size:15px;color:rgba(255,255,255,0.95);line-height:1.6;text-align:center;}
 
 /* badges area */
 .badge-row{display:flex;gap:12px;align-items:center;flex-wrap:wrap;justify-content:center;margin-top:auto}
@@ -173,15 +167,11 @@ h1.name{
 .cert-grid{display:flex;gap:20px;flex-wrap:wrap;justify-content:center;margin-top:10px}
 .cert-card{flex:1 1 300px;min-height:200px;padding:16px;border-radius:12px;border:1px solid var(--border);background:rgba(255,255,255,0.015);display:flex;flex-direction:column;align-items:center;gap:12px;transition:box-shadow .3s ease;}
 .cert-card:hover{box-shadow:0 0 20px rgba(255,127,0,0.05),0 0 35px rgba(255,0,0,0.03);}
-.cert-card h4{margin:8px 0 0 0;font-size:18px;color:var(--white);text-align:center}
-.cert-card .issuer{font-size:13px;color:rgba(255,255,255,0.9);text-align:center}
-.cert-badge{width:120px;height:120px;display:flex;align-items:center;justify-content:center;border-radius:12px;background:rgba(255,255,255,0.01);overflow:hidden}
-.cert-badge img{max-width:100%;max-height:100%;display:block;}
 
 /* CONTACT */
 .contact-row{display:flex;justify-content:space-between;align-items:flex-start;gap:24px;flex-wrap:wrap}
 .contact-links{display:flex;flex-direction:column;gap:12px;align-items:flex-start}
-.contact-links .btn{width:220px;justify-content:flex-start}
+.contact-links .btn{width:260px;justify-content:flex-start}
 .contact-meta{display:flex;flex-direction:column;gap:8px;align-items:flex-end}
 @media (max-width:760px){
   .contact-row{flex-direction:column;align-items:center}
@@ -193,6 +183,10 @@ h1.name{
 .btn{display:inline-flex;align-items:center;gap:10px;padding:10px 14px;border-radius:12px;border:2px solid transparent;background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));color:var(--white);font-weight:800;cursor:pointer;transition:transform .12s ease, border-color .12s ease, box-shadow .12s ease;}
 .btn:hover{transform:translateY(-4px);box-shadow:0 8px 30px rgba(255,127,0,0.06)}
 .icon{width:20px;height:20px;display:inline-block}
+
+/* small icon badge (used for THM / Discord) */
+.icon-badge{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:8px;background:rgba(255,255,255,0.02);overflow:hidden}
+.icon-badge img, .icon-badge svg{width:24px;height:24px;display:block}
 
 /* quote */
 .contact-quote{margin-top:18px;text-align:center;font-style:italic;color:rgba(255,255,255,0.85);font-size:14px}
@@ -295,14 +289,49 @@ h1.name{
     <div class="panel" style="padding-bottom:38px;min-height:200px;">
       <div class="contact-row">
         <div class="contact-links" aria-label="social links">
-          <a class="btn" href="#" target="_blank" rel="noopener">
+          <!-- GitHub -->
+          <a class="btn" href="https://github.com/ctxzero" target="_blank" rel="noopener">
             <span class="icon" aria-hidden="true">
               <!-- github icon -->
               <svg viewBox="0 0 24 24" fill="none" width="20" height="20" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M12 .5C5.65.5.75 5.4.75 11.75c0 4.84 3.14 8.95 7.5 10.4.55.1.75-.24.75-.53 0-.26-.01-1.12-.01-2.03-3.05.66-3.69-.74-3.92-1.42-.13-.36-.7-1.42-1.2-1.71-.41-.23-1-.8-.01-.82.93-.02 1.59.86 1.81 1.22 1.06 1.82 2.75 1.3 3.43.99.11-.78.41-1.3.74-1.6-2.73-.31-5.6-1.37-5.6-6.09 0-1.35.48-2.45 1.26-3.32-.13-.31-.55-1.56.12-3.25 0 0 1.02-.33 3.34 1.26 .97-.27 2.01-.4 3.04-.4 1.03 0 2.07.13 3.04.4 2.32-1.59 3.34-1.26 3.34-1.26 .67 1.69.25 2.94.12 3.25 .78.87 1.26 1.97 1.26 3.32 0 4.73-2.88 5.77-5.62 6.07.42.36.79 1.06.79 2.13 0 1.54-.01 2.78-.01 3.16 0 .29.2.63.76.52 4.35-1.46 7.49-5.57 7.49-10.4C23.25 5.4 18.35.5 12 .5Z"/></svg>
             </span>
             GitHub
           </a>
-          <a class="btn" id="emailToggle" role="button" tabindex="0">Show Email</a>
+
+          <!-- TryHackMe -->
+          <a class="btn" href="https://tryhackme.com/p/ctxzero" target="_blank" rel="noopener">
+            <span class="icon-badge" aria-hidden="true" title="TryHackMe">
+              <!-- small THM image (external CDN used; replace if you want a local asset) -->
+              <img src="https://tryhackme-images.s3.amazonaws.com/room-icons/66704dd0e54a1f39bff7b1a1-1735574311415" alt="TryHackMe logo">
+            </span>
+            TryHackMe
+          </a>
+
+          <!-- Discord: copies the handle because Discord has no public profile URL by name -->
+          <button class="btn" id="discordBtn" type="button" title="Klicke um Discord-Namen zu kopieren">
+            <span class="icon-badge" aria-hidden="true" title="Discord">
+              <!-- discord logo svg -->
+              <svg viewBox="0 0 245 240" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor">
+                <path d="M104.4 104.2c-5.7 0-10.3 5-10.3 11.2s4.6 11.2 10.3 11.2c5.8 0 10.3-5 10.3-11.2 0-6.2-4.6-11.2-10.3-11.2zm36.2 0c-5.7 0-10.3 5-10.3 11.2s4.6 11.2 10.3 11.2c5.8 0 10.3-5 10.3-11.2 0-6.2-4.6-11.2-10.3-11.2z"/>
+                <path d="M189.5 20.3C161.6 7.2 133.7 1.4 105.5 1c-28.1.4-56.3 6.2-84.4 19.3C6 54.3-1 88.3.1 122.2c3.9 64.1 63.8 110 124.2 116.9 5.2.5 10.5.8 15.7.8 5.3 0 10.6-.3 15.8-.8 60.3-6.9 120.2-52.8 124.2-116.9 1.1-33.9-5.9-67.9-21.9-101.9-8-16.3-19.9-29-31.6-41.1-7.3-7.9-15.6-14.1-24-18.8zM171 165.4s-5.1-6.1-9.2-11.3c18.1-5.2 25-16.7 25-16.7-7.8 5.2-15.2 8.8-21.9 10.9-9.6 3.2-18.8 5.2-27.6 6.4-18.9 2.6-36 1.8-50.7-0.1-11.1-1.5-20.6-3.7-28.5-6.2-5.1-1.6-10.6-3.7-16.3-6.4-0.7-.3-1.5-.5-2.1-0.8-0.1 0-.1 0 0 0-0.2 1.4 1.5 10.4 21.8 18.1-4 4.8-8.7 10.3-12.2 15.3-21.3 29.5-15.5 57.5-15.5 57.5 22.8 17 44.5 22.3 63.9 24.6 2 0.2 4.1 0.3 6.1 0.4 42.1 2.9 75.7-9 99.9-28.6 0 0 5.4-4.2 14.2-14.1-17.6-5.1-27.8-16.3-27.8-16.3z"/>
+              </svg>
+            </span>
+            Discord
+          </button>
+
+          <!-- Email (hidden until click) -->
+          <button class="btn" id="emailToggle" type="button" aria-expanded="false" title="E-Mail anzeigen">
+            <span class="icon" aria-hidden="true">
+              <!-- mail icon -->
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 6.5C2 5.12 3.12 4 4.5 4h15c1.38 0 2.5 1.12 2.5 2.5v11c0 1.38-1.12 2.5-2.5 2.5h-15C3.12 20 2 18.88 2 17.5v-11z" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M21 6l-9 7L3 6" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+            Email anzeigen
+          </button>
+        </div>
+
+        <div class="contact-meta" aria-hidden="true">
+          <div style="opacity:0.9;font-weight:700">Let's collaborate</div>
+          <div style="font-size:13px;color:rgba(255,255,255,0.85)">Available for freelance & CTFs</div>
         </div>
       </div>
       <p class="contact-quote">"Stay curious. Stay secure."</p>
@@ -311,40 +340,85 @@ h1.name{
 </main>
 
 <script>
-/* TYPEWRITER */
-const roles=["Cybersecurity Enthusiast","Web App Pentester","Network Explorer","Scripting Builder"];
-let r=0,c=0,el=document.getElementById("roleText");
+/* TYPEWRITER - nur die zwei gewünschten Rollen */
+const roles = ["Penetration Tester", "Red Teamer Ethical Hacker"];
+let r = 0, c = 0;
+const el = document.getElementById("roleText");
 function type(){
-  if(c<roles[r].length){el.textContent+=roles[r].charAt(c++);setTimeout(type,80);}
-  else setTimeout(erase,1500);
+  if(c < roles[r].length){
+    el.textContent += roles[r].charAt(c++);
+    setTimeout(type, 80);
+  } else {
+    setTimeout(erase, 1400);
+  }
 }
 function erase(){
-  if(c>0){el.textContent=roles[r].substring(0,--c);setTimeout(erase,40);}
-  else{r=(r+1)%roles.length;setTimeout(type,300);}
+  if(c > 0){
+    el.textContent = roles[r].substring(0, --c);
+    setTimeout(erase, 40);
+  } else {
+    r = (r + 1) % roles.length;
+    setTimeout(type, 300);
+  }
 }
 type();
 
 /* REVEAL ANIMATION */
-const io=new IntersectionObserver((entries,obs)=>{
-  entries.forEach(e=>{
+const io = new IntersectionObserver((entries, obs) => {
+  entries.forEach(e => {
     if(e.isIntersecting){
-      let t=e.target;
+      let t = e.target;
       t.classList.add('revealed');
-      if(t.classList.contains('panel'))t.classList.add('revealed-card');
-      if(t.querySelectorAll('.bar').length>0)t.querySelectorAll('.bar').forEach(b=>{b.style.width=b.dataset.percent+'%'});
-      if(t.querySelectorAll('.skill-title').length>0)t.querySelectorAll('.skill-title').forEach(s=>s.classList.add('revealed'));
+      if(t.classList.contains('panel')) t.classList.add('revealed-card');
+      if(t.querySelectorAll('.bar').length>0) t.querySelectorAll('.bar').forEach(b=>{b.style.width=b.dataset.percent+'%'});
+      if(t.querySelectorAll('.skill-title').length>0) t.querySelectorAll('.skill-title').forEach(s=>s.classList.add('revealed'));
       obs.unobserve(t);
     }
   });
 },{threshold:.2});
 document.querySelectorAll('.section-heading, .panel').forEach(e=>io.observe(e));
 
-/* EMAIL REVEAL */
-document.getElementById('emailToggle').addEventListener('click',()=>{
-  const el=document.getElementById('emailToggle');
-  el.textContent='ctxzero[at]proton.me';
-  el.style.cursor='default';
+/* EMAIL SHOW / COPY */
+const emailBtn = document.getElementById('emailToggle');
+let emailVisible = false;
+const emailAddr = 'ctxzero.pentest@gmail.com'; // die von dir angegebene E-Mail
+emailBtn.addEventListener('click', () => {
+  if(!emailVisible){
+    // zeigen und mailto link erstellen
+    emailVisible = true;
+    emailBtn.setAttribute('aria-expanded', 'true');
+    emailBtn.textContent = emailAddr;
+    emailBtn.title = 'E-Mail kopieren';
+    emailBtn.style.cursor = 'pointer';
+    // beim nächsten Klick: kopieren in die Zwischenablage
+  } else {
+    // wenn schon sichtbar -> kopieren
+    navigator.clipboard && navigator.clipboard.writeText(emailAddr).then(()=> {
+      const old = emailBtn.textContent;
+      emailBtn.textContent = 'Kopiert!';
+      setTimeout(()=> emailBtn.textContent = old, 1500);
+    }).catch(()=> {
+      // Fallback: prompt zum kopieren
+      prompt('E-Mail (kopieren):', emailAddr);
+    });
+  }
 });
+
+/* DISCORD BUTTON: kopiert den Handle und gibt Feedback (Discord hat keine einfache öffentliche Profil-URL) */
+const discordBtn = document.getElementById('discordBtn');
+const discordHandle = 'ctxzero';
+discordBtn.addEventListener('click', () => {
+  navigator.clipboard && navigator.clipboard.writeText(discordHandle).then(()=> {
+    const old = discordBtn.innerHTML;
+    discordBtn.innerHTML = '<span style="display:inline-block;width:14px;"></span>Discord: kopiert!';
+    setTimeout(()=> discordBtn.innerHTML = old, 1400);
+  }).catch(()=> {
+    alert('Discord-Name: ' + discordHandle + '\n(Kopiere ihn manuell)');
+  });
+});
+
+/* Optional: konvertiere shown email zu mailto bei Klick auf Link (wenn du willst, kann man stattdessen ein <a> erzeugen) */
+// aktuell: E-Mail wird zuerst sichtbar, danach Klick kopiert die Adresse — das ist bewusst so, damit die E-Mail nicht sofort als plain mailto im Quelltext sichtbar ist.
 </script>
 </body>
 </html>
