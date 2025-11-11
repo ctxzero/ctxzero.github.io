@@ -77,10 +77,21 @@
     .eu-flag { width:18px; height:12px; display:inline-block; vertical-align:middle; margin-right:6px; border-radius:2px; overflow:hidden; flex-shrink:0; box-shadow:0 1px 0 rgba(0,0,0,0.35) inset; }
     .eu-flag svg{width:100%;height:100%;display:block}
 
-    /* ---------- Project section styles (new) ---------- */
+    /* ---------- Project section styles (modified) ---------- */
     .project-panel{ padding:40px 34px 36px; }
-    .project-wrap{ display:flex; flex-direction:column; align-items:center; gap:20px; max-width:920px; margin:0 auto; text-align:center; }
-    /* figure with thin gradient border + soft gradient glow */
+    .project-wrap{ display:flex; flex-direction:column; align-items:center; gap:18px; max-width:920px; margin:0 auto; text-align:center; }
+
+    /* description paragraph under Projects heading, above image */
+    .project-desc{
+      color:rgba(255,255,255,0.95);
+      font-weight:700;
+      font-size:15px;
+      max-width:820px;
+      margin:0 auto;
+      line-height:1.45;
+    }
+
+    /* figure acts as decorative frame with blurred glow */
     .project-figure{
       position:relative;
       width: min(860px, 94%);
@@ -91,22 +102,23 @@
       align-items:center;
       justify-content:center;
       overflow:visible;
-      padding:8px; /* space for pseudo-border */
+      padding:10px; /* outer padding to create visible frame space */
       box-shadow: 0 8px 40px rgba(0,0,0,0.6);
     }
-    /* thin gradient border using pseudo-element */
+
+    /* thin inner border/mask */
     .project-figure::before{
       content:'';
       position:absolute;
-      inset:6px;
+      inset:8px;
       border-radius:10px;
       padding:1px;
       background:transparent;
       pointer-events:none;
       z-index:1;
-      /* inner mask illusion to create thin border */
       box-shadow: 0 0 0 1px rgba(255,255,255,0.03) inset;
     }
+
     /* glowing gradient ring (blurred) */
     .project-figure::after{
       content:'';
@@ -120,7 +132,8 @@
       mix-blend-mode:screen;
       pointer-events:none;
     }
-    /* the actual image container (placeholder) */
+
+    /* actual image container sits inside the frame */
     .project-img{
       position:relative;
       z-index:2;
@@ -133,48 +146,29 @@
       align-items:center;
       justify-content:center;
       border:1px solid rgba(255,255,255,0.03);
+      padding:12px; /* inner padding so the image doesn't touch the inner border */
+      box-sizing:border-box;
     }
-    .project-img img{ width:100%; height:100%; object-fit:cover; display:block; }
-    /* overlay title/subtitle above the image center-top */
-    .project-overlay{
-      position:absolute;
-      z-index:3;
-      top:18px;
-      left:50%;
-      transform:translateX(-50%);
-      text-align:center;
-      color:var(--white);
-      pointer-events:none;
-      width:calc(100% - 120px);
-      max-width:780px;
-    }
-    .project-overlay h3{
-      margin:0;
-      font-size:28px;
-      font-weight:900;
-      text-shadow:0 6px 30px rgba(0,0,0,0.6);
-    }
-    .project-overlay p{
-      margin:6px 0 0 0;
-      font-size:14px;
-      color:rgba(255,255,255,0.9);
-      font-weight:600;
-      text-shadow:0 3px 14px rgba(0,0,0,0.45);
-    }
-    /* button below image */
-    .project-actions{ margin-top:12px; display:flex; gap:12px; align-items:center; justify-content:center; }
-    .btn-outline{
-      border-radius:12px;
-      padding:10px 18px;
+
+    /* ensure image fits inside frame without cropping */
+    .project-img img{
+      width:100%;
+      height:100%;
+      object-fit:contain; /* <-- changed so the whole image fits */
+      display:block;
+      border-radius:8px;
       background:transparent;
-      border:2px solid rgba(255,255,255,0.06);
-      color:var(--white);
-      font-weight:900;
-      cursor:pointer;
-      transition:all .12s ease;
     }
+
+    /* hide previous overlay approach (not used now) */
+    .project-overlay{ display:none; }
+
+    .project-actions{ margin-top:12px; display:flex; gap:12px; align-items:center; justify-content:center; }
+
+    .btn-outline{ border-radius:12px; padding:10px 18px; background:transparent; border:2px solid rgba(255,255,255,0.06); color:var(--white); font-weight:900; cursor:pointer; transition:all .12s ease; }
     .btn-outline:hover{ transform:translateY(-4px); box-shadow:0 10px 40px rgba(255,127,0,0.07); border-color:rgba(255,127,0,0.9); }
-    /* small responsive tweaks */
+
+    /* Responsive tweaks */
     @media (max-width:820px){
       .project-figure{ height:380px; }
       .project-overlay h3{ font-size:22px; }
@@ -182,7 +176,7 @@
     }
     @media (max-width:520px){
       .project-figure{ height:320px; }
-      .project-overlay{ top:14px; width:calc(100% - 48px); }
+      .project-desc{ font-size:14px; }
     }
   </style>
 </head>
@@ -290,40 +284,37 @@
       </div>
     </section>
 
-<!-- ---------- NEW Projects section (inserted under certifications) ---------- -->
-<section class="section" id="projects">
-  <h2 class="section-heading">Projects</h2>
-  <div class="panel project-panel">
-    <div class="project-wrap">
+    <!-- ---------- Projects section (modified structure) ---------- -->
+    <section class="section" id="projects">
+      <h2 class="section-heading">Projects</h2>
 
-              <!-- Overlayed text over image (under the section heading, above the image) -->
-        <figcaption class="project-overlay">
-          <h3 id="project-title">PortHunt</h3>
-          <p>High-speed Python Port Scanner with CVE lookup and JSON/HTML results</p>
-        </figcaption>
-      </figure>
-    </div>
-  </div>
-</section>
-    
-      <!-- big centered image with gradient glow -->
-      <figure class="project-figure" aria-labelledby="project-title" role="group">
-        <div class="project-img" aria-hidden="true">
-          <!-- Image with glow effect -->
-          <img src="assets/PortHunt-Banner.png" alt="PortHunt Project Image">
-        </div>
+      <!-- description under Projects heading and above the framed image -->
+      <p class="project-desc">High-speed Python Port Scanner with CVE lookup and JSON/HTML results.</p>
 
+      <div class="panel project-panel">
+        <div class="project-wrap">
+          <!-- figure acts as outer decorative frame -->
+          <figure class="project-figure" aria-labelledby="project-title" role="group">
+            <div class="project-img" aria-hidden="true">
+              <!-- the image will fit inside the frame (object-fit: contain) -->
+              <img src="assets/PortHunt-Banner.png" alt="PortHunt Project Image">
+            </div>
+          </figure>
 
+          <!-- caption/metadata under the image (optional) -->
+          <div style="text-align:center;color:rgba(255,255,255,0.9);font-weight:700;">
+            <div id="project-title" style="font-size:20px;margin-bottom:6px;">PortHunt</div>
+          </div>
 
-          <!-- action button under the image -->
+          <!-- action buttons under the image -->
           <div class="project-actions" role="navigation" aria-label="project actions">
-            <!-- replace href="#" with your repo/link -->
-            <a id="viewCodeBtn" class="btn-outline" href="https://ctxzero.dev/PortHunt" target="_blank" rel="noopener">View code</a>
+            <a id="viewCodeBtn" class="btn-outline" href="#" target="_blank" rel="noopener">View code</a>
+            <a class="btn-outline" href="#" target="_blank" rel="noopener">Demo</a>
           </div>
         </div>
       </div>
     </section>
-    <!-- ---------- end new Projects section ---------- -->
+    <!-- ---------- end Projects section ---------- -->
 
     <section class="section" id="contact">
       <h2 class="section-heading">Get in Touch</h2>
@@ -333,13 +324,16 @@
             <a class="btn" href="https://github.com/ctxzero" target="_blank" rel="noopener">
               <span class="icon" aria-hidden="true">
                 <svg viewBox="0 0 24 24" fill="none" width="20" height="20" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M12 .5C5.65.5.75 5.4.75 11.75c0 4.84 3.14 8.95 7.5 10.4.55.1.75-.24.75-.53 0-.26-.01-1.12-.01-2.03-3.05.66-3.69-.74-3.92-1.42-.13-.36-.7-1.42-1.2-1.71-.41-.23-1-.8-.01-.82.93-.02 1.59.86 1.81 1.22 1.06 1.82 2.75 1.3 3.43.99.11-.78.41-1.3.74-1.6-2.73-.31-5.6-1.37-5.6-6.09 0-1.35.48-2.45 1.26-3.32-.13-.31-.55-1.56.12-3.25 0 0 1.02-.33 3.34 1.26 .97-.27 2.01-.4 3.04-.4 1.03 0 2.07.13 3.04.4 2.32-1.59 3.34-1.26 3.34-1.26 .67 1.69.25 2.94.12 3.25 .78.87 1.26 1.97 1.26 3.32 0 4.73-2.88 5.77-5.62 6.07.42.36.79 1.06.79 2.13 0 1.54-.01 2.78-.01 3.16 0 .29.2.63.76.52 4.35-1.46 7.49-5.57 7.49-10.4C23.25 5.4 18.35.5 12 .5Z"/></svg>
-              </span> GitHub
+              </span>
+              GitHub
             </a>
             <a class="btn" href="https://tryhackme.com/p/ctxzero" target="_blank" rel="noopener">
               <span class="icon" aria-hidden="true">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12 2s-1.2 2.1-1.2 4.1C10.8 8 9.7 8.6 9 9c-.7.4-1.5 1.6-1.5 3.2C7.5 15.9 9.9 18 12 20c2.1-2 4.5-4.1 4.5-7.8 0-1.6-.8-2.8-1.5-3.2-.7-.4-1.8-1-1.8-2.9C13.2 4.1 12 2 12 2z" fill="currentColor"/></svg>
-              </span> TryHackMe
+                  <path d="M12 2s-1.2 2.1-1.2 4.1C10.8 8 9.7 8.6 9 9c-.7.4-1.5 1.6-1.5 3.2C7.5 15.9 9.9 18 12 20c2.1-2 4.5-4.1 4.5-7.8 0-1.6-.8-2.8-1.5-3.2-.7-.4-1.8-1-1.8-2.9C13.2 4.1 12 2 12 2z" fill="currentColor"/>
+                </svg>
+              </span>
+              TryHackMe
             </a>
           </div>
 
@@ -381,8 +375,12 @@
       } else { setTimeout(erase, 1500); }
     }
     function erase() {
-      if (c > 0) { el.textContent = roles[r].substring(0, --c); setTimeout(erase, 40); }
-      else { r = (r + 1) % roles.length; setTimeout(type, 300); }
+      if (c > 0) {
+        el.textContent = roles[r].substring(0, --c);
+        setTimeout(erase, 40);
+      } else {
+        r = (r + 1) % roles.length; setTimeout(type, 300);
+      }
     }
     type();
 
@@ -438,6 +436,7 @@
     }
     discordBadge.addEventListener('click', () => { copyToClipboard(discordName); });
     discordBadge.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); discordBadge.click(); } });
+
     document.addEventListener('keydown', (e) => { if (e.key === 'Tab') document.body.classList.add('user-is-tabbing'); });
 
     // Accessibility: ensure the "View code" button can be tabbed
