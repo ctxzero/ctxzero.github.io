@@ -81,7 +81,6 @@ h1.name{color:white;font-size:clamp(48px,10vw,110px);font-weight:900;margin:0 0 
     .eu-flag { width:18px; height:12px; display:inline-block; vertical-align:middle; margin-right:6px; border-radius:2px; overflow:hidden; flex-shrink:0; box-shadow:0 1px 0 rgba(0,0,0,0.35) inset; }
     .eu-flag svg{width:100%;height:100%;display:block}
 
-/* ---------- Projects section ---------- */
 .project-panel{padding:40px 34px 36px;}
 .project-wrap{display:flex;flex-direction:column;align-items:center;gap:20px;max-width:920px;margin:0 auto;text-align:center;}
 .project-figure{
@@ -250,37 +249,30 @@ h1.name{color:white;font-size:clamp(48px,10vw,110px);font-weight:900;margin:0 0 
       </div>
     </section>
 
-    <!-- ---------- Projects section (modified structure) ---------- -->
     <section class="section" id="projects">
       <h2 class="section-heading">Projects</h2>
 
-      <!-- description under Projects heading and above the framed image -->
       <p class="project-desc">High-speed Python Port Scanner with CVE lookup and JSON/HTML results.</p>
 
       <div class="panel project-panel">
         <div class="project-wrap">
-          <!-- figure acts as outer decorative frame -->
           <figure class="project-figure" aria-labelledby="project-title" role="group">
             <div class="project-img" aria-hidden="true">
-              <!-- the image will fit inside the frame (object-fit: contain) -->
               <img src="assets/PortHunt-Banner.png" alt="PortHunt Project Image">
             </div>
           </figure>
 
-          <!-- caption/metadata under the image (optional) -->
           <div style="text-align:center;color:rgba(255,255,255,0.9);font-weight:700;">
             <div id="project-title" style="font-size:20px;margin-bottom:6px;">PortHunt</div>
           </div>
 
-          <!-- action buttons under the image -->
           <div class="project-actions" role="navigation" aria-label="project actions">
-            <a id="viewCodeBtn" class="btn-outline" href="#" target="_blank" rel="noopener">View code</a>
-            <a class="btn-outline" href="#" target="_blank" rel="noopener">Demo</a>
+            <a id="viewCodeBtn" class="btn-outline" href="PortHunt" target="_blank" rel="noopener">View code</a>
+            <a class="btn-outline" href="#" target="_blank" rel="noopener"></a>
           </div>
         </div>
       </div>
     </section>
-    <!-- ---------- end Projects section ---------- -->
 
     <section class="section" id="contact">
       <h2 class="section-heading">Get in Touch</h2>
@@ -322,7 +314,7 @@ h1.name{color:white;font-size:clamp(48px,10vw,110px);font-weight:900;margin:0 0 
               </div>
             </button>
 
-            <p class="contact-quote">"Stay curious. Stay secure."</p>
+            <p class="contact-quote">"ctxzero / 2025"</p>
           </div>
         </div>
       </div>
@@ -405,11 +397,9 @@ h1.name{color:white;font-size:clamp(48px,10vw,110px);font-weight:900;margin:0 0 
 
     document.addEventListener('keydown', (e) => { if (e.key === 'Tab') document.body.classList.add('user-is-tabbing'); });
 
-    // Accessibility: ensure the "View code" button can be tabbed
     const viewCodeBtn = document.getElementById('viewCodeBtn');
     if (viewCodeBtn) {
       viewCodeBtn.addEventListener('click', (e) => {
-        // default link is "#". Replace href in HTML with your repo URL.
       });
     }
   </script>
