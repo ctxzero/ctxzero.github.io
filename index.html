@@ -196,27 +196,7 @@ h1.wordmark .z{color:var(--acid)}
 .btn.line{border-style:dashed;color:var(--faint)}
 .btn.line:hover{color:#07080a;border-color:var(--acid);border-style:solid}
 
-/* hero footer data strip */
-.h-strip{position:absolute;left:0;right:0;bottom:0;z-index:2;border-top:1px solid var(--line);background:linear-gradient(transparent,rgba(7,8,10,.72) 55%)}
-.h-strip .wrap{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));align-items:stretch}
-.h-strip .cell{min-width:0;padding:14px 26px;display:flex;flex-direction:column;gap:5px;
-  border-right:1px solid var(--line)}
-.h-strip .cell:first-child{padding-left:0}
-.h-strip .cell:last-child{border-right:0;padding-right:0}
-.h-strip .cell>span:first-child{font-family:var(--m);font-size:10px;letter-spacing:.2em;color:var(--faint);text-transform:uppercase;white-space:nowrap}
-.h-strip .cell>span:last-child{font-family:var(--m);font-size:12.5px;line-height:1.45;color:var(--bone);letter-spacing:.01em;overflow-wrap:break-word}
-.h-strip .cell .ok{color:var(--acid)}
-.h-strip .cell .soon{color:var(--faint)}
-@media(max-width:1180px){.h-strip .cell{padding:14px 18px}}
-@media(max-width:1040px){.h-strip{position:static;margin-top:44px;background:none}
-  .h-strip .wrap{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .h-strip .cell{padding:12px 18px 12px 0;border-right:0;border-bottom:1px solid var(--line)}
-  .h-strip .cell:nth-child(2n){padding-right:0;padding-left:18px;border-left:1px solid var(--line)}
-  .h-strip .cell:nth-last-child(-n+2){border-bottom:0}}
-@media(max-width:520px){.h-strip .wrap{grid-template-columns:1fr}
-  .h-strip .cell,.h-strip .cell:nth-child(2n){padding:11px 0;border-left:0;border-bottom:1px solid var(--line)}
-  .h-strip .cell:last-child{border-bottom:0}}
-.scrollcue{position:absolute;right:var(--pad);bottom:calc(100% + 18px);font-family:var(--m);font-size:10px;
+.scrollcue{position:absolute;right:var(--pad);bottom:clamp(30px,5vh,52px);z-index:2;font-family:var(--m);font-size:10px;
   letter-spacing:.2em;color:var(--faint);text-transform:uppercase;display:flex;align-items:center;gap:9px}
 .scrollcue i{display:block;width:1px;height:26px;background:linear-gradient(var(--acid),transparent);animation:cue 2s ease-in-out infinite}
 @keyframes cue{0%,100%{transform:scaleY(.35);opacity:.4;transform-origin:top}50%{transform:scaleY(1);opacity:1;transform-origin:top}}
@@ -734,15 +714,7 @@ html.js .term-body .ln.sh{opacity:1;animation:lnIn .26s var(--ease) both}
     </div>
   </div>
 
-  <div class="h-strip" data-r style="--i:8">
-    <div class="scrollcue"><span>Scroll</span><i></i></div>
-    <div class="wrap">
-      <div class="cell"><span>Operator</span><span> ctxzero</span></div>
-      <div class="cell"><span>Focus</span><span>Web · Network · Active Directory</span></div>
-      <div class="cell"><span>Certified</span><span>CPTS · eJPT · CTI101 · CLLMSE<br /><span class="soon">CWES in progress</span></span></div>
-      <div class="cell"><span>Status</span><span class="ok">Open to opportunities</span></div>
-    </div>
-  </div>
+  <div class="scrollcue" data-r style="--i:8"><span>Scroll</span><i></i></div>
 </section>
 
 <!-- ══════════ TICKER ══════════ -->
