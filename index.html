@@ -5,22 +5,22 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
 <script>document.documentElement.className+=' js';</script>
 
-<title>ctxzero — Penetration Tester &amp; Security Researcher</title>
-<meta name="description" content="ctxzero (Luis Schlegel) — penetration tester and security researcher. CPTS, eJPT, CTI101 and CLLMSE certified. Web application, network and Active Directory offensive security, custom tooling and Hack The Box writeups." />
+<title>ctxzero - Penetration Tester &amp; Security Researcher</title>
+<meta name="description" content="ctxzero (Luis Schlegel) - penetration tester and security researcher. CPTS, eJPT, CTI101 and CLLMSE certified. Web application, network and Active Directory offensive security, custom tooling and Hack The Box writeups." />
 <link rel="canonical" href="https://www.ctxzero.dev/" />
 <meta name="author" content="ctxzero" />
 <meta name="theme-color" content="#07080a" />
 
 <meta property="og:type" content="profile" />
 <meta property="og:site_name" content="ctxzero" />
-<meta property="og:title" content="ctxzero — Penetration Tester" />
+<meta property="og:title" content="ctxzero - Penetration Tester" />
 <meta property="og:description" content="Web · Network · Active Directory. CPTS · eJPT · CTI101 · CLLMSE. Co-captain @ v1olet. Field notes from recon to domain admin." />
 <meta property="og:url" content="https://www.ctxzero.dev/" />
 <meta property="og:image" content="https://www.ctxzero.dev/assets/og.png" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="ctxzero — Penetration Tester" />
+<meta name="twitter:title" content="ctxzero - Penetration Tester" />
 <meta name="twitter:description" content="Web · Network · Active Directory. CPTS · eJPT · CTI101 · CLLMSE. Field notes from recon to domain admin." />
 <meta name="twitter:image" content="https://www.ctxzero.dev/assets/og.png" />
 
@@ -37,7 +37,7 @@
 
 <style>
 /* ═══════════════════════════════════════════════════════════
-   CTX-0 — self-hosted type
+   CTX-0 - self-hosted type
    ═══════════════════════════════════════════════════════════ */
 @font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:400 600;font-display:swap;src:url(assets/fonts/jetbrains-mono-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF}
 @font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:400 600;font-display:swap;src:url(assets/fonts/jetbrains-mono-latin.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
@@ -77,7 +77,7 @@ img{max-width:100%;height:auto;display:block}
 ::selection{background:var(--acid);color:#07080a}
 :focus-visible{outline:2px solid var(--acid);outline-offset:3px}
 
-/* film grain — keeps flat dark surfaces from looking synthetic */
+/* film grain - keeps flat dark surfaces from looking synthetic */
 .grain{position:fixed;inset:0;z-index:9990;pointer-events:none;opacity:.028;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
 
@@ -134,7 +134,7 @@ body.menu .sheet{opacity:1;visibility:visible}
    ═══════════════════════════════════════════════════════════ */
 .hero{position:relative;min-height:100svh;display:flex;flex-direction:column;justify-content:center;
   padding-top:calc(var(--bar) + clamp(40px,7vh,80px));padding-bottom:clamp(80px,12vh,120px);overflow:hidden}
-/* canvas is a replaced element — inset:0 alone will not stretch it */
+/* canvas is a replaced element - inset:0 alone will not stretch it */
 #glyph{position:absolute;inset:0;width:100%;height:100%;z-index:1;pointer-events:none;
   -webkit-mask-image:radial-gradient(54% 78% at 88% 52%,#000 0%,rgba(0,0,0,.55) 46%,transparent 76%);
           mask-image:radial-gradient(54% 78% at 88% 52%,#000 0%,rgba(0,0,0,.55) 46%,transparent 76%)}
@@ -503,7 +503,7 @@ html.js .term-body .ln.sh{opacity:1;animation:lnIn .26s var(--ease) both}
 .md pre:hover .cpbtn{opacity:1}
 .cpbtn:hover{color:var(--acid);border-color:var(--acid)}
 
-/* syntax theme — matched to the palette, no external stylesheet */
+/* syntax theme - matched to the palette, no external stylesheet */
 .hljs-comment,.hljs-quote{color:#5f6670;font-style:italic}
 .hljs-keyword,.hljs-selector-tag,.hljs-literal,.hljs-doctag{color:var(--acid)}
 .hljs-string,.hljs-regexp,.hljs-addition{color:#a8e05f}
@@ -641,7 +641,7 @@ html.js .term-body .ln.sh{opacity:1;animation:lnIn .26s var(--ease) both}
 
 <!-- ══════════ TOP BAR ══════════ -->
 <header class="bar" id="bar">
-  <a class="brand" href="#top" aria-label="ctxzero — top">
+  <a class="brand" href="#top" aria-label="ctxzero - top">
     <b>ctx<span class="c0">zero</span></b>
   </a>
   <nav class="bnav" id="bnav" aria-label="Sections">
@@ -725,7 +725,7 @@ html.js .term-body .ln.sh{opacity:1;animation:lnIn .26s var(--ease) both}
     <p class="h-role" data-r style="--i:4">Penetration Tester &nbsp;/&nbsp; Security Researcher</p>
 
     <p class="h-lede" data-r style="--i:5">I break <b>web applications</b>, <b>networks</b> and <b>Active Directory</b> to understand how
-      attacks actually work — then write it down so someone else can reproduce it. Manual first, tooling second,
+      attacks actually work - then write it down so someone else can reproduce it. Manual first, tooling second,
       always chasing the <em>why</em> behind an exploitable finding.</p>
 
     <div class="h-cta" data-r style="--i:6">
@@ -737,7 +737,7 @@ html.js .term-body .ln.sh{opacity:1;animation:lnIn .26s var(--ease) both}
   <div class="h-strip" data-r style="--i:8">
     <div class="scrollcue"><span>Scroll</span><i></i></div>
     <div class="wrap">
-      <div class="cell"><span>Operator</span><span>ctxzero</span></div>
+      <div class="cell"><span>Operator</span><span> ctxzero</span></div>
       <div class="cell"><span>Focus</span><span>Web · Network · Active Directory</span></div>
       <div class="cell"><span>Certified</span><span>CPTS · eJPT · CTI101 · CLLMSE<br /><span class="soon">CWES in progress</span></span></div>
       <div class="cell"><span>Status</span><span class="ok">Open to opportunities</span></div>
@@ -758,14 +758,14 @@ html.js .term-body .ln.sh{opacity:1;animation:lnIn .26s var(--ease) both}
     <div class="dossier">
       <div>
         <h2 class="h2"><span class="mline"><span>Offensive security,</span></span><span class="mline"><span>the <span class="acid">long way</span> round.</span></span></h2>
-        <p class="lede" data-r style="--i:0">I'm Luis — <b>ctxzero</b> online. Penetration tester and security researcher,
+        <p class="lede" data-r style="--i:0">I'm Luis - <b>ctxzero</b> online. Penetration tester and security researcher,
           based in Europe, working across web application, network and Active Directory offensive security.</p>
         <p class="copy" data-r style="--i:1">I work manual-first and back it with the right tooling. A scanner flag is a
-          starting point, not a finding — what matters is <em>why</em> something is exploitable, what it chains into,
+          starting point, not a finding - what matters is <em>why</em> something is exploitable, what it chains into,
           and what it actually costs the business when someone walks that path end to end.</p>
         <p class="copy" data-r style="--i:2">Everything I learn ends up in two places: writeups that document the full route
           from recon to root, and tooling I build when the existing option is too slow or too loud. I'm pushing deeper into
-          web application security and starting to work the other side of the fence — blue team and forensics — because
+          web application security and starting to work the other side of the fence - blue team and forensics - because
           knowing how detection fails makes for better offense.</p>
       </div>
 
@@ -774,7 +774,7 @@ html.js .term-body .ln.sh{opacity:1;animation:lnIn .26s var(--ease) both}
           <div class="row" data-r style="--i:0"><span class="k">Focus</span><span class="v">Web application · Network · Active Directory</span></div>
           <div class="row" data-r style="--i:1"><span class="k">Approach</span><span class="v">Enumerate everything. Verify by hand. Prove impact.</span></div>
           <div class="row" data-r style="--i:2"><span class="k">Currently</span><span class="v">Sharpening web app skills · moving into blue team &amp; forensics</span></div>
-          <div class="row" data-r style="--i:3"><span class="k">Team</span><span class="v">Co-captain @ v1olet — offensive security research &amp; CTF</span></div>
+          <div class="row" data-r style="--i:3"><span class="k">Team</span><span class="v">Co-captain @ v1olet - offensive security research &amp; CTF</span></div>
           <div class="row" data-r style="--i:4"><span class="k">Based</span><span class="v">Europe</span></div>
           <div class="row" data-r style="--i:5"><span class="k">Status</span><span class="v"><span class="acid">Open to opportunities</span></span></div>
         </div>
@@ -782,10 +782,10 @@ html.js .term-body .ln.sh{opacity:1;animation:lnIn .26s var(--ease) both}
     </div>
 
     <div class="stats">
-      <div class="stat"><div class="n acid" id="statWu" data-count="0">—</div><div class="k">Machines documented</div></div>
+      <div class="stat"><div class="n acid" id="statWu" data-count="0">-</div><div class="k">Machines documented</div></div>
       <div class="stat"><div class="n" data-count="4">04</div><div class="k">Certifications held</div></div>
       <div class="stat"><div class="n" data-count="3"><span>03</span><sup>rd</sup></div><div class="k">BroncoCTF · 1065+ teams</div></div>
-      <div class="stat"><div class="n" data-count="28"><span>28</span><sup>th</sup></div><div class="k">Cyber Apocalypse · 12k+ teams</div></div>
+      <div class="stat"><div class="n" data-count="28"><span>28</span><sup>th</sup></div><div class="k">Cyber Apocalypse · 7k+ teams</div></div>
     </div>
   </div>
 </section>
@@ -795,7 +795,7 @@ html.js .term-body .ln.sh{opacity:1;animation:lnIn .26s var(--ease) both}
   <div class="wrap">
     <div class="sec-head"><span class="num">02</span><span class="nm">Capability matrix</span><span class="rule"></span><span class="rt">Hover a technique for detail</span></div>
     <h2 class="h2"><span class="mline"><span>Where I operate.</span></span></h2>
-    <p class="copy" style="margin-bottom:clamp(28px,4vw,44px)" data-r>Grouped the way an engagement actually runs — from first packet to
+    <p class="copy" style="margin-bottom:clamp(28px,4vw,44px)" data-r>Grouped the way an engagement actually runs - from first packet to
       the report. Every cell is something I've used against a real target, not a bullet point off a syllabus.</p>
 
     <div class="mx rv" id="mx">
@@ -818,7 +818,7 @@ html.js .term-body .ln.sh{opacity:1;animation:lnIn .26s var(--ease) both}
         <h3>Web app <i></i></h3>
         <div class="cellwrap">
           <button class="cell" data-x="Union, boolean, time-based and out-of-band. Found by hand, automated only to speed up extraction.">SQL injection</button>
-          <button class="cell" data-x="Reflected, stored and DOM-based — carried through to a real impact demo, not an alert box.">XSS</button>
+          <button class="cell" data-x="Reflected, stored and DOM-based - carried through to a real impact demo, not an alert box.">XSS</button>
           <button class="cell" data-x="Internal service reach, cloud metadata and protocol smuggling out of one trusted fetch.">SSRF</button>
           <button class="cell" data-x="Object and function level access control tested across every role the app defines.">IDOR / BOLA</button>
           <button class="cell" data-x="Session handling, JWT flaws, reset logic and multi-step flows that trust the wrong step.">Auth bypass</button>
@@ -826,7 +826,7 @@ html.js .term-body .ln.sh{opacity:1;animation:lnIn .26s var(--ease) both}
           <button class="cell" data-x="Template engine detection, then escalation from expression evaluation to RCE.">SSTI</button>
           <button class="cell" data-x="Argument and metacharacter injection, including blind and filtered variants.">Command injection</button>
           <button class="cell" data-x="Traversal into source disclosure, log poisoning and file-read-to-RCE chains.">LFI / traversal</button>
-          <button class="cell" data-x="Polluting Object.prototype to reach a gadget the application never meant to expose — client and server side.">Prototype pollution</button>
+          <button class="cell" data-x="Polluting Object.prototype to reach a gadget the application never meant to expose - client and server side.">Prototype pollution</button>
           <button class="cell" data-x="Unserialize on attacker-controlled input, then a POP chain through the app's own classes to RCE.">PHP object injection</button>
           <button class="cell more" data-x="Deserialisation beyond PHP, CORS and cache poisoning, request smuggling, XXE, race conditions, business-logic abuse.">+ more</button>
         </div>
@@ -835,14 +835,14 @@ html.js .term-body .ln.sh{opacity:1;animation:lnIn .26s var(--ease) both}
       <div class="mx-col">
         <h3>Network <i></i></h3>
         <div class="cellwrap">
-          <button class="cell" data-x="Every service, every version, every default credential — before anything gets exploited.">Service enum</button>
+          <button class="cell" data-x="Every service, every version, every default credential - before anything gets exploited.">Service enum</button>
           <button class="cell" data-x="Share hunting, null sessions, RPC enumeration and everything they leak about the domain.">SMB / RPC</button>
           <button class="cell" data-x="Turning one compromised host into a route to the segments that actually matter.">Pivoting</button>
           <button class="cell" data-x="Chisel, ligolo and SSH tunnels to reach internal services from outside the perimeter.">Tunneling</button>
           <button class="cell" data-x="Reusing credentials and trust relationships to move sideways without tripping anything.">Lateral movement</button>
           <button class="cell" data-x="SUID, capabilities, cron, kernel and misconfigured services on the way to root.">Linux privesc</button>
           <button class="cell" data-x="Token abuse, unquoted paths, service permissions and privilege escalation to SYSTEM.">Windows privesc</button>
-          <button class="cell" data-x="Spraying, targeted cracking and credential reuse — quietly, within lockout policy.">Password attacks</button>
+          <button class="cell" data-x="Spraying, targeted cracking and credential reuse - quietly, within lockout policy.">Password attacks</button>
           <button class="cell more" data-x="SNMP and NFS, LDAP and MSSQL, printer and IoT footholds, VPN and RDP exposure, port forwarding through jump hosts.">+ more</button>
         </div>
       </div>
@@ -857,7 +857,7 @@ html.js .term-body .ln.sh{opacity:1;animation:lnIn .26s var(--ease) both}
           <button class="cell" data-x="Certificate template misconfiguration, ESC1 through ESC8, into domain-wide authentication.">ADCS abuse</button>
           <button class="cell" data-x="Replicating the directory to pull every hash in the domain once the rights are there.">DCSync</button>
           <button class="cell" data-x="Unconstrained, constrained and resource-based delegation turned into impersonation.">Delegation abuse</button>
-          <button class="cell" data-x="GenericAll, WriteDACL and friends — the ACL edges nobody audits after a migration.">ACL abuse</button>
+          <button class="cell" data-x="GenericAll, WriteDACL and friends - the ACL edges nobody audits after a migration.">ACL abuse</button>
           <button class="cell more" data-x="Silver and golden tickets, shadow credentials, GPO abuse, LAPS and gMSA reads, trust and cross-forest paths.">+ more</button>
         </div>
       </div>
@@ -872,7 +872,7 @@ html.js .term-body .ln.sh{opacity:1;animation:lnIn .26s var(--ease) both}
           <button class="cell" data-x="Tracking every artifact dropped and handing back a clean environment.">Artifact cleanup</button>
           <button class="cell" data-x="Reproducible steps, evidence and remediation a defender can act on the same week.">Reporting</button>
           <button class="cell" data-x="Screenshots, command logs and timestamps captured while the work happens, not after.">Evidence capture</button>
-          <button class="cell" data-x="Knowing exactly where the engagement stops — and actually stopping there.">Scope discipline</button>
+          <button class="cell" data-x="Knowing exactly where the engagement stops - and actually stopping there.">Scope discipline</button>
           <button class="cell more" data-x="Log review for what a defender would have seen, detection notes, retest cycles, remediation walkthroughs with the dev team.">+ more</button>
         </div>
       </div>
@@ -881,7 +881,7 @@ html.js .term-body .ln.sh{opacity:1;animation:lnIn .26s var(--ease) both}
         <h3>Tooling <i></i></h3>
         <div class="cellwrap">
           <button class="cell" data-x="Primary language for scanners, exploit PoCs and anything that has to run fast and async.">Python</button>
-          <button class="cell" data-x="Glue for engagement workflow — enumeration pipelines and repeatable loot handling.">Bash</button>
+          <button class="cell" data-x="Glue for engagement workflow - enumeration pipelines and repeatable loot handling.">Bash</button>
           <button class="cell" data-x="Living off the land on Windows estates without dropping foreign binaries.">PowerShell</button>
           <button class="cell" data-x="Writing the proof-of-concept when the public exploit is broken, loud or nonexistent.">Exploit PoCs</button>
           <button class="cell" data-x="Automating the boring 80% so the interesting 20% gets the full attention span.">Automation</button>
@@ -895,7 +895,7 @@ html.js .term-body .ln.sh{opacity:1;animation:lnIn .26s var(--ease) both}
 
     <div class="mx-detail" id="mxDetail">
       <span class="tag" id="mxTag">Select</span>
-      <span class="tx" id="mxTx"><b>Hover or tap any technique</b> — the detail lands here.</span>
+      <span class="tx" id="mxTx"><b>Hover or tap any technique</b> - the detail lands here.</span>
     </div>
   </div>
 </section>
@@ -909,7 +909,7 @@ html.js .term-body .ln.sh{opacity:1;animation:lnIn .26s var(--ease) both}
     <div class="flow">
       <div class="ph"><div class="n">PHASE 01</div><h3>Recon</h3><p>Map the whole attack surface before touching anything. The finding that matters is usually on the host nobody remembered was in scope.</p></div>
       <div class="ph"><div class="n">PHASE 02</div><h3>Exploitation</h3><p>Verify by hand, then chain. Individually low-severity issues become the interesting part once they stack.</p></div>
-      <div class="ph"><div class="n">PHASE 03</div><h3>Post-exploitation</h3><p>Escalate, pivot and demonstrate impact — because "we got a shell" is not a risk statement anyone can act on.</p></div>
+      <div class="ph"><div class="n">PHASE 03</div><h3>Post-exploitation</h3><p>Escalate, pivot and demonstrate impact - because "we got a shell" is not a risk statement anyone can act on.</p></div>
       <div class="ph"><div class="n">PHASE 04</div><h3>Reporting</h3><p>Reproducible steps, evidence, real business impact and remediation that fits how the team actually ships.</p></div>
     </div>
   </div>
@@ -938,7 +938,7 @@ html.js .term-body .ln.sh{opacity:1;animation:lnIn .26s var(--ease) both}
       </div>
 
       <div class="term" id="term">
-        <div class="term-bar"><i></i><i></i><i></i><span class="t">ctxzero@ctx0 — porthunt</span></div>
+        <div class="term-bar"><i></i><i></i><i></i><span class="t">ctxzero@ctx0 - porthunt</span></div>
         <div class="term-body"><pre><code><span class="ln"><span class="t-ok">ctxzero@ctx0</span><span class="t-dim">:~$</span> <span class="t-bone">porthunt --target 10.10.11.42 --top 1000 --cve --report html</span></span>
 <span class="ln"></span>
 <span class="ln"><span class="t-ok">  +-- PORTHUNT ----------------------------------+</span></span>
@@ -971,7 +971,7 @@ html.js .term-body .ln.sh{opacity:1;animation:lnIn .26s var(--ease) both}
     <div class="wu-top">
       <div style="max-width:56ch">
         <h2 class="h2" style="margin-bottom:14px"><span class="mline"><span>Recon to root,</span></span><span class="mline"><span>written down.</span></span></h2>
-        <p class="copy" style="margin:0" data-r>Hack The Box machine writeups, pulled live from the repo and rendered right here —
+        <p class="copy" style="margin:0" data-r>Hack The Box machine writeups, pulled live from the repo and rendered right here -
           full route, every wrong turn included. Pick one.</p>
       </div>
       <a class="btn ghost" href="https://github.com/ctxzero/writeups" target="_blank" rel="noopener" style="flex-shrink:0"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.6.5.7 5.4.7 11.7c0 4.9 3.1 9 7.5 10.4.5.1.7-.2.7-.5v-1.9c-3 .6-3.7-1.3-3.7-1.3-.5-1.3-1.2-1.6-1.2-1.6-1-.7.1-.7.1-.7 1.1.1 1.6 1.1 1.6 1.1 1 1.7 2.6 1.2 3.2.9.1-.7.4-1.2.7-1.5-2.4-.3-5-1.2-5-5.3 0-1.2.4-2.1 1.1-2.9-.1-.3-.5-1.4.1-2.8 0 0 .9-.3 2.9 1.1a10 10 0 0 1 5.3 0c2-1.4 2.9-1.1 2.9-1.1.6 1.4.2 2.5.1 2.8.7.8 1.1 1.7 1.1 2.9 0 4.1-2.6 5-5 5.3.4.3.8 1 .8 2.1v3c0 .3.2.6.8.5 4.3-1.4 7.4-5.5 7.4-10.4C23.3 5.4 18.4.5 12 .5Z"/></svg><span>Source</span></a>
@@ -997,10 +997,10 @@ html.js .term-body .ln.sh{opacity:1;animation:lnIn .26s var(--ease) both}
     <div class="team">
       <div>
         <h2 class="h2"><span class="mline"><span>Co-captain</span></span><span class="mline"><span>@ <span class="acid">v1olet</span>.</span></span></h2>
-        <p class="lede" data-r style="--i:0">An independent offensive security research team — penetration testing,
+        <p class="lede" data-r style="--i:0">An independent offensive security research team - penetration testing,
           red team operations and vulnerability research.</p>
         <p class="copy" data-r style="--i:1">We compete internationally as a CTF team. As co-captain I run the organisational
-          side — roster, which events we play, how we split the board — and I play the competitions myself alongside
+          side - roster, which events we play, how we split the board - and I play the competitions myself alongside
           everyone else. Different pressure than a lab box, and the best training there is.</p>
       </div>
 
@@ -1018,8 +1018,8 @@ html.js .term-body .ln.sh{opacity:1;animation:lnIn .26s var(--ease) both}
         <div class="rk"><b>28</b><i>th</i></div>
         <div>
           <div class="cap">HTB Cyber Apocalypse</div>
-          <h4>28th out of 12,000+ teams</h4>
-          <p>Hack The Box's global CTF and the largest field we've entered — top 0.25% of the scoreboard.</p>
+          <h4>28th out of 6,700+ teams</h4>
+          <p>Hack The Box's global CTF and the largest field we've entered.</p>
         </div>
       </div>
       </div>
@@ -1034,13 +1034,13 @@ html.js .term-body .ln.sh{opacity:1;animation:lnIn .26s var(--ease) both}
     <h2 class="h2"><span class="mline"><span>Certifications.</span></span></h2>
 
     <div class="cred-lead" data-r>
-      <img class="badge" src="assets/cpts.webp" width="176" height="176" alt="CPTS badge — Hack The Box" loading="lazy" />
+      <img class="badge" src="assets/cpts.webp" width="176" height="176" alt="CPTS badge - Hack The Box" loading="lazy" />
       <div>
         <h3>Certified Penetration Testing Specialist</h3>
         <p class="by">Hack The Box · CPTS</p>
         <p class="desc">A ten-day, fully hands-on exam: blackbox web, external and internal penetration testing against a
           real Active Directory network in HTB's infrastructure over VPN. It starts with a letter of engagement setting out
-          objectives, requirements and scope — and ends with a commercial-grade penetration test report. CPTS grades the
+          objectives, requirements and scope - and ends with a commercial-grade penetration test report. CPTS grades the
           testing and the communication of findings, which is exactly the part most certifications skip.</p>
       </div>
       <div class="cred-side">
@@ -1078,7 +1078,7 @@ html.js .term-body .ln.sh{opacity:1;animation:lnIn .26s var(--ease) both}
     <div class="sec-head"><span class="num">08</span><span class="nm">Contact</span><span class="rule"></span><span class="rt">Response within a day</span></div>
     <h2 class="h2"><span class="mline"><span>Got something</span></span><span class="mline"><span>worth <span class="acid">breaking</span>?</span></span></h2>
     <p class="lede" data-r style="max-width:52ch">Engagements, collaboration, research, or a CTF roster that needs another
-      pair of hands — all of it is welcome.</p>
+      pair of hands - all of it is welcome.</p>
 
     <div class="contact-grid">
       <a class="ci" href="https://github.com/ctxzero" target="_blank" rel="noopener">
@@ -1099,7 +1099,7 @@ html.js .term-body .ln.sh{opacity:1;animation:lnIn .26s var(--ease) both}
       </a>
       <button class="ci" id="discordBtn" type="button">
         <svg class="ic" viewBox="0 0 71 55" fill="currentColor"><path d="M60.1 4.9A58.5 58.5 0 0 0 45.6.4c-.6 1.1-1.3 2.6-1.8 3.8a54.5 54.5 0 0 0-16.3 0C27 3 26.3 1.5 25.7.4A58.3 58.3 0 0 0 11.2 4.9C2 18.6-.5 32 .8 45.1a58.9 58.9 0 0 0 17.8 9 45 45 0 0 0 3.8-6.2 38 38 0 0 1-6-2.9c.5-.4 1-.7 1.5-1.1a42 42 0 0 0 35.9 0c.5.4 1 .8 1.5 1.1a38 38 0 0 1-6 2.9 45 45 0 0 0 3.8 6.2 58.7 58.7 0 0 0 17.8-9c1.5-15.2-2.5-28.5-9.8-40.2ZM23.7 37.1c-3.5 0-6.4-3.2-6.4-7.2s2.8-7.2 6.4-7.2c3.6 0 6.5 3.3 6.4 7.2 0 4-2.8 7.2-6.4 7.2Zm23.6 0c-3.5 0-6.4-3.2-6.4-7.2s2.8-7.2 6.4-7.2c3.6 0 6.5 3.3 6.4 7.2 0 4-2.8 7.2-6.4 7.2Z"/></svg>
-        <div><div class="t">Discord</div><div class="s" id="dcSub">ctxzero — click to copy</div></div><span class="ar cp">copy</span>
+        <div><div class="t">Discord</div><div class="s" id="dcSub">ctxzero - click to copy</div></div><span class="ar cp">copy</span>
       </button>
       <button class="ci" id="mailBtn" type="button">
         <svg class="ic" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zM4 8l8 5 8-5v2l-8 5-8-5V8z"/></svg>
@@ -1108,7 +1108,7 @@ html.js .term-body .ln.sh{opacity:1;animation:lnIn .26s var(--ease) both}
     </div>
 
     <div class="footer">
-      <span>© 2026 ctxzero — Penetration Tester</span>
+      <span>© 2026 ctxzero - Penetration Tester</span>
       <span class="clock" id="clock">--:--:-- UTC</span>
       <span>CTX-0 / hand-built, no framework</span>
     </div>
@@ -1269,14 +1269,14 @@ $$('[data-count]').forEach(el=>countIO.observe(el));
   $$('.mx-col').forEach((col,ci)=>{
     const cells=[...col.querySelectorAll('.cell')];
     const i=col.querySelector('h3 i');
-    // the "+ more" cell is a hint, not a technique — keep it out of the count
+    // the "+ more" cell is a hint, not a technique - keep it out of the count
     if(i) i.textContent='['+String(cells.filter(c=>!c.classList.contains('more')).length).padStart(2,'0')+'+]';
     cells.forEach((c,ri)=>c.style.setProperty('--ci',ci*2+ri)); // diagonal scan-in
   });
   let locked=null;
   function show(cell){
     tag.textContent=cell.classList.contains('more')?'Also':cell.textContent.trim();
-    tx.innerHTML='<b>'+esc(cell.closest('.mx-col').querySelector('h3').firstChild.textContent.trim())+'</b> — '+esc(cell.dataset.x||'');
+    tx.innerHTML='<b>'+esc(cell.closest('.mx-col').querySelector('h3').firstChild.textContent.trim())+'</b> - '+esc(cell.dataset.x||'');
   }
   $$('.mx .cell').forEach(cell=>{
     cell.addEventListener('mouseenter',()=>{ if(!locked) show(cell); });
@@ -1306,7 +1306,7 @@ $$('[data-count]').forEach(el=>countIO.observe(el));
 })();
 
 /* ══════════════════════════════════════════════════════════
-   HERO GLYPH FIELD — hidden words decrypt near the pointer
+   HERO GLYPH FIELD - hidden words decrypt near the pointer
    ══════════════════════════════════════════════════════════ */
 (function(){
   const cv=$('#glyph'); if(!cv||RM) return;
@@ -1336,7 +1336,7 @@ $$('[data-count]').forEach(el=>countIO.observe(el));
     for(let i=0;i<cells.length;i++)
       cells[i]={n:Math.random()<.52?NOISE[(Math.random()*NOISE.length)|0]:'',p:null};
 
-    // hide words in the field — only revealed cells show them
+    // hide words in the field - only revealed cells show them
     const used=new Set();
     const tries=WORDS.length*3;
     let placed=0;
@@ -1460,7 +1460,7 @@ $('#discordBtn').addEventListener('click',()=>copy('ctxzero','Discord'));
   const MAIL=['ctxzero.pentest','gmail.com'].join('@');
   let shown=false;
   btn.addEventListener('click',()=>{
-    if(!shown){ sub.textContent=MAIL; shown=true; btn.title='Click to copy'; say('Revealed — click again to copy'); }
+    if(!shown){ sub.textContent=MAIL; shown=true; btn.title='Click to copy'; say('Revealed - click again to copy'); }
     else copy(MAIL,'E-mail');
   });
 })();
@@ -1481,7 +1481,7 @@ function parseEntry(f){
   const base=f.name.replace(/\.md$/i,'');
   const m=base.match(/^\s*(easy|medium|hard|insane)\s*[-–]\s*([a-z]+)\s*[-–]\s*(.+)$/i);
   const machine=m?m[3].trim():base.replace(/[-_]+/g,' ').trim();
-  // ~5 chars per word at ~210 wpm — a real, per-writeup number instead of filler copy
+  // ~5 chars per word at ~210 wpm - a real, per-writeup number instead of filler copy
   const mins=f.size?Math.max(2,Math.round(f.size/5/210)):0;
   return {
     name:f.name, path:f.path, type:f.type, url:f.html_url, size:f.size||0, mins,
@@ -1717,13 +1717,12 @@ loadList();
    FOR WHOEVER OPENS DEVTOOLS
    ══════════════════════════════════════════════════════════ */
 const A='color:#ccff00;font-family:monospace;font-size:12px', D='color:#9aa0a6;font-family:monospace;font-size:12px';
-console.log('%c\n  ┌───────────────────────────────────────┐\n  │   c t x z e r o                       │\n  │   penetration tester · security res.   │\n  └───────────────────────────────────────┘\n',A);
+console.log('%c\n  ┌───────────────────────────────────────┐\n  │   c t x z e r o                       │\n  │   penetration tester · security res.  │\n  └───────────────────────────────────────┘\n',A);
 console.log('%c  you opened devtools. obviously.',D);
-console.log('%c  try: ctx0.whoami()  ·  ctx0.stack()  ·  ctx0.flag()',D);
+console.log('%c  try: ctx0.whoami()  ·  ctx0.flag()',D);
 window.ctx0={
-  whoami(){console.log('%c  ctxzero — Luis Schlegel · penetration tester · Europe\n  web · network · active directory · CPTS · eJPT · CTI101 · CLLMSE\n  open to opportunities → ctxzero.pentest@gmail.com',A);return '​';},
-  stack(){console.log('%c  no framework. no build step. one html file,\n  self-hosted fonts, markdown fetched live from github.\n  ~'+Math.round(document.documentElement.outerHTML.length/1024)+'kb of handwritten source.',A);return '​';},
-  flag(){console.log('%c  CTX0{n0_sc4nn3r_r3pl4c3s_cur10s1ty}',A);console.log('%c  now go drag your cursor across the hero — there is more hidden there.',D);return '​';},
+  whoami(){console.log('%c  ctxzero - Luis Schlegel · penetration tester · Europe\n  web · network · active directory · CPTS · eJPT · CTI101 · CLLMSE\n  open to opportunities → ctxzero.pentest@gmail.com',A);return '​';},
+  flag(){console.log('%c  CTX0{n0_sc4nn3r_r3pl4c3s_cur10s1ty}',A);console.log('%c  now go drag your cursor across the hero - there is more hidden there.',D);return '​';},
   hire(){location.hash='#contact';return 'see you in the inbox.';}
 };
 })();
