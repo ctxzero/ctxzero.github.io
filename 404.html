@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+<title>404 – ctxzero</title>
+<meta name="robots" content="noindex" />
+<meta name="theme-color" content="#070707" />
+<meta name="color-scheme" content="dark" />
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; base-uri 'none'; form-action 'none'; font-src 'self'; style-src 'unsafe-inline'" />
+<style>
+@font-face{font-family:'Archivo';font-style:normal;font-weight:100 900;font-stretch:62% 125%;font-display:swap;src:url(/assets/fonts/archivo-latin.woff2) format('woff2')}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:100 800;font-display:swap;src:url(/assets/fonts/jetbrains-mono-latin.woff2) format('woff2')}
+*,*::before,*::after{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:#070707;color:#fafafa;font-family:'Archivo',ui-sans-serif,system-ui,-apple-system,'Segoe UI',sans-serif;-webkit-font-smoothing:antialiased;
+  display:flex;flex-direction:column;justify-content:flex-end;padding:clamp(20px,5vw,72px)}
+a{color:inherit}
+:focus-visible{outline:2px solid #fafafa;outline-offset:3px}
+pre{margin:0 0 auto;font-family:'JetBrains Mono',ui-monospace,Menlo,Consolas,monospace;font-size:12.5px;line-height:1.85;color:#8c8c8c;white-space:pre-wrap}
+pre b{color:#fafafa;font-weight:600}
+h1{margin:0;font-size:clamp(64px,10.4vw,160px);font-weight:800;font-stretch:115%;line-height:.86;letter-spacing:-.045em}
+p{margin:24px 0 0;max-width:46ch;font-size:17px;line-height:1.65;color:#8c8c8c}
+.pb{display:inline-flex;align-items:center;height:52px;margin-top:32px;padding:0 24px;background:#fafafa;color:#070707;font-size:15px;font-weight:650;font-stretch:108%;text-decoration:none}
+.pb:hover{background:#d6d6d6}
+</style>
+</head>
+<body>
+<pre aria-hidden="true">ctxzero@ctx0:~$ ffuf -u https://www.ctxzero.dev/FUZZ
+<b>[404]</b> this path  <b>[200]</b> /  <b>[200]</b> /PortHunt/</pre>
+<main>
+  <h1>Nothing here.</h1>
+  <p>Content discovery came back empty: this path does not exist. Everything that does is on the front page.</p>
+  <a class="pb" href="/">Back to ctxzero.dev</a>
+</main>
+</body>
+</html>
